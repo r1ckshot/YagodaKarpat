@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "about": "About",
+    "varieties": "Varieties",
+    "process": "How We Grow",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Finest Blueberries from Prykarpattia",
+    "subtitle": "Juicy. Carpathian. Authentic.",
+    "cta": "Learn more",
+    "seasonOpen": "Season open",
+    "seasonClosed": "Out of season"
+  },
+  "season": {
+    "open": "Season open",
+    "closed": "Out of season",
+    "period": "July–September",
+    "opensIn": "Opening in July"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "A blueberry estate in the heart of Prykarpattia",
+    "description": "With God's help, we learned about a remarkable property of blueberries — they slow the growth of cancer cells. That was the beginning. On Prykarpattian land, an estate grew — built on love for the berry and respect for nature. We grow and sell. And for those in need — we help.",
+    "stats": {
+      "varieties": "varieties",
+      "months": "season months"
+    }
+  },
+  "varieties": {
+    "title": "Our Varieties",
+    "subtitle": "From the first berry of summer to the last warm day",
+    "duke": {
+      "name": "Duke",
+      "period": "July",
+      "description": "Opens the season — and the heart. The sweetest, the most tender, the most anticipated. The first berry people wait for all year."
+    },
+    "chandler": {
+      "name": "Chandler",
+      "period": "August",
+      "description": "Large, juicy, with a rich, full flavour. The kind that catches the eye and stays in memory."
+    },
+    "elliott": {
+      "name": "Elliott",
+      "period": "September",
+      "description": "Closes the season with grace. A firm berry with a gentle tartness — perfect for freezing through the long winter."
+    }
+  },
+  "process": {
+    "title": "How We Grow",
+    "subtitle": "Work, patience, and Prykarpattian soil",
+    "steps": {
+      "soil": {
+        "title": "Soil",
+        "description": "Blueberries love an acidic environment. We prepare the soil so every plant thrives."
+      },
+      "planting": {
+        "title": "Planting",
+        "description": "Every seedling is planted with care. The first years are the most important."
+      },
+      "care": {
+        "title": "Watering",
+        "description": "Drip irrigation — the berry gets exactly as much moisture as it needs."
+      },
+      "feeding": {
+        "title": "Feeding",
+        "description": "Fertilisers like vitamins — only what the plant needs to stay healthy."
+      },
+      "harvest": {
+        "title": "Harvest",
+        "description": "Every berry is picked by hand. That is the only way to tell when it is truly ready."
+      }
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Carpathian fields through the eyes of the heart",
+    "invite": "You can come and pick berries yourself — a special kind of joy. Or buy them in trays straight from the field. You will be warmly welcomed."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We would love to hear from you",
+    "phone": "Phone",
+    "location": "Location",
+    "social": "Social media",
+    "locationValue": "Prykarpattia, Ukraine"
+  }
+}
