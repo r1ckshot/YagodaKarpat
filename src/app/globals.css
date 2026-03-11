@@ -15,7 +15,11 @@
 }
 
 :root {
-  --navbar-height: 72px;
+  --navbar-height: 64px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
