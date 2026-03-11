@@ -1,24 +1,20 @@
 import { setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
+
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import IntroSplash from '@/components/sections/IntroSplash';
+import HeroSection from '@/components/sections/HeroSection';
+import AboutSection from '@/components/sections/AboutSection';
+import VarietiesSection from '@/components/sections/VarietiesSection';
+import ProcessSection from '@/components/sections/ProcessSection';
+import SeasonSection from '@/components/sections/SeasonSection';
+import GallerySection from '@/components/sections/GallerySection';
+import ContactSection from '@/components/sections/ContactSection';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
-}
-
-function HomePage() {
-  const t = useTranslations('hero');
-
-  return (
-    <main className="flex min-h-screen items-center justify-center bg-cream">
-      <div className="text-center">
-        <h1 className="font-heading text-4xl font-bold text-dark">
-          Ягода Карпат
-        </h1>
-        <p className="mt-4 font-body text-lg text-berry">{t('tagline')}</p>
-      </div>
-    </main>
-  );
 }
 
 export default async function LocalePage({
@@ -28,5 +24,22 @@ export default async function LocalePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <HomePage />;
+
+  return (
+    <>
+      <IntroSplash />
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <VarietiesSection />
+        <ProcessSection />
+        <SeasonSection />
+        <GallerySection />
+        <ContactSection />
+      </main>
+      <Footer />
+      <ScrollToTop />
+    </>
+  );
 }
