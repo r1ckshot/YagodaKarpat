@@ -89,7 +89,7 @@ export default function Navbar() {
             <img
               src="/images/logo/mountains.png"
               alt=""
-              className="h-8 w-auto opacity-75"
+              className="hidden sm:block h-8 w-auto opacity-75"
             />
             <button
               className="text-white/70 hover:text-white transition-colors duration-200"
