@@ -7,7 +7,7 @@ export default function LocaleTransition({ children }: { children: React.ReactNo
   const locale = useLocale();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait">
       <motion.div
         key={locale}
         initial={{ opacity: 0, y: -6 }}
