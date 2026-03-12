@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand colors */
-  --color-forest:     #2E7D32;
-  --color-berry:      #3D5A80;
-  --color-crimson:    #C0392B;
-  --color-dark:       #1A1A2E;
-  --color-cream:      #F8F5F0;
-  --color-blueberry:  #4A6FA5;
+  /* Brand colors — extracted from logo */
+  --color-forest:     #008549;  /* mountains, "Карпат" text */
+  --color-leaf:       #608C2B;  /* leaf on blueberry illustration */
+  --color-blueberry:  #3A598C;  /* berry color */
+  --color-berry:      #355A91;  /* "Ягода" text */
+  --color-navy:       #174086;  /* "Blueberry" text + bottom wave */
+  --color-crimson:    #C0392B;  /* hover, highlights */
+  --color-dark:       #1A1A2E;  /* dark background, body text */
+  --color-cream:      #F8F5F0;  /* light section background */
 
   /* Fonts */
   --font-heading: 'Playfair Display', serif;
