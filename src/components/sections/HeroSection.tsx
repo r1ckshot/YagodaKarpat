@@ -1,41 +1,68 @@
 'use client';
 
+import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { SEASON_CONFIG } from '@/config/season';
 import { EASING } from '@/lib/animations';
+import { isSplashPending, SPLASH_DURATION_OFFSET } from '@/lib/splashState';
 
-// Word-by-word blur reveal variants
-const titleContainer = {
-  initial: {},
-  animate: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.5 },
-  },
-};
-
-const titleWord = {
-  initial: { opacity: 0, filter: 'blur(10px)', y: 10 },
-  animate: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    y: 0,
-    transition: { duration: 0.9, ease: EASING.smooth },
-  },
-};
-
-const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 14 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, delay, ease: EASING.enter },
-});
-
-// Words that get blueberry accent underline (lowercase for matching)
 const ACCENT_WORDS = new Set(['лохина', 'blueberries']);
 
 export default function HeroSection() {
   const t = useTranslations('hero');
   const words = t('tagline').split(' ');
+
+  // true on fresh page load (splash runs), false on locale change.
+  // Used ONLY to vary `transition` timing — never to conditionally set `initial`.
+  // `initial` is always the same value → no SSR/client hydration mismatch.
+  const firstLoad = useRef(
+    typeof window !== 'undefined' && isSplashPending()
+  ).current;
+  const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
+
+  // Word blur-reveal variant — initial is ALWAYS set (consistent on server and client)
+  const titleWord = {
+    initial: { opacity: 0, filter: 'blur(10px)', y: 10 },
+    animate: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      y: 0,
+      transition: firstLoad
+        ? { duration: 0.9, ease: EASING.smooth }
+        : { duration: 0 },
+    },
+  };
+
+  // Container stagger — always 'initial'/'animate', only timing varies
+  const titleContainer = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: firstLoad ? 0.08 : 0,
+        delayChildren:   firstLoad ? 0.5 + splashOffset : 0,
+      },
+    },
+  };
+
+  // Fade-up — initial is always present; transition varies only in timing
+  const fadeUp = (delay: number) => ({
+    initial: { opacity: 0, y: 14 } as const,
+    animate: { opacity: 1, y: 0 } as const,
+    transition: firstLoad
+      ? { duration: 0.5, delay: delay + splashOffset, ease: EASING.enter }
+      : { duration: 0 },
+  });
+
+  // Simple opacity reveal for logo elements
+  const logoReveal = (delay = 0, duration = 0.4) => ({
+    initial: { opacity: 0 } as const,
+    animate: { opacity: 1 } as const,
+    transition: firstLoad
+      ? { delay: delay + splashOffset, duration }
+      : { duration: 0 },
+  });
 
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -69,59 +96,61 @@ export default function HeroSection() {
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/85" />
 
-      {/* Main content — centered in viewport */}
+      {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-4xl mx-auto">
 
-        {/* Full logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: EASING.enter }}
-          className="mb-3 sm:mb-4 lg:mb-5 w-72 sm:w-[22rem] md:w-[22rem] lg:w-96 xl:w-[26rem] flex flex-col items-center"
-        >
-          {/* Logo assembled from individual parts — each has layoutId for IntroSplash */}
+        {/* Logo */}
+        <div className="mb-3 sm:mb-4 lg:mb-5 w-72 sm:w-[22rem] md:w-[22rem] lg:w-96 xl:w-[26rem] flex flex-col items-center">
           <div className="flex flex-col items-center w-full">
-            {/* Mountains */}
-            {/* layoutId added when IntroSplash is built */}
-            <img
+            <motion.img
               src="/images/logo/mountains.png"
               alt=""
               aria-hidden="true"
               className="w-[90%] h-auto"
+              {...logoReveal()}
             />
-            <img
+            <motion.img
               src="/images/logo/blueberry.png"
               alt="Ягода Карпат"
               className="w-[35%] h-auto -mt-[7%]"
+              {...logoReveal()}
             />
-            <img
+            <motion.img
               src="/images/logo/title.png"
               alt=""
               aria-hidden="true"
               className="w-full h-auto mt-[1%]"
+              {...logoReveal()}
             />
           </div>
 
-          {/* Wave */}
-          <img
+          <motion.img
             src="/images/logo/bottom wave.png"
             alt=""
             aria-hidden="true"
             className="w-full h-auto"
+            {...logoReveal()}
           />
 
-          {/* "Blueberry" text with cream glow background */}
+          {/* "Blueberry" text + glow */}
           <div className="relative -mt-[7%] w-full flex justify-center">
-            <div className="absolute inset-x-[34%] inset-y-1 bg-cream/80 rounded-full blur-md" />
-            <div className="absolute inset-x-[9%] inset-y-5 bg-cream/50 rounded-full blur-xl" />
-            <img
+            <motion.div
+              className="absolute inset-x-[34%] inset-y-1 bg-cream/80 rounded-full blur-md"
+              {...logoReveal(0.3, 0.5)}
+            />
+            <motion.div
+              className="absolute inset-x-[9%] inset-y-5 bg-cream/50 rounded-full blur-xl"
+              {...logoReveal(0.3, 0.6)}
+            />
+            <motion.img
               src="/images/logo/bottom tittle.png"
               alt=""
               aria-hidden="true"
               className="relative w-[35%] h-auto"
+              {...logoReveal(0.3, 0.5)}
             />
           </div>
-        </motion.div>
+        </div>
 
         {/* Tagline — word by word blur reveal */}
         <motion.h1
@@ -140,7 +169,6 @@ export default function HeroSection() {
                 className="inline-block mr-[0.3em] last:mr-0 relative"
               >
                 {word}
-                {/* Calligraphic wave — draws itself right after the word settles */}
                 <motion.svg
                   viewBox="0 0 100 18"
                   className="absolute left-0 bottom-[-14px] w-full h-[18px]"
@@ -157,10 +185,10 @@ export default function HeroSection() {
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{
-                      pathLength: { delay: 1.35, duration: 0.85, ease: EASING.enter },
-                      opacity: { delay: 1.35, duration: 0.2 },
-                    }}
+                    transition={firstLoad ? {
+                      pathLength: { delay: 1.35 + splashOffset, duration: 0.85, ease: EASING.enter },
+                      opacity:    { delay: 1.35 + splashOffset, duration: 0.2 },
+                    } : { duration: 0 }}
                   />
                 </motion.svg>
               </motion.span>
@@ -206,7 +234,7 @@ export default function HeroSection() {
           )}
         </motion.div>
 
-        {/* CTA — pulsing ring */}
+        {/* CTA */}
         <motion.div {...fadeUp(2.55)} className="relative">
           <motion.span
             className="absolute inset-0 rounded-full bg-forest"
@@ -223,12 +251,14 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Scroll indicator — clickable, absolute bottom */}
+      {/* Scroll indicator */}
       <motion.a
         href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 3.1 }}
+        transition={firstLoad
+          ? { duration: 0.5, delay: 3.1 + splashOffset }
+          : { duration: 0 }}
         className="absolute bottom-8 sm:bottom-6 md:bottom-6 lg:bottom-2 xl:bottom-4 left-1/2 -translate-x-1/2 z-10"
         aria-label="Scroll down"
       >
