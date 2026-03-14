@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Nunito } from 'next/font/google';
 import './globals.css';
+import PageTransition from '@/components/ui/PageTransition';
+import IntroSplash from '@/components/sections/IntroSplash';
 
 const playfair = Playfair_Display({
   subsets: ['latin', 'cyrillic'],
@@ -61,7 +63,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="uk" className={`${playfair.variable} ${nunito.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Both live in root layout — never remount on locale change */}
+        <IntroSplash />
+        <PageTransition />
+        {children}
+      </body>
     </html>
   );
 }

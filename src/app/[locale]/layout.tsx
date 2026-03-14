@@ -30,7 +30,6 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      {/* Navbar and Footer are outside LocaleTransition to avoid transform issues with fixed positioning */}
       <Navbar />
       <LocaleTransition>
         {children}
