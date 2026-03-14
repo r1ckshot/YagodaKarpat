@@ -5,7 +5,6 @@ import { routing } from '@/i18n/routing';
 import LocaleTransition from '@/components/ui/LocaleTransition';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import ScrollToTop from '@/components/ui/ScrollToTop';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -35,7 +34,6 @@ export default async function LocaleLayout({
         {children}
       </LocaleTransition>
       <Footer />
-      <ScrollToTop />
     </NextIntlClientProvider>
   );
 }

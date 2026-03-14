@@ -3,6 +3,7 @@ import { Playfair_Display, Nunito } from 'next/font/google';
 import './globals.css';
 import PageTransition from '@/components/ui/PageTransition';
 import IntroSplash from '@/components/sections/IntroSplash';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 
 const playfair = Playfair_Display({
   subsets: ['latin', 'cyrillic'],
@@ -67,6 +68,7 @@ export default function RootLayout({
         {/* Both live in root layout — never remount on locale change */}
         <IntroSplash />
         <PageTransition />
+        <ScrollToTop />
         {children}
       </body>
     </html>
