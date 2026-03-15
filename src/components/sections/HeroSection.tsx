@@ -14,15 +14,11 @@ export default function HeroSection() {
   const t = useTranslations('hero');
   const words = t('tagline').split(' ');
 
-  // true on fresh page load (splash runs), false on locale change.
-  // Used ONLY to vary `transition` timing — never to conditionally set `initial`.
-  // `initial` is always the same value → no SSR/client hydration mismatch.
   const firstLoad = useRef(
     typeof window !== 'undefined' && isSplashPending()
   ).current;
   const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
 
-  // Word blur-reveal variant — initial is ALWAYS set (consistent on server and client)
   const titleWord = {
     initial: { opacity: 0, filter: 'blur(10px)', y: 10 },
     animate: {
@@ -35,7 +31,6 @@ export default function HeroSection() {
     },
   };
 
-  // Container stagger — always 'initial'/'animate', only timing varies
   const titleContainer = {
     initial: {},
     animate: {
@@ -46,7 +41,6 @@ export default function HeroSection() {
     },
   };
 
-  // Fade-up — initial is always present; transition varies only in timing
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: 14 } as const,
     animate: { opacity: 1, y: 0 } as const,
@@ -55,7 +49,6 @@ export default function HeroSection() {
       : { duration: 0 },
   });
 
-  // Simple opacity reveal for logo elements
   const logoReveal = (delay = 0, duration = 0.4) => ({
     initial: { opacity: 0 } as const,
     animate: { opacity: 1 } as const,
@@ -65,15 +58,12 @@ export default function HeroSection() {
   });
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-[100dvh] flex flex-col overflow-hidden">
 
       {/* Portrait video — mobile only */}
       <video
         className="absolute inset-0 w-full h-full object-cover block md:hidden"
-        autoPlay
-        muted
-        loop
-        playsInline
+        autoPlay muted loop playsInline
         poster="/images/hero-poster-portrait.jpg"
         aria-hidden="true"
       >
@@ -83,10 +73,7 @@ export default function HeroSection() {
       {/* Landscape video — tablet and desktop */}
       <video
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
-        autoPlay
-        muted
-        loop
-        playsInline
+        autoPlay muted loop playsInline
         poster="/images/hero-poster-landscape.jpg"
         aria-hidden="true"
       >
@@ -96,16 +83,15 @@ export default function HeroSection() {
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/85" />
 
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-4xl mx-auto">
+      {/* Main content — fills available height, centres children */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 w-full max-w-5xl mx-auto">
 
-        {/* Logo */}
-        <div className="mb-3 sm:mb-4 lg:mb-5 w-72 sm:w-[22rem] md:w-[22rem] lg:w-96 xl:w-[26rem] flex flex-col items-center">
+        {/* Logo — fluid width matching original breakpoints, fluid bottom margin */}
+        <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
           <div className="flex flex-col items-center w-full">
             <motion.img
               src="/images/logo/mountains.png"
-              alt=""
-              aria-hidden="true"
+              alt="" aria-hidden="true"
               className="w-[90%] h-auto"
               {...logoReveal()}
             />
@@ -117,8 +103,7 @@ export default function HeroSection() {
             />
             <motion.img
               src="/images/logo/title.png"
-              alt=""
-              aria-hidden="true"
+              alt="" aria-hidden="true"
               className="w-full h-auto mt-[1%]"
               {...logoReveal()}
             />
@@ -126,8 +111,7 @@ export default function HeroSection() {
 
           <motion.img
             src="/images/logo/bottom wave.png"
-            alt=""
-            aria-hidden="true"
+            alt="" aria-hidden="true"
             className="w-full h-auto"
             {...logoReveal()}
           />
@@ -144,30 +128,24 @@ export default function HeroSection() {
             />
             <motion.img
               src="/images/logo/bottom tittle.png"
-              alt=""
-              aria-hidden="true"
+              alt="" aria-hidden="true"
               className="relative w-[35%] h-auto"
               {...logoReveal(0.3, 0.5)}
             />
           </div>
         </div>
 
-        {/* Tagline — word by word blur reveal */}
+        {/* Tagline */}
         <motion.h1
           variants={titleContainer}
           initial="initial"
           animate="animate"
-          className="font-heading text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl text-cream leading-tight mb-3 sm:mb-4 lg:whitespace-nowrap"
+          className="font-heading text-[clamp(2.375rem,1.775rem_+_2.475vw,3.75rem)] text-cream leading-tight mb-[clamp(0.375rem,1dvh,0.75rem)] lg:whitespace-nowrap"
         >
           {words.map((word, i) => {
             const isAccent = ACCENT_WORDS.has(word.toLowerCase());
-
             return isAccent ? (
-              <motion.span
-                key={i}
-                variants={titleWord}
-                className="inline-block mr-[0.3em] last:mr-0 relative"
-              >
+              <motion.span key={i} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0 relative">
                 {word}
                 <motion.svg
                   viewBox="0 0 100 18"
@@ -193,11 +171,7 @@ export default function HeroSection() {
                 </motion.svg>
               </motion.span>
             ) : (
-              <motion.span
-                key={i}
-                variants={titleWord}
-                className="inline-block mr-[0.3em] last:mr-0"
-              >
+              <motion.span key={i} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0">
                 {word}
               </motion.span>
             );
@@ -207,13 +181,13 @@ export default function HeroSection() {
         {/* Subtitle */}
         <motion.p
           {...fadeUp(1.7)}
-          className="font-body text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl text-cream/80 mb-3 sm:mb-4"
+          className="font-body text-[clamp(1.25rem,1.1rem_+_0.9vw,1.75rem)] text-cream/80 mb-[clamp(0.375rem,1dvh,0.75rem)]"
         >
           {t('subtitle')}
         </motion.p>
 
         {/* Season status */}
-        <motion.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-6">
+        <motion.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
           {SEASON_CONFIG.isOpen ? (
             <>
               <span className="relative flex h-3.5 w-3.5">
@@ -251,7 +225,7 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — in-flow at the bottom, no absolute positioning */}
       <motion.a
         href="#about"
         initial={{ opacity: 0 }}
@@ -259,7 +233,7 @@ export default function HeroSection() {
         transition={firstLoad
           ? { duration: 0.5, delay: 3.1 + splashOffset }
           : { duration: 0 }}
-        className="absolute bottom-8 sm:bottom-6 md:bottom-6 lg:bottom-2 xl:bottom-4 left-1/2 -translate-x-1/2 z-10"
+        className="relative z-10 flex justify-center pb-[clamp(1rem,2dvh,2rem)]"
         aria-label="Scroll down"
       >
         <motion.div
