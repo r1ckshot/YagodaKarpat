@@ -3,7 +3,7 @@
 import { useRef, useEffect } from 'react';
 import { registerCoverHandler, registerRevealHandler } from '@/lib/transitionBus';
 
-const STRIPES = ['#4A6FA5', '#3D5A80', '#1A1A2E', '#C0392B', '#2E7D32'];
+const STRIPES = ['#3A598C', '#355A91', '#1A1A2E', '#C0392B', '#008549'];
 
 // Smooth professional easing (used by Locomotive, Linear, Vercel)
 const EASE_IN  = 'cubic-bezier(0.65, 0, 0.35, 1)';
@@ -47,7 +47,7 @@ export default function PageTransition() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[99] pointer-events-none">
+    <div className="fixed inset-0 z-[101] pointer-events-none">
       {STRIPES.map((color, i) => (
         <div
           key={i}
