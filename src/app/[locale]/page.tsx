@@ -6,7 +6,6 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import VarietiesSection from '@/components/sections/VarietiesSection';
 import ProcessSection from '@/components/sections/ProcessSection';
-import SeasonSection from '@/components/sections/SeasonSection';
 import GallerySection from '@/components/sections/GallerySection';
 import ContactSection from '@/components/sections/ContactSection';
 
@@ -30,7 +29,6 @@ export default async function LocalePage({
         <AboutSection />
         <VarietiesSection />
         <ProcessSection />
-        <SeasonSection />
         <GallerySection />
         <ContactSection />
       </main>
