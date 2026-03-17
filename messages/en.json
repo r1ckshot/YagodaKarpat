@@ -22,11 +22,12 @@
   "about": {
     "title": "About Us",
     "subtitle": "A blueberry estate in the heart of Prykarpattia",
-    "description": "With God's help, we learned about a remarkable property of blueberries — they slow the growth of cancer cells. That was the beginning. On Prykarpattian land, an estate grew — built on love for the berry and respect for nature. We grow and sell. And for those in need — we help.",
-    "stats": {
-      "varieties": "varieties",
-      "months": "season months"
-    }
+    "description1": "With God's help, we learned about a remarkable property of blueberries — they\u00a0",
+    "descriptionHighlight": "slow the growth of cancer cells",
+    "description2": ". That was the beginning.",
+    "description3": "On Prykarpattian Land, an estate grew — built on love for the berry and respect for nature. We grow and sell. And for those in need\u00a0—\u00a0",
+    "description3Help": "we help.",
+    "photoCaption": "The beginning"
   },
   "varieties": {
     "title": "Our Varieties",

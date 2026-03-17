@@ -23,4 +23,4 @@ export const STAGGER = {
   children: 0.15,
 } as const;
 
-export const THRESHOLD = 0.15;
+export const THRESHOLD = 0.2;
