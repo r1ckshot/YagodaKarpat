@@ -36,9 +36,10 @@ export default function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitc
   const switchLocale = async (newLocale: 'uk' | 'en') => {
     if (newLocale === locale) { setOpen(false); return; }
     setOpen(false);
-    await coverScreen();                                             // curtain sweeps in (0.38s)
-    router.replace(pathname, { locale: newLocale, scroll: false }); // navigate while covered
-    revealScreen();                                                  // curtain sweeps out after 80ms built-in delay
+    const hash = window.location.hash;
+    await coverScreen();                                                      // curtain sweeps in (0.38s)
+    router.replace(pathname + hash, { locale: newLocale, scroll: false });   // navigate while covered, preserve hash
+    revealScreen();                                                           // curtain sweeps out after 80ms built-in delay
   };
 
   // Inline variant — two buttons side by side, no dropdown
