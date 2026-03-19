@@ -7,7 +7,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "tagline": "Finest Blueberries from Prykarpattia",
+    "tagline": "Fine Blueberries from Prykarpattia",
     "subtitle": "Juicy. Carpathian. Authentic.",
     "cta": "Learn more",
     "seasonOpen": "Season open",
@@ -27,7 +27,7 @@
     "description2": ". That was the beginning.",
     "description3": "On Prykarpattian Land, an estate grew — built on love for the berry and respect for nature. We grow and sell. And for those in need\u00a0—\u00a0",
     "description3Help": "we help.",
-    "photoCaption": "The beginning"
+    "photoCaption": "The early days"
   },
   "varieties": {
     "title": "Our Varieties",
@@ -66,11 +66,11 @@
       },
       "feeding": {
         "title": "Feeding",
-        "description": "Fertilisers like vitamins — only what the plant needs to stay healthy."
+        "description": "Fertilisers, like vitamins, — only what the plant needs to stay healthy."
       },
       "harvest": {
         "title": "Harvest",
-        "description": "Every berry is picked by hand. That is the only way to tell when it is truly ready."
+        "description": "Every berry is picked by hand. That is the only way to tell when it is truly ripe."
       }
     }
   },
