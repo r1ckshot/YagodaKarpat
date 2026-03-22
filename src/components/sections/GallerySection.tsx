@@ -1,7 +1,396 @@
-export default function GallerySection() {
+'use client';
+
+import { useState, useCallback, useEffect } from 'react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { BsCamera } from 'react-icons/bs';
+
+import SectionReveal from '@/components/ui/SectionReveal';
+import { EASING } from '@/lib/animations';
+
+// ── Photos ─────────────────────────────────────────────────────────────────────
+const PHOTOS: { src: string; alt: string }[] = [
+  { src: '/images/gallery/blueberry-collage.jpg',  alt: 'Спіла лохина — колаж'           },
+  { src: '/images/gallery/blueberry-blooming.jpg', alt: 'Цвітіння лохини навесні'        },
+  { src: '/images/gallery/kid-gathering.jpg',      alt: 'Дитина збирає ягоди'            },
+  { src: '/images/gallery/blueberry-autumn.jpg',   alt: 'Поле лохини восени'             },
+  { src: '/images/gallery/beginning-collage.jpg',  alt: 'Початок — висадка перших кущів' },
+];
+
+// ── Desktop: fan / card-pyramid spread ────────────────────────────────────────
+//
+//  5 cards fanned like a poker hand held up to the light.
+//  Centre card (idx 2): 0° rotation, highest z — clearly "on top".
+//  Adjacent pairs tilt ±5° / ±10°, stepping 10 rem apart.
+//
+//  WHY Framer Motion for ALL transforms (x, rotate) and not style.transform:
+//  When whileHover adds y/scale it would REPLACE a CSS style.transform entirely,
+//  causing cards to jump to wrong positions. FM motion values compose correctly:
+//  final transform = translateX(x) translateY(y) scale() rotate()
+//
+const CARD_W   = '20rem';
+const CARD_H   = '27rem';
+const STEP_REM = 14;   // 70% of CARD_W — professional fan rule: step ≈ 0.6–0.7 × card width
+const HOVER_Z  = 20;
+
+// Horizontal offset: left: 50% + translateX(calc(-50% + stepMult * STEP_REM rem))
+// → element is centred at (container 50% + stepMult * STEP_REM rem)
+const FAN_ITEMS = [
+  { photoIdx: 0, stepMult: -2, rotateDeg: -10, baseZ: 1  },
+  { photoIdx: 1, stepMult: -1, rotateDeg:  -5, baseZ: 3  },
+  { photoIdx: 2, stepMult:  0, rotateDeg:   0, baseZ: 10 },
+  { photoIdx: 3, stepMult:  1, rotateDeg:   5, baseZ: 3  },
+  { photoIdx: 4, stepMult:  2, rotateDeg:  10, baseZ: 1  },
+] as const;
+
+// Asymmetric timing: fast hover-in (200ms), slower hover-out (350ms) — industry standard
+const cardHoverVariants = {
+  rest:  { y: 0,   scale: 1,    transition: { duration: 0.35, ease: [0.4, 0, 1,   1] as const } },
+  hover: { y: -14, scale: 1.03, transition: { duration: 0.2,  ease: [0,   0, 0.2, 1] as const } },
+};
+
+function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
-    <section id="gallery" className="min-h-screen scroll-mt-[var(--navbar-height)] flex items-center justify-center bg-cream">
-      <p className="text-dark/30 text-2xl font-heading">Gallery Section</p>
+    <div className="relative overflow-visible" style={{ height: CARD_H }}>
+      {FAN_ITEMS.map(({ photoIdx, stepMult, rotateDeg, baseZ }) => {
+        const isHov = hovered === photoIdx;
+        const offsetX = `calc(-50% + ${stepMult * STEP_REM}rem)`;
+
+        return (
+          <motion.button
+            key={photoIdx}
+            onClick={() => onOpen(photoIdx)}
+            onHoverStart={() => setHovered(photoIdx)}
+            onHoverEnd={() => setHovered(null)}
+            className="group absolute overflow-hidden rounded-2xl cursor-zoom-in
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cream/60"
+            style={{
+              width:  CARD_W,
+              height: CARD_H,
+              left:   '50%',
+              top:    0,
+              zIndex: isHov ? HOVER_Z : baseZ,
+            }}
+            // x + rotate stay from animate; y + scale come from variant (asymmetric timing)
+            initial={false}
+            animate={{
+              x:         offsetX,
+              rotate:    rotateDeg,
+              boxShadow: isHov
+                ? '0 20px 64px 6px rgba(248,245,240,0.40)'
+                : '0  8px 40px 2px rgba(248,245,240,0.18)',
+            }}
+            variants={cardHoverVariants}
+            whileHover="hover"
+            aria-label={PHOTOS[photoIdx].alt}
+          >
+            <Image
+              src={PHOTOS[photoIdx].src}
+              alt={PHOTOS[photoIdx].alt}
+              fill
+              className="object-cover transition-transform duration-700 ease-out
+                         group-hover:scale-[1.04]"
+              sizes="(min-width: 1024px) 20vw"
+            />
+            {/* subtle dark tint on hover */}
+            <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/8
+                            transition-colors duration-300 rounded-2xl" />
+          </motion.button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Mobile: book-flip card + always-visible side arrows + counter ─────────────
+//
+//  Professional pattern (Variant A — Netflix / Booking):
+//  • Arrows always on image sides, always visible — no opacity-0 at boundaries
+//  • Infinite loop: last → first, first → last (FIFO)
+//  • Counter "2 з 5" below for older users who may not notice dots
+//  • Book-flip: rotateY with full perspective — direction determines which side
+//
+// Rotate 65° (not 90°) so the flip reads as page-turn without becoming invisible
+const bookVariants = {
+  enter: (dir: number) => ({
+    rotateY: dir > 0 ? 65 : -65,
+    opacity: 0,
+    scale:   0.92,
+  }),
+  center: {
+    rotateY: 0,
+    opacity: 1,
+    scale:   1,
+    transition: { duration: 0.48, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] },
+  },
+  exit: (dir: number) => ({
+    rotateY: dir > 0 ? -65 : 65,
+    opacity: 0,
+    scale:   0.92,
+    transition: { duration: 0.35, ease: [0.4, 0, 1, 1] as [number,number,number,number] },
+  }),
+};
+
+function MobileGallery({
+  active, direction, onPrev, onNext, onOpen,
+}: {
+  active: number; direction: number;
+  onPrev: () => void; onNext: () => void;
+  onOpen: (i: number) => void;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-4">
+
+      {/* Card + side arrows — arrows always visible, infinite loop */}
+      <div className="relative w-full" style={{ perspective: 1200 }}>
+
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.button
+            key={active}
+            custom={direction}
+            variants={bookVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden
+                       cursor-zoom-in focus:outline-none block"
+            style={{ transformStyle: 'preserve-3d' }}
+            onClick={() => onOpen(active)}
+            aria-label={PHOTOS[active].alt}
+          >
+            <Image src={PHOTOS[active].src} alt={PHOTOS[active].alt} fill
+              className="object-cover" sizes="90vw" />
+          </motion.button>
+        </AnimatePresence>
+
+        {/* Side arrows — always visible, always tappable (infinite loop) */}
+        <button
+          onClick={onPrev}
+          aria-label="Попереднє фото"
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-10
+                     w-12 h-12 rounded-full bg-dark/70 backdrop-blur-sm border border-cream/20
+                     flex items-center justify-center text-cream/80
+                     active:scale-95 transition-transform duration-150"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={onNext}
+          aria-label="Наступне фото"
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-10
+                     w-12 h-12 rounded-full bg-dark/70 backdrop-blur-sm border border-cream/20
+                     flex items-center justify-center text-cream/80
+                     active:scale-95 transition-transform duration-150"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+      </div>
+
+      {/* Counter + dots — sized like step numbers in ProcessSection */}
+      <div className="flex flex-col items-center gap-3">
+        {/* Current number large, total smaller — like "01 / 05" in editorial design */}
+        <div className="flex items-baseline gap-1.5">
+          <span className="font-heading text-3xl leading-none text-cream/60">
+            {String(active + 1).padStart(2, '0')}
+          </span>
+          <span className="font-body text-base text-cream/30">/</span>
+          <span className="font-heading text-xl leading-none text-cream/30">
+            {String(PHOTOS.length).padStart(2, '0')}
+          </span>
+        </div>
+        <div className="flex items-center gap-[6px]">
+          {Array.from({ length: PHOTOS.length }).map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-full transition-all duration-300 ${
+                i === active
+                  ? 'w-5 h-[5px] bg-cream/65'
+                  : 'w-[5px] h-[5px] bg-cream/25'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+// ── Lightbox ───────────────────────────────────────────────────────────────────
+function Lightbox({ idx, onClose, onPrev, onNext }: {
+  idx: number; onClose: () => void; onPrev: () => void; onNext: () => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center
+                 p-4 cursor-zoom-out"
+      onClick={onClose}
+    >
+      <button onClick={onClose}
+        className="absolute top-4 right-4 text-cream/70 hover:text-cream
+                   transition-colors duration-200 z-10"
+        aria-label="Закрити"
+      >
+        <X size={32} />
+      </button>
+
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.3, ease: EASING.enter }}
+        className="flex items-center justify-center"
+        onClick={e => e.stopPropagation()}
+      >
+        <Image
+          src={PHOTOS[idx].src}
+          alt={PHOTOS[idx].alt}
+          width={480}
+          height={640}
+          className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
+          sizes="92vw"
+        />
+      </motion.div>
+
+      {idx > 0 && (
+        <button onClick={e => { e.stopPropagation(); onPrev(); }}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full
+                     bg-dark/65 backdrop-blur-sm border border-cream/20
+                     flex items-center justify-center text-cream/75
+                     hover:text-cream hover:bg-dark/85 transition-colors"
+          aria-label="Попереднє фото"
+        ><ChevronLeft size={22} /></button>
+      )}
+      {idx < PHOTOS.length - 1 && (
+        <button onClick={e => { e.stopPropagation(); onNext(); }}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full
+                     bg-dark/65 backdrop-blur-sm border border-cream/20
+                     flex items-center justify-center text-cream/75
+                     hover:text-cream hover:bg-dark/85 transition-colors"
+          aria-label="Наступне фото"
+        ><ChevronRight size={22} /></button>
+      )}
+    </motion.div>
+  );
+}
+
+// ── Section ───────────────────────────────────────────────────────────────────
+export default function GallerySection() {
+  const t = useTranslations('gallery');
+  const [active,      setActive]      = useState(0);
+  const [direction,   setDirection]   = useState(1);
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+
+  // Infinite loop — last photo wraps to first and vice versa
+  const goNext = useCallback(() => { setDirection(1);  setActive(a => (a + 1) % PHOTOS.length); }, []);
+  const goPrev = useCallback(() => { setDirection(-1); setActive(a => (a - 1 + PHOTOS.length) % PHOTOS.length); }, []);
+  const lbPrev = useCallback(() => setLightboxIdx(i => (i !== null && i > 0) ? i - 1 : i), []);
+  const lbNext = useCallback(() => setLightboxIdx(i => (i !== null && i < PHOTOS.length - 1) ? i + 1 : i), []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (lightboxIdx !== null) {
+        if (e.key === 'ArrowRight') lbNext();
+        if (e.key === 'ArrowLeft')  lbPrev();
+        if (e.key === 'Escape')     setLightboxIdx(null);
+      } else {
+        if (e.key === 'ArrowRight') goNext();
+        if (e.key === 'ArrowLeft')  goPrev();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [goNext, goPrev, lbNext, lbPrev, lightboxIdx]);
+
+  return (
+    <section
+      id="gallery"
+      className="relative bg-dark min-h-[100dvh] flex flex-col justify-center [overflow-x:clip]
+                 py-[clamp(4rem,8dvh,7rem)]
+                 [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:py-[clamp(2rem,4dvh,3rem)]"
+    >
+      <div className="max-w-6xl mx-auto px-6 w-full">
+
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-[clamp(3.5rem,7dvh,5rem)]
+                        [@media_(orientation:landscape)_and_(max-height:500px)]:mb-[clamp(2rem,4dvh,3rem)]
+                        [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:mb-[clamp(1.5rem,3dvh,2.5rem)]">
+          <SectionReveal>
+            <div className="flex items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+              <div className="w-12 h-px bg-cream/30" />
+              <span className="font-body text-base uppercase tracking-[0.28em] text-cream/60 font-semibold">
+                {t('title')}
+              </span>
+              <div className="w-12 h-px bg-cream/30" />
+            </div>
+          </SectionReveal>
+          <SectionReveal delay={0.1}>
+            <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-cream
+                           leading-tight mb-[clamp(1.25rem,3dvh,2rem)]">
+              {t('subtitle')}
+            </h2>
+          </SectionReveal>
+          <SectionReveal delay={0.2}>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-px bg-cream/20" />
+              <BsCamera className="text-cream/35" size={20} />
+              <div className="w-16 h-px bg-cream/20" />
+            </div>
+          </SectionReveal>
+        </div>
+
+        {/* Fan: desktop lg+ OR phone landscape (<640px)
+            Scale wrapper prevents layout shift from scaled content */}
+        <div className="hidden lg:block
+                        [@media_(orientation:landscape)_and_(max-height:500px)]:block
+                        [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:block
+                        overflow-visible">
+          {/* Outer: sets layout height — landscape small 13.5rem (×0.5), landscape tablet lg 22rem (×0.8) */}
+          <div className="h-[27rem] overflow-visible
+                          [@media_(orientation:landscape)_and_(max-height:500px)]:h-[13.5rem]
+                          [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:h-[13.5rem]
+                          [@media_(orientation:landscape)_and_(min-width:1024px)_and_(max-width:1199px)]:h-[20rem]">
+            {/* Inner: scale — phone/small-tablet 0.5, lg-tablet (1024–1199px) 0.74 */}
+            <div className="origin-top overflow-visible
+                            [@media_(orientation:landscape)_and_(max-height:500px)]:scale-[0.5]
+                            [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:scale-[0.5]
+                            [@media_(orientation:landscape)_and_(min-width:1024px)_and_(max-width:1199px)]:scale-[0.74]">
+              <SectionReveal delay={0.25}>
+                <FanGrid onOpen={setLightboxIdx} />
+              </SectionReveal>
+            </div>
+          </div>
+        </div>
+
+        {/* Carousel: portrait < 1024px only */}
+        <div className="lg:hidden
+                        [@media_(orientation:landscape)_and_(max-height:500px)]:hidden
+                        [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:hidden">
+          <SectionReveal delay={0.2}>
+            <MobileGallery
+              active={active} direction={direction}
+              onPrev={goPrev} onNext={goNext} onOpen={setLightboxIdx}
+            />
+          </SectionReveal>
+        </div>
+
+      </div>
+
+      <AnimatePresence>
+        {lightboxIdx !== null && (
+          <Lightbox idx={lightboxIdx}
+            onClose={() => setLightboxIdx(null)}
+            onPrev={lbPrev} onNext={lbNext}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
