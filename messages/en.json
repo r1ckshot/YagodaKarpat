@@ -82,9 +82,12 @@
   "contact": {
     "title": "Contact",
     "subtitle": "We would love to hear from you",
+    "inviteStart": "You're welcome to come and pick the berries yourself — it's a special kind of joy. Or buy them fresh in trays straight from the field.",
+    "invitePhrase": "We'll greet you warmly",
     "phone": "Phone",
-    "location": "Location",
     "social": "Social media",
-    "locationValue": "Prykarpattia, Ukraine"
+    "location": "Where to find us",
+    "locationLine1": "Prykarpattia,",
+    "locationLine2": "Urochyshche"
   }
 }
