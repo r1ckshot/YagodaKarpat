@@ -20,7 +20,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(5rem,8dvh,7rem)]"
+      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(4rem,8dvh,7rem)]"
     >
 
       {/* Decorative blueberry — bottom-right corner, partially cropped */}
@@ -74,7 +74,7 @@ export default function AboutSection() {
                 <span
                   className="text-dark/90 font-medium"
                   style={{
-                    backgroundImage: 'linear-gradient(rgba(58,89,140,0.5), rgba(58,89,140,0.5))',
+                    backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-blueberry) 90%, transparent), color-mix(in srgb, var(--color-blueberry) 75%, transparent))',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: inView ? '100% 2px' : '0% 2px',
                     backgroundPosition: 'bottom 3px left 0',
@@ -95,7 +95,7 @@ export default function AboutSection() {
                 <strong
                   className="font-semibold text-dark/90"
                   style={{
-                    backgroundImage: 'linear-gradient(rgba(58,89,140,0.5), rgba(58,89,140,0.5))',
+                    backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-blueberry) 90%, transparent), color-mix(in srgb, var(--color-blueberry) 75%, transparent))',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: inView ? '100% 2px' : '0% 2px',
                     backgroundPosition: 'bottom 3px left 0',

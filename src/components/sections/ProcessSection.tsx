@@ -219,12 +219,12 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(5rem,8dvh,7rem)]"
+      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(4rem,8dvh,7rem)]"
     >
       <div className="relative max-w-6xl mx-auto px-6 w-full">
 
         {/* Section header */}
-        <div className="flex flex-col items-center text-center mb-[clamp(2.5rem,5dvh,4rem)]">
+        <div className="flex flex-col items-center text-center mb-[clamp(1.5rem,4dvh,3rem)]">
           <SectionReveal>
             <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
               <EyebrowDivider src="/images/process-divider.svg" large />

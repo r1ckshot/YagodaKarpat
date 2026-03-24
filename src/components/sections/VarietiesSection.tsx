@@ -30,7 +30,7 @@ function VarietyCard({ card }: { card: CardData }) {
     <div className="group rounded-2xl overflow-hidden border border-cream/[0.08] hover:border-cream/[0.18] transition-colors duration-300">
 
       {/* Image + overlays */}
-      <div className="relative aspect-[4/5] overflow-hidden">
+      <div className="relative aspect-[4/5] xl:aspect-auto xl:h-[clamp(22rem,48dvh,32rem)] overflow-hidden">
         <Image
           src={card.image}
           alt={card.name}
@@ -107,7 +107,7 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
   };
 
   return (
-    <div className="py-[clamp(5rem,8dvh,7rem)]">
+    <div className="py-[clamp(4rem,8dvh,7rem)]">
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-8 px-6">
         <SectionReveal>
@@ -230,7 +230,7 @@ export default function VarietiesSection() {
       </div>
 
       {/* Tablet + desktop: centred header + 3-column grid */}
-      <div className="hidden md:flex flex-col justify-center min-h-[100dvh] py-[clamp(5rem,8dvh,7rem)]">
+      <div className="hidden md:flex flex-col justify-center min-h-[100dvh] py-[clamp(4rem,8dvh,7rem)]">
         <div className="relative max-w-6xl mx-auto px-6 w-full">
 
           {/* Header */}

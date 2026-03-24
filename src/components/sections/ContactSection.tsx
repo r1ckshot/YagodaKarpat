@@ -81,7 +81,7 @@ function StorkPhoto({ onOpen, sizes }: { onOpen: () => void; sizes: string }) {
           src="/images/contact-storks.png"
           alt="Лелеки над карпатським полем"
           width={640} height={480}
-          className="w-full h-auto object-cover transition-transform duration-700 ease-out
+          className="w-full h-auto lg:h-[clamp(16rem,36dvh,24rem)] object-cover transition-transform duration-700 ease-out
                      group-hover:scale-[1.04]"
           sizes={sizes}
         />
@@ -104,7 +104,7 @@ export default function ContactSection() {
       ref={sectionRef}
       id="contact"
       className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center
-                 py-[clamp(5rem,8dvh,7rem)]"
+                 py-[clamp(4rem,8dvh,7rem)]"
     >
       <div className="max-w-6xl mx-auto px-6">
 
@@ -148,7 +148,7 @@ export default function ContactSection() {
               <span
                 className="font-semibold text-dark/90"
                 style={{
-                  backgroundImage: 'linear-gradient(rgba(192,57,43,1), rgba(192,57,43,1))',
+                  backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-berry) 90%, transparent), color-mix(in srgb, var(--color-berry) 75%, transparent))',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: inView ? '100% 2px' : '0% 2px',
                   backgroundPosition: 'bottom 3px left 0',

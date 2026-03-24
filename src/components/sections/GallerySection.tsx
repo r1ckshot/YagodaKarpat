@@ -314,7 +314,7 @@ export default function GallerySection() {
     <section
       id="gallery"
       className="relative bg-dark min-h-[100dvh] flex flex-col justify-center [overflow-x:clip]
-                 py-[clamp(5rem,8dvh,7rem)]
+                 py-[clamp(4rem,8dvh,7rem)]
                  [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:py-[clamp(2rem,4dvh,3rem)]"
     >
       <div className="max-w-6xl mx-auto px-6 w-full">
