@@ -67,7 +67,7 @@ export default function HeroSection() {
         poster="/images/hero-poster-portrait.jpg"
         aria-hidden="true"
       >
-        <source src="/videos/hero-portrait.mov" />
+        <source src="/videos/hero-portrait.mp4" />
       </video>
 
       {/* Landscape video — tablet and desktop */}
@@ -77,7 +77,7 @@ export default function HeroSection() {
         poster="/images/hero-poster-landscape.jpg"
         aria-hidden="true"
       >
-        <source src="/videos/hero-landscape.mov" />
+        <source src="/videos/hero-landscape.mp4" />
       </video>
 
       {/* Gradient overlay */}

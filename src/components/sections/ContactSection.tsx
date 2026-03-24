@@ -10,6 +10,7 @@ import { SiTiktok } from 'react-icons/si';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
 import SectionReveal from '@/components/ui/SectionReveal';
+import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
 const PHONES = [
@@ -103,19 +104,19 @@ export default function ContactSection() {
       ref={sectionRef}
       id="contact"
       className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center
-                 py-[clamp(4rem,8dvh,7rem)]"
+                 py-[clamp(5rem,8dvh,7rem)]"
     >
       <div className="max-w-6xl mx-auto px-6">
 
         {/* ── Centered header ── */}
         <div className="flex flex-col items-center text-center mb-[clamp(1.25rem,2.5dvh,2rem)]">
           <SectionReveal>
-            <div className="flex items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <div className="w-12 h-px bg-forest/40" />
-              <span className="font-body text-base uppercase tracking-[0.28em] text-forest font-semibold">
+            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+              <EyebrowDivider src="/images/contact-divider.svg" />
+              <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                 {t('title')}
               </span>
-              <div className="w-12 h-px bg-forest/40" />
+              <EyebrowDivider src="/images/contact-divider.svg" flip />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>
@@ -126,9 +127,9 @@ export default function ContactSection() {
           </SectionReveal>
           <SectionReveal delay={0.2}>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-px bg-forest/25" />
-              <PiHandshakeFill className="text-forest/55" size={22} />
-              <div className="w-16 h-px bg-forest/25" />
+              <IconRule color="forest" />
+              <PiHandshakeFill className="text-forest/55" size={24} />
+              <IconRule color="forest" />
             </div>
           </SectionReveal>
         </div>

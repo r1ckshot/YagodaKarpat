@@ -5,9 +5,10 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { BsCamera } from 'react-icons/bs';
+import { BsFillCameraFill } from 'react-icons/bs';
 
 import SectionReveal from '@/components/ui/SectionReveal';
+import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
 // ── Photos ─────────────────────────────────────────────────────────────────────
@@ -313,7 +314,7 @@ export default function GallerySection() {
     <section
       id="gallery"
       className="relative bg-dark min-h-[100dvh] flex flex-col justify-center [overflow-x:clip]
-                 py-[clamp(4rem,8dvh,7rem)]
+                 py-[clamp(5rem,8dvh,7rem)]
                  [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:py-[clamp(2rem,4dvh,3rem)]"
     >
       <div className="max-w-6xl mx-auto px-6 w-full">
@@ -323,12 +324,12 @@ export default function GallerySection() {
                         [@media_(orientation:landscape)_and_(max-height:500px)]:mb-[clamp(2rem,4dvh,3rem)]
                         [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:mb-[clamp(1.5rem,3dvh,2.5rem)]">
           <SectionReveal>
-            <div className="flex items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <div className="w-12 h-px bg-cream/30" />
-              <span className="font-body text-base uppercase tracking-[0.28em] text-cream/60 font-semibold">
+            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+              <EyebrowDivider src="/images/gallery-divider.svg" flip objectPosition="left" />
+              <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
                 {t('title')}
               </span>
-              <div className="w-12 h-px bg-cream/30" />
+              <EyebrowDivider src="/images/gallery-divider.svg" objectPosition="left" />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>
@@ -339,9 +340,9 @@ export default function GallerySection() {
           </SectionReveal>
           <SectionReveal delay={0.2}>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-px bg-cream/20" />
-              <BsCamera className="text-cream/35" size={20} />
-              <div className="w-16 h-px bg-cream/20" />
+              <IconRule color="berry" />
+              <BsFillCameraFill className="text-berry/65" size={24} />
+              <IconRule color="berry" />
             </div>
           </SectionReveal>
         </div>

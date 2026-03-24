@@ -52,7 +52,7 @@ export default function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitc
               onClick={() => switchLocale(code)}
               className={`text-sm font-body transition-colors duration-200 py-1 px-2 rounded ${
                 code === locale
-                  ? 'text-crimson font-semibold'
+                  ? 'text-berry font-semibold'
                   : 'text-white/50 hover:text-white/80'
               }`}
             >

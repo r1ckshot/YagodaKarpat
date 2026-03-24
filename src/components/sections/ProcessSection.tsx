@@ -3,9 +3,11 @@
 import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
-import { Shovel, Sprout, Droplets, FlaskConical, Hand, Leaf } from 'lucide-react';
+import { Shovel, Sprout, Droplets, FlaskConical, Hand } from 'lucide-react';
+import { GiFarmTractor } from 'react-icons/gi';
 
 import SectionReveal from '@/components/ui/SectionReveal';
+import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
 type LucideIcon = typeof Shovel;
@@ -217,19 +219,19 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(4rem,8dvh,7rem)]"
+      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(5rem,8dvh,7rem)]"
     >
       <div className="relative max-w-6xl mx-auto px-6 w-full">
 
         {/* Section header */}
         <div className="flex flex-col items-center text-center mb-[clamp(2.5rem,5dvh,4rem)]">
           <SectionReveal>
-            <div className="flex justify-center items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <div className="w-12 h-px bg-forest/40" />
-              <span className="font-body text-base uppercase tracking-[0.28em] text-forest font-semibold">
+            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+              <EyebrowDivider src="/images/process-divider.svg" large />
+              <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                 {t('title')}
               </span>
-              <div className="w-12 h-px bg-forest/40" />
+              <EyebrowDivider src="/images/process-divider.svg" large flip />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>
@@ -238,10 +240,10 @@ export default function ProcessSection() {
             </h2>
           </SectionReveal>
           <SectionReveal delay={0.2}>
-            <div className="flex justify-center items-center gap-4">
-              <div className="w-16 h-px bg-forest/25" />
-              <Leaf className="text-forest/50" size={20} />
-              <div className="w-16 h-px bg-forest/25" />
+            <div className="flex items-center gap-4">
+              <IconRule color="forest" />
+              <GiFarmTractor className="text-forest/55" size={24} />
+              <IconRule color="forest" />
             </div>
           </SectionReveal>
         </div>

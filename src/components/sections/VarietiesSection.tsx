@@ -7,6 +7,7 @@ import { GiBerriesBowl } from 'react-icons/gi';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionReveal from '@/components/ui/SectionReveal';
+import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 
 const VARIETIES = [
   { key: 'duke',     image: '/images/duke.jpg'     },
@@ -106,16 +107,16 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
   };
 
   return (
-    <div className="py-[clamp(4rem,8dvh,7rem)]">
+    <div className="py-[clamp(5rem,8dvh,7rem)]">
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-8 px-6">
         <SectionReveal>
-          <div className="flex items-center gap-4 mb-3">
-            <div className="w-10 h-px bg-forest/60" />
-            <span className="font-body text-base uppercase tracking-[0.28em] text-forest font-semibold">
+          <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+            <EyebrowDivider src="/images/varieties-divider.svg" />
+            <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
               {title}
             </span>
-            <div className="w-10 h-px bg-forest/60" />
+            <EyebrowDivider src="/images/varieties-divider.svg" flip />
           </div>
         </SectionReveal>
         <SectionReveal delay={0.1}>
@@ -125,9 +126,9 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
         </SectionReveal>
         <SectionReveal delay={0.2}>
           <div className="flex items-center gap-4">
-            <div className="w-12 h-px bg-cream/15" />
-            <GiBerriesBowl className="text-blueberry/60 text-xl" />
-            <div className="w-12 h-px bg-cream/15" />
+            <IconRule color="berry" />
+            <GiBerriesBowl className="text-berry/65" size={24} />
+            <IconRule color="berry" />
           </div>
         </SectionReveal>
       </div>
@@ -229,18 +230,18 @@ export default function VarietiesSection() {
       </div>
 
       {/* Tablet + desktop: centred header + 3-column grid */}
-      <div className="hidden md:flex flex-col justify-center min-h-[100dvh] py-[clamp(4rem,8dvh,7rem)]">
+      <div className="hidden md:flex flex-col justify-center min-h-[100dvh] py-[clamp(5rem,8dvh,7rem)]">
         <div className="relative max-w-6xl mx-auto px-6 w-full">
 
           {/* Header */}
           <div className="flex flex-col items-center text-center mb-[clamp(2.5rem,6dvh,4rem)]">
             <SectionReveal>
-              <div className="flex items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <div className="w-12 h-px bg-forest/60" />
-                <span className="font-body text-base uppercase tracking-[0.28em] text-forest font-semibold">
+              <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+                <EyebrowDivider src="/images/varieties-divider.svg" />
+                <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
                   {t('title')}
                 </span>
-                <div className="w-12 h-px bg-forest/60" />
+                <EyebrowDivider src="/images/varieties-divider.svg" flip />
               </div>
             </SectionReveal>
             <SectionReveal delay={0.1}>
@@ -250,9 +251,9 @@ export default function VarietiesSection() {
             </SectionReveal>
             <SectionReveal delay={0.2}>
               <div className="flex items-center gap-4">
-                <div className="w-16 h-px bg-cream/15" />
-                <GiBerriesBowl className="text-blueberry/70 text-xl" />
-                <div className="w-16 h-px bg-cream/15" />
+                <IconRule color="berry" />
+                <GiBerriesBowl className="text-berry/65" size={24} />
+                <IconRule color="berry" />
               </div>
             </SectionReveal>
           </div>

@@ -3,10 +3,11 @@
 import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { GiHighGrass } from 'react-icons/gi';
+import { PiFarmFill } from 'react-icons/pi';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import SectionReveal from '@/components/ui/SectionReveal';
+import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
 export default function AboutSection() {
@@ -19,7 +20,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(4rem,8dvh,7rem)]"
+      className="relative bg-cream overflow-hidden min-h-[100dvh] flex flex-col justify-center py-[clamp(5rem,8dvh,7rem)]"
     >
 
       {/* Decorative blueberry — bottom-right corner, partially cropped */}
@@ -40,12 +41,12 @@ export default function AboutSection() {
 
             {/* Eyebrow */}
             <SectionReveal>
-              <div className="flex items-center gap-5 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <div className="w-12 h-px bg-forest/40" />
-                <span className="font-body text-base uppercase tracking-[0.28em] text-forest font-semibold">
+              <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+                <EyebrowDivider src="/images/about-divider.svg" />
+                <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                   {t('about.title')}
                 </span>
-                <div className="w-12 h-px bg-forest/40" />
+                <EyebrowDivider src="/images/about-divider.svg" flip />
               </div>
             </SectionReveal>
 
@@ -59,9 +60,9 @@ export default function AboutSection() {
             {/* Divider */}
             <SectionReveal delay={0.2}>
               <div className="flex items-center gap-4 mb-[clamp(1.75rem,4.5dvh,2.75rem)]">
-                <div className="w-16 h-px bg-forest/25" />
-                <GiHighGrass className="text-forest/50 text-xl" />
-                <div className="w-16 h-px bg-forest/25" />
+                <IconRule color="forest" />
+                <PiFarmFill className="text-forest/55" size={24} />
+                <IconRule color="forest" />
               </div>
             </SectionReveal>
 
