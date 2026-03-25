@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { SEASON_CONFIG } from '@/config/season';
+import { isSeasonOpen } from '@/config/season';
 import { EASING } from '@/lib/animations';
 import { isSplashPending, SPLASH_DURATION_OFFSET } from '@/lib/splashState';
 
@@ -188,7 +188,7 @@ export default function HeroSection() {
 
         {/* Season status */}
         <motion.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
-          {SEASON_CONFIG.isOpen ? (
+          {isSeasonOpen() ? (
             <>
               <span className="relative flex h-3.5 w-3.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest opacity-75" />
@@ -200,8 +200,11 @@ export default function HeroSection() {
             </>
           ) : (
             <>
-              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-cream/30" />
-              <span className="font-body text-base sm:text-lg text-cream/50 tracking-wide">
+              <span className="relative flex h-3.5 w-3.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-berry opacity-75" />
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-berry" />
+              </span>
+              <span className="font-body text-base sm:text-lg xl:text-xl text-cream/80 tracking-wide">
                 {t('seasonClosed')}
               </span>
             </>

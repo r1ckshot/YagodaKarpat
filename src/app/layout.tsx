@@ -19,11 +19,11 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ягода Карпат — лохина з Прикарпаття',
+    default: 'Ягода Карпат',
     template: '%s | Ягода Карпат',
   },
   description:
-    "Понад Лохинове господарство в серці Прикарпаття. Три сорти — Дюк, Чандлер, Еліот. Липень, серпень, вересень.",
+    'Лохинове господарство в серці Прикарпаття. Три сорти — Дюк, Чандлер, Еліот. Липень, серпень, вересень.',
   keywords: [
     'лохина',
     'ягода карпат',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
+        width: 1424,
+        height: 752,
         alt: 'Ягода Карпат — лохинове господарство',
       },
     ],
@@ -52,6 +52,10 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     images: ['/images/og-image.jpg'],
+  },
+  icons: {
+    icon: '/images/logo/blueberry.png',
+    apple: '/images/logo/blueberry.png',
   },
   robots: {
     index: true,
