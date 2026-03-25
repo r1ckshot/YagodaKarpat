@@ -30,10 +30,10 @@ export function EyebrowDivider({
       src={src}
       alt=""
       aria-hidden="true"
-      className={`object-contain shrink-0 opacity-50 ${objectPosition === 'left' ? 'object-left' : 'object-right'}`}
+      className={`object-contain shrink-0 opacity-50 [@media_(max-width:380px)]:!w-12 ${objectPosition === 'left' ? 'object-left' : 'object-right'}`}
       style={{
-        width:  large ? 'clamp(5rem, 9vw, 9rem)'    : 'clamp(4.5rem, 8vw, 7rem)',
-        height: large ? 'clamp(2.25rem, 4vw, 3rem)' : 'clamp(2rem, 3.5vw, 2.5rem)',
+        width:  large ? 'clamp(4rem, 9vw, 9rem)'    : 'clamp(4.5rem, 8vw, 7rem)',
+        height: large ? 'clamp(1.75rem, 4vw, 3rem)'   : 'clamp(2rem, 3.5vw, 2.5rem)',
         ...(flip ? { transform: 'scaleX(-1)' } : {}),
       }}
     />

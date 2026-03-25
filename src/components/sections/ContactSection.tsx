@@ -43,7 +43,7 @@ function ContactItem({
                        ${href ? 'group-hover:bg-forest/20 transition-colors duration-200' : ''}`}>
         {icon}
       </div>
-      <span className={`font-body text-[clamp(1rem,0.875rem_+_0.65vw,1.25rem)] whitespace-nowrap ${href ? 'text-dark/80 group-hover:text-forest underline decoration-transparent group-hover:decoration-forest/40 underline-offset-2 transition-all duration-200' : 'text-dark/60'}`}>
+      <span className={`font-body text-[clamp(1rem,0.875rem_+_0.65vw,1.25rem)] ${href ? 'text-dark/80 group-hover:text-forest underline decoration-transparent group-hover:decoration-forest/40 underline-offset-2 transition-all duration-200' : 'text-dark/60'}`}>
         {label}
       </span>
     </Tag>
@@ -58,7 +58,7 @@ function LocationItem({ line1, line2, size = 'md', oneLine = false }: { line1: s
       <div className={`${iconSizes[size]} rounded-full bg-forest/10 flex items-center justify-center shrink-0`}>
         <MapPin size={size === 'lg' ? 17 : size === 'sm' ? 13 : 15} className="text-forest" />
       </div>
-      <span className="font-body text-[clamp(1rem,0.875rem_+_0.65vw,1.25rem)] text-dark/80 leading-snug whitespace-nowrap">
+      <span className="font-body text-[clamp(1rem,0.875rem_+_0.65vw,1.25rem)] text-dark/80 leading-snug">
         {oneLine ? `${line1} ${line2}` : <>{line1}<br />{line2}</>}
       </span>
     </div>
@@ -254,23 +254,24 @@ export default function ContactSection() {
           </SectionReveal>
         </div>
 
-        {/* ══ PHONE PORTRAIT (< sm): 2-col [phones|social] + location + photo ══ */}
+        {/* ══ PHONE PORTRAIT (< sm): [phones|social] + location + photo ══ */}
         <div className="flex flex-col gap-6 sm:hidden">
           <SectionReveal delay={0.3}>
-            <div className="grid grid-cols-[1fr_1px_1fr] gap-x-6 items-start">
+            {/* ≥380px: side by side; <380px: stacked to avoid overflow */}
+            <div className="grid grid-cols-1 gap-y-4 [@media_(min-width:380px)]:grid-cols-[1fr_1px_1fr] [@media_(min-width:380px)]:gap-y-0 [@media_(min-width:380px)]:gap-x-6 items-start">
               {/* Phones */}
               <div className="flex flex-col items-start gap-3">
-                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20">{t('phone')}</span>
+                <span className="font-heading text-[clamp(1.25rem,1rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 w-full">{t('phone')}</span>
                 {PHONES.map(({ display, tel }) => (
                   <ContactItem key={tel} href={`tel:${tel}`} size="sm"
                     icon={<Phone size={13} className="text-forest" />} label={display} />
                 ))}
               </div>
-              {/* Divider */}
-              <div className="bg-forest/15 self-stretch" />
+              {/* Divider — hidden when stacked */}
+              <div className="hidden [@media_(min-width:380px)]:block bg-forest/15 self-stretch" />
               {/* Social */}
               <div className="flex flex-col items-start gap-3">
-                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20">{t('social')}</span>
+                <span className="font-heading text-[clamp(1.25rem,1rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 w-full">{t('social')}</span>
                 <ContactItem href="https://www.instagram.com/jagoda_karpat/" external size="sm"
                   icon={<FaInstagram size={14} className="text-forest" />} label="Instagram" />
                 <ContactItem href="https://www.tiktok.com/@agrorik" external size="sm"
@@ -278,9 +279,12 @@ export default function ContactSection() {
               </div>
             </div>
           </SectionReveal>
-          {/* Location centered — one line on phone portrait */}
-          <SectionReveal delay={0.35} className="flex justify-center">
-            <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="sm" oneLine />
+          {/* Location — heading + item, left-aligned like phones/social */}
+          <SectionReveal delay={0.35}>
+            <div className="flex flex-col items-start gap-3">
+              <span className="font-heading text-[clamp(1.25rem,1rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 w-full">{t('location')}</span>
+              <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="sm" oneLine />
+            </div>
           </SectionReveal>
           {/* Photo */}
           <SectionReveal delay={0.4}>

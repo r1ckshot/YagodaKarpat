@@ -86,11 +86,14 @@ export default function HeroSection() {
       {/* Extra overlay — mobile portrait only, slightly darker */}
       <div className="absolute inset-0 bg-dark/25 md:hidden" />
 
+      {/* Navbar spacer — only on small phones (<640px) to prevent logo hiding behind fixed navbar */}
+      <div className="flex-none h-16 sm:h-0" aria-hidden="true" />
+
       {/* Main content — fills available height, centres children */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 w-full max-w-5xl mx-auto">
 
-        {/* Logo — fluid width matching original breakpoints, fluid bottom margin */}
-        <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
+        {/* Logo — fluid width capped by both vw and dvh so it never overflows short viewports */}
+        <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] max-w-[min(85vw,50dvh)] [@media_(min-height:680px)]:max-w-[85vw] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
           <div className="flex flex-col items-center w-full">
             <motion.img
               src="/images/logo/mountains.png"
@@ -145,7 +148,7 @@ export default function HeroSection() {
           variants={titleContainer}
           initial="initial"
           animate="animate"
-          className="font-heading text-[clamp(2.375rem,1.775rem_+_2.475vw,3.75rem)] text-cream leading-tight mb-[clamp(0.375rem,1dvh,0.75rem)] lg:whitespace-nowrap"
+          className="font-heading text-[clamp(2.375rem,1.775rem_+_2.475vw,3.75rem)] [@media_(max-width:380px)]:text-[1.625rem] text-cream leading-tight mb-[clamp(0.375rem,1dvh,0.75rem)] lg:whitespace-nowrap"
         >
           {words.map((word, i) => {
             const isAccent = ACCENT_WORDS.has(word.toLowerCase());
@@ -236,7 +239,7 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Scroll indicator — in-flow at the bottom, no absolute positioning */}
+      {/* Scroll indicator — absolute so it never pushes content up */}
       <motion.a
         href="#about"
         initial={{ opacity: 0 }}
@@ -244,7 +247,7 @@ export default function HeroSection() {
         transition={firstLoad
           ? { duration: 0.5, delay: 3.1 + splashOffset }
           : { duration: 0 }}
-        className="relative z-10 flex justify-center pb-[clamp(1rem,2dvh,2rem)]"
+        className="absolute bottom-[clamp(1rem,2dvh,2rem)] left-0 right-0 z-10 flex justify-center [@media_(max-height:650px)]:hidden"
         aria-label="Scroll down"
       >
         <motion.div

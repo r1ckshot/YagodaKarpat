@@ -8,10 +8,10 @@ export default function Footer() {
   const Logo = () => (
     <div className="flex items-center gap-3.5 shrink-0">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/logo/blueberry.png" alt="" aria-hidden="true" className="h-9 w-auto"
+      <img src="/images/logo/blueberry.png" alt="" aria-hidden="true" className="h-9 w-auto [@media_(max-width:400px)_and_(orientation:portrait)]:hidden"
         style={{ filter: 'drop-shadow(0 0 14px color-mix(in srgb, var(--color-blueberry) 75%, transparent)) drop-shadow(0 0 5px color-mix(in srgb, var(--color-blueberry) 40%, transparent))' }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/logo/title.png" alt="Ягода Карпат" className="h-7 w-auto opacity-60" />
+      <img src="/images/logo/title.png" alt="Ягода Карпат" className="h-7 w-auto opacity-60 [@media_(max-width:400px)_and_(orientation:portrait)]:h-6" />
     </div>
   );
 
@@ -60,8 +60,16 @@ export default function Footer() {
         <Mountains />
       </div>
 
-      {/* ── LANDSCAPE (all): logo left · text center+translate · mountains right ── */}
-      <div className="hidden [@media_(orientation:landscape)]:flex
+      {/* ── LANDSCAPE small (≤420px height): logo · year · mountains ── */}
+      <div className="hidden [@media_(orientation:landscape)_and_(max-height:420px)]:flex
+                      h-16 max-w-6xl mx-auto px-6 items-center justify-between">
+        <Logo />
+        <p className="font-body text-base text-cream/50 tracking-widest uppercase">© 2026</p>
+        <Mountains />
+      </div>
+
+      {/* ── LANDSCAPE regular (>420px height): logo left · text center+translate · mountains right ── */}
+      <div className="hidden [@media_(orientation:landscape)_and_(min-height:421px)]:flex
                       h-16 max-w-6xl mx-auto px-6 relative items-center justify-center">
         <div className="absolute left-6"><Logo /></div>
         <div className="hidden lg:block"><CenterText translate subtitle /></div>

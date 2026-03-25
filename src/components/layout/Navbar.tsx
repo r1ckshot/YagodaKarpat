@@ -55,10 +55,10 @@ export default function Navbar() {
             : 'bg-dark/90 backdrop-blur-sm border-cream/10'
         }`}
       >
-        <div className="max-w-6xl mx-auto h-full px-6 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto h-full px-4 lg:px-6 flex items-center justify-between">
 
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3.5 shrink-0">
+          <a href="#hero" className="flex items-center gap-2 sm:gap-3.5 shrink-0">
             <img src="/images/logo/blueberry.png" alt="" className="h-9 w-auto" />
             <img src="/images/logo/title.png" alt="Ягода Карпат" className="h-7 w-auto" />
           </a>
@@ -122,9 +122,38 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
-            className="lg:hidden bg-dark/95 backdrop-blur-sm border-b border-cream/10"
+            className="lg:hidden bg-dark/95 backdrop-blur-sm border-b border-cream/10 overflow-y-auto max-h-[calc(100dvh-4rem)]"
           >
-            <nav className="flex flex-col px-6 py-3">
+            {/* Landscape short (≤380px): locale row + 2-column nav grid */}
+            <nav className="hidden [@media_(orientation:landscape)_and_(max-height:380px)]:block px-6 py-3">
+              <div className="flex flex-col">
+                {/* Language — left cell only, right stays empty (no underline on right) */}
+                <div className="grid grid-cols-2 gap-x-4">
+                  <div className="border-b border-white/10 py-2.5">
+                    <LanguageSwitcher variant="inline" />
+                  </div>
+                  <div />
+                </div>
+                {/* Nav rows — each cell has its own border-b, gap creates visual break */}
+                {Array.from({ length: Math.ceil(NAV_LINKS.length / 2) }, (_, rowIdx) => (
+                  <div key={rowIdx} className="grid grid-cols-2 gap-x-4">
+                    {NAV_LINKS.slice(rowIdx * 2, rowIdx * 2 + 2).map(({ key, href }) => (
+                      <a
+                        key={key}
+                        href={href}
+                        className="text-white/70 hover:text-white text-base font-body transition-colors duration-200 py-2.5 border-b border-white/10"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {t(key)}
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </nav>
+
+            {/* Regular layout — portrait and tall landscape */}
+            <nav className="[@media_(orientation:landscape)_and_(max-height:380px)]:hidden flex flex-col px-6 py-3">
               {NAV_LINKS.map(({ key, href }, i) => (
                 <motion.a
                   key={key}
@@ -138,7 +167,6 @@ export default function Navbar() {
                   {t(key)}
                 </motion.a>
               ))}
-              {/* Language switcher at bottom of menu */}
               <motion.div
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}

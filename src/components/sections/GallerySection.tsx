@@ -322,9 +322,10 @@ export default function GallerySection() {
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-[clamp(3.5rem,7dvh,5rem)]
                         [@media_(orientation:landscape)_and_(max-height:500px)]:mb-[clamp(2rem,4dvh,3rem)]
-                        [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:mb-[clamp(1.5rem,3dvh,2.5rem)]">
+                        [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:mb-[clamp(1.5rem,3dvh,2.5rem)]
+                        [@media_(orientation:landscape)_and_(max-height:380px)]:mb-2">
           <SectionReveal>
-            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
+            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1">
               <EyebrowDivider src="/images/gallery-ornament.svg" flip objectPosition="left" />
               <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
                 {t('title')}
@@ -334,7 +335,7 @@ export default function GallerySection() {
           </SectionReveal>
           <SectionReveal delay={0.1}>
             <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-cream
-                           leading-tight mb-[clamp(1.25rem,3dvh,2rem)]">
+                           leading-tight mb-[clamp(1.25rem,3dvh,2rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1">
               {t('subtitle')}
             </h2>
           </SectionReveal>
@@ -355,12 +356,14 @@ export default function GallerySection() {
                         overflow-visible">
           {/* Outer: sets layout height — landscape small 13.5rem (×0.5), landscape tablet lg 22rem (×0.8) */}
           <div className="h-[27rem] overflow-visible
-                          [@media_(orientation:landscape)_and_(max-height:500px)]:h-[13.5rem]
+                          [@media_(orientation:landscape)_and_(max-height:380px)]:h-[11rem]
+                          [@media_(orientation:landscape)_and_(min-height:381px)_and_(max-height:500px)]:h-[13.5rem]
                           [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:h-[13.5rem]
                           [@media_(orientation:landscape)_and_(min-width:1024px)_and_(max-width:1199px)]:h-[20rem]">
-            {/* Inner: scale — phone/small-tablet 0.5, lg-tablet (1024–1199px) 0.74 */}
+            {/* Inner: scale — ≤380px 0.4, 381-500px 0.5, lg-tablet 0.74 */}
             <div className="origin-top overflow-visible
-                            [@media_(orientation:landscape)_and_(max-height:500px)]:scale-[0.5]
+                            [@media_(orientation:landscape)_and_(max-height:380px)]:scale-[0.4]
+                            [@media_(orientation:landscape)_and_(min-height:381px)_and_(max-height:500px)]:scale-[0.5]
                             [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:scale-[0.5]
                             [@media_(orientation:landscape)_and_(min-width:1024px)_and_(max-width:1199px)]:scale-[0.74]">
               <SectionReveal delay={0.25}>
