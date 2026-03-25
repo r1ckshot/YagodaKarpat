@@ -42,11 +42,11 @@ export default function AboutSection() {
             {/* Eyebrow */}
             <SectionReveal>
               <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <EyebrowDivider src="/images/about-divider.svg" />
+                <EyebrowDivider src="/images/about-ornament.svg" />
                 <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                   {t('about.title')}
                 </span>
-                <EyebrowDivider src="/images/about-divider.svg" flip />
+                <EyebrowDivider src="/images/about-ornament.svg" flip />
               </div>
             </SectionReveal>
 
@@ -128,7 +128,7 @@ export default function AboutSection() {
                 aria-label={t('about.photoCaption')}
               >
                 <Image
-                  src="/images/beginning.png"
+                  src="/images/beginning.jpg"
                   alt={t('about.photoCaption')}
                   width={480}
                   height={640}
@@ -178,7 +178,7 @@ export default function AboutSection() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/beginning.png"
+                src="/images/beginning.jpg"
                 alt={t('about.photoCaption')}
                 width={480}
                 height={640}

@@ -110,7 +110,7 @@ export default function HeroSection() {
           </div>
 
           <motion.img
-            src="/images/logo/bottom wave.png"
+            src="/images/logo/bottom-wave.png"
             alt="" aria-hidden="true"
             className="w-full h-auto"
             {...logoReveal()}
@@ -127,7 +127,7 @@ export default function HeroSection() {
               {...logoReveal(0.3, 0.6)}
             />
             <motion.img
-              src="/images/logo/bottom tittle.png"
+              src="/images/logo/bottom-title.png"
               alt="" aria-hidden="true"
               className="relative w-[35%] h-auto"
               {...logoReveal(0.3, 0.5)}

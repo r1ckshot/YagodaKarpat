@@ -3,9 +3,9 @@
 // IconRule       — spindle/needle rule beside the section icon.
 
 const FOREST_GRADIENT =
-  'linear-gradient(to right, rgba(0,133,73,0) 0%, rgba(0,133,73,0.3) 35%, rgba(0,133,73,0.5) 50%, rgba(0,133,73,0.3) 65%, rgba(0,133,73,0) 100%)';
+  'linear-gradient(to right, color-mix(in srgb, var(--color-forest) 0%, transparent) 0%, color-mix(in srgb, var(--color-forest) 30%, transparent) 35%, color-mix(in srgb, var(--color-forest) 50%, transparent) 50%, color-mix(in srgb, var(--color-forest) 30%, transparent) 65%, color-mix(in srgb, var(--color-forest) 0%, transparent) 100%)';
 const BERRY_GRADIENT =
-  'linear-gradient(to right, rgba(204,46,31,0) 0%, rgba(204,46,31,0.3) 35%, rgba(204,46,31,0.5) 50%, rgba(204,46,31,0.3) 65%, rgba(204,46,31,0) 100%)';
+  'linear-gradient(to right, color-mix(in srgb, var(--color-berry) 0%, transparent) 0%, color-mix(in srgb, var(--color-berry) 30%, transparent) 35%, color-mix(in srgb, var(--color-berry) 50%, transparent) 50%, color-mix(in srgb, var(--color-berry) 30%, transparent) 65%, color-mix(in srgb, var(--color-berry) 0%, transparent) 100%)';
 
 interface EyebrowDividerProps {
   src: string;

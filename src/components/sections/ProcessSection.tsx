@@ -89,7 +89,7 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
             key={i}
             d={d}
             fill="none"
-            stroke="rgba(0,133,73,0.4)"
+            stroke="color-mix(in srgb, var(--color-forest) 40%, transparent)"
             strokeWidth="1.5"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
@@ -111,7 +111,7 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
             {/* Circle */}
             <motion.div
               className="w-16 h-16 rounded-full bg-cream border-2 border-forest/45 flex items-center justify-center z-10 flex-none"
-              style={{ boxShadow: '0 2px 14px rgba(0,133,73,0.13)' }}
+              style={{ boxShadow: '0 2px 14px color-mix(in srgb, var(--color-forest) 13%, transparent)' }}
               initial={{ opacity: 0, scale: 0.55 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: CIRCLE_DUR, delay: circleDelay(i), ease: EASING.bounce }}
@@ -147,7 +147,7 @@ function MobileStep({ step, index, isLast }: { step: StepData; index: number; is
       <div className="flex flex-col items-center flex-none w-12">
         <motion.div
           className="w-12 h-12 rounded-full bg-cream border-2 border-forest/40 flex items-center justify-center flex-none"
-          style={{ boxShadow: '0 2px 8px rgba(0,133,73,0.10)' }}
+          style={{ boxShadow: '0 2px 8px color-mix(in srgb, var(--color-forest) 10%, transparent)' }}
           initial={{ opacity: 0, scale: 0.55 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.55, ease: EASING.bounce }}
@@ -227,11 +227,11 @@ export default function ProcessSection() {
         <div className="flex flex-col items-center text-center mb-[clamp(1.5rem,4dvh,3rem)]">
           <SectionReveal>
             <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <EyebrowDivider src="/images/process-divider.svg" large />
+              <EyebrowDivider src="/images/process-ornament.svg" large />
               <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                 {t('title')}
               </span>
-              <EyebrowDivider src="/images/process-divider.svg" large flip />
+              <EyebrowDivider src="/images/process-ornament.svg" large flip />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>

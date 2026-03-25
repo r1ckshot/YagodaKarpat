@@ -78,7 +78,7 @@ function StorkPhoto({ onOpen, sizes }: { onOpen: () => void; sizes: string }) {
         aria-label="Відкрити фото"
       >
         <Image
-          src="/images/contact-storks.png"
+          src="/images/contact-storks.jpg"
           alt="Лелеки над карпатським полем"
           width={640} height={480}
           className="w-full h-auto lg:h-[clamp(16rem,36dvh,24rem)] object-cover transition-transform duration-700 ease-out
@@ -112,11 +112,11 @@ export default function ContactSection() {
         <div className="flex flex-col items-center text-center mb-[clamp(1.25rem,2.5dvh,2rem)]">
           <SectionReveal>
             <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <EyebrowDivider src="/images/contact-divider.svg" />
+              <EyebrowDivider src="/images/contact-ornament.svg" />
               <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                 {t('title')}
               </span>
-              <EyebrowDivider src="/images/contact-divider.svg" flip />
+              <EyebrowDivider src="/images/contact-ornament.svg" flip />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>
@@ -313,7 +313,7 @@ export default function ContactSection() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/contact-storks.png"
+                src="/images/contact-storks.jpg"
                 alt="Лелеки над карпатським полем"
                 width={640} height={480}
                 className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"

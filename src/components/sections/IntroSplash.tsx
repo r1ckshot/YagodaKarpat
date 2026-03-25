@@ -72,7 +72,7 @@ export default function IntroSplash() {
 
             {/* 4. Wave — expands from center */}
             <motion.img
-              src="/images/logo/bottom wave.png"
+              src="/images/logo/bottom-wave.png"
               alt=""
               aria-hidden="true"
               className="w-full h-auto"
@@ -85,7 +85,7 @@ export default function IntroSplash() {
             {/* 5. "Blueberry" text — rises gently after wave settles */}
             <div className="relative -mt-[7%] w-full flex justify-center">
               <motion.img
-                src="/images/logo/bottom tittle.png"
+                src="/images/logo/bottom-title.png"
                 alt=""
                 aria-hidden="true"
                 className="w-[35%] h-auto"
