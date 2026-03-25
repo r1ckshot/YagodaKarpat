@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { isSeasonOpen } from '@/config/season';
@@ -12,6 +12,7 @@ const ACCENT_WORDS = new Set(['лохина', 'blueberries']);
 
 export default function HeroSection() {
   const t = useTranslations('hero');
+  const locale = useLocale();
   const words = t('tagline').split(' ');
 
   const firstLoad = useRef(
@@ -80,8 +81,10 @@ export default function HeroSection() {
         <source src="/videos/hero-landscape.mp4" />
       </video>
 
-      {/* Gradient overlay */}
+      {/* Gradient overlay — shared */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/85" />
+      {/* Extra overlay — mobile portrait only, slightly darker */}
+      <div className="absolute inset-0 bg-dark/25 md:hidden" />
 
       {/* Main content — fills available height, centres children */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 w-full max-w-5xl mx-auto">
@@ -119,11 +122,13 @@ export default function HeroSection() {
           {/* "Blueberry" text + glow */}
           <div className="relative -mt-[7%] w-full flex justify-center">
             <motion.div
-              className="absolute inset-x-[34%] inset-y-1 bg-cream/80 rounded-full blur-md"
+              className="absolute inset-x-[34%] inset-y-1 bg-cream/80 rounded-full"
+              style={{ filter: 'blur(clamp(0.6rem, 1.2vw, 0.9rem))' }}
               {...logoReveal(0.3, 0.5)}
             />
             <motion.div
-              className="absolute inset-x-[9%] inset-y-5 bg-cream/50 rounded-full blur-xl"
+              className="absolute inset-x-[9%] inset-y-3 bg-cream/30 rounded-full"
+              style={{ filter: 'blur(clamp(1.2rem, 2.2vw, 1.7rem))' }}
               {...logoReveal(0.3, 0.6)}
             />
             <motion.img
@@ -145,7 +150,7 @@ export default function HeroSection() {
           {words.map((word, i) => {
             const isAccent = ACCENT_WORDS.has(word.toLowerCase());
             return isAccent ? (
-              <motion.span key={i} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0 relative">
+              <motion.span key={`${i}-${locale}`} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0 relative">
                 {word}
                 <motion.svg
                   viewBox="0 0 100 18"
@@ -156,7 +161,7 @@ export default function HeroSection() {
                 >
                   <motion.path
                     d="M 2,9 C 16,3 32,15 50,9 C 66,3 84,15 94,8 C 96,7 98,5, 99,4"
-                    stroke="var(--color-blueberry)"
+                    stroke="color-mix(in srgb, var(--color-blueberry) 85%, transparent)"
                     strokeWidth="2.5"
                     fill="none"
                     strokeLinecap="round"
@@ -164,9 +169,12 @@ export default function HeroSection() {
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
                     transition={firstLoad ? {
-                      pathLength: { delay: 1.35 + splashOffset, duration: 0.85, ease: EASING.enter },
+                      pathLength: { delay: 1.35 + splashOffset, duration: 1.1, ease: EASING.enter },
                       opacity:    { delay: 1.35 + splashOffset, duration: 0.2 },
-                    } : { duration: 0 }}
+                    } : {
+                      pathLength: { delay: 0.4, duration: 1.1, ease: EASING.enter },
+                      opacity:    { delay: 0.4, duration: 0.2 },
+                    }}
                   />
                 </motion.svg>
               </motion.span>
