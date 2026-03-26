@@ -326,11 +326,11 @@ export default function GallerySection() {
                         [@media_(orientation:landscape)_and_(max-height:380px)]:mb-2">
           <SectionReveal>
             <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1">
-              <EyebrowDivider src="/images/gallery-ornament.svg" flip objectPosition="left" />
+              <EyebrowDivider src="/images/ornaments/gallery-ornament.svg" flip objectPosition="left" />
               <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
                 {t('title')}
               </span>
-              <EyebrowDivider src="/images/gallery-ornament.svg" objectPosition="left" />
+              <EyebrowDivider src="/images/ornaments/gallery-ornament.svg" objectPosition="left" />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>

@@ -10,9 +10,9 @@ import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 
 const VARIETIES = [
-  { key: 'duke',     image: '/images/duke.jpg'     },
-  { key: 'chandler', image: '/images/chandler.jpg' },
-  { key: 'elliott',  image: '/images/elliott.jpg'  },
+  { key: 'duke',     image: '/images/varieties/duke.jpg'     },
+  { key: 'chandler', image: '/images/varieties/chandler.jpg' },
+  { key: 'elliott',  image: '/images/varieties/elliott.jpg'  },
 ] as const;
 
 const CARD_DELAYS = [0.3, 0.45, 0.6] as const;
@@ -112,11 +112,11 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
       <div className="flex flex-col items-center text-center mb-8 px-6">
         <SectionReveal>
           <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-            <EyebrowDivider src="/images/varieties-ornament.svg" />
+            <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" />
             <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
               {title}
             </span>
-            <EyebrowDivider src="/images/varieties-ornament.svg" flip />
+            <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" flip />
           </div>
         </SectionReveal>
         <SectionReveal delay={0.1}>
@@ -237,11 +237,11 @@ export default function VarietiesSection() {
           <div className="flex flex-col items-center text-center mb-[clamp(2.5rem,6dvh,4rem)]">
             <SectionReveal>
               <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <EyebrowDivider src="/images/varieties-ornament.svg" />
+                <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" />
                 <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
                   {t('title')}
                 </span>
-                <EyebrowDivider src="/images/varieties-ornament.svg" flip />
+                <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" flip />
               </div>
             </SectionReveal>
             <SectionReveal delay={0.1}>

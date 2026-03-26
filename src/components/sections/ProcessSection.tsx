@@ -227,11 +227,11 @@ export default function ProcessSection() {
         <div className="flex flex-col items-center text-center mb-[clamp(1.5rem,4dvh,3rem)]">
           <SectionReveal>
             <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <EyebrowDivider src="/images/process-ornament.svg" large />
+              <EyebrowDivider src="/images/ornaments/process-ornament.svg" large />
               <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                 {t('title')}
               </span>
-              <EyebrowDivider src="/images/process-ornament.svg" large flip />
+              <EyebrowDivider src="/images/ornaments/process-ornament.svg" large flip />
             </div>
           </SectionReveal>
           <SectionReveal delay={0.1}>

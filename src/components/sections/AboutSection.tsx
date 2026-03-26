@@ -27,7 +27,7 @@ export default function AboutSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         aria-hidden="true"
-        src="/images/blueberries.svg"
+        src="/images/sections/blueberries.svg"
         alt=""
         className="absolute bottom-[-3rem] right-[-2rem] w-[158px] md:w-[240px] lg:w-[250px] [@media_(orientation:landscape)_and_(max-width:1180px)]:hidden pointer-events-none select-none"
         style={{ opacity: 0.14, filter: 'blur(1.5px)', mixBlendMode: 'multiply' }}
@@ -42,11 +42,11 @@ export default function AboutSection() {
             {/* Eyebrow */}
             <SectionReveal>
               <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <EyebrowDivider src="/images/about-ornament.svg" />
+                <EyebrowDivider src="/images/ornaments/about-ornament.svg" />
                 <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
                   {t('about.title')}
                 </span>
-                <EyebrowDivider src="/images/about-ornament.svg" flip />
+                <EyebrowDivider src="/images/ornaments/about-ornament.svg" flip />
               </div>
             </SectionReveal>
 
@@ -128,7 +128,7 @@ export default function AboutSection() {
                 aria-label={t('about.photoCaption')}
               >
                 <Image
-                  src="/images/beginning.jpg"
+                  src="/images/sections/beginning.jpg"
                   alt={t('about.photoCaption')}
                   width={480}
                   height={640}
@@ -178,7 +178,7 @@ export default function AboutSection() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/beginning.jpg"
+                src="/images/sections/beginning.jpg"
                 alt={t('about.photoCaption')}
                 width={480}
                 height={640}
