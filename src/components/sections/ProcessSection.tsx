@@ -56,7 +56,7 @@ const SVG_SEGMENTS = [
 function StepContent({ step, index }: { step: StepData; index: number }) {
   return (
     <div className="text-center px-1">
-      {/* Large decorative number — text-3xl like Stripe / Linear */}
+      {/* Decorative step number */}
       <span className="font-heading text-3xl text-forest/35 mb-1 block leading-none">
         0{index + 1}
       </span>
@@ -135,7 +135,7 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
   );
 }
 
-// ── Mobile step: own useInView — threshold 0.3 (professional standard for mobile)
+// ── Mobile step: per-item scroll reveal, threshold 0.3 ───────────────────────
 function MobileStep({ step, index, isLast }: { step: StepData; index: number; isLast: boolean }) {
   const ref    = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });

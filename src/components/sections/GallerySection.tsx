@@ -33,7 +33,7 @@ const PHOTOS: { src: string; alt: string }[] = [
 //
 const CARD_W   = '20rem';
 const CARD_H   = '27rem';
-const STEP_REM = 14;   // 70% of CARD_W — professional fan rule: step ≈ 0.6–0.7 × card width
+const STEP_REM = 14;   // step ≈ 70% of card width for natural fan spread
 const HOVER_Z  = 20;
 
 // Horizontal offset: left: 50% + translateX(calc(-50% + stepMult * STEP_REM rem))
@@ -46,7 +46,7 @@ const FAN_ITEMS = [
   { photoIdx: 4, stepMult:  2, rotateDeg:  10, baseZ: 1  },
 ] as const;
 
-// Asymmetric timing: fast hover-in (200ms), slower hover-out (350ms) — industry standard
+// Asymmetric timing: fast hover-in (200ms), slower hover-out (350ms)
 const cardHoverVariants = {
   rest:  { y: 0,   scale: 1,    transition: { duration: 0.35, ease: [0.4, 0, 1,   1] as const } },
   hover: { y: -14, scale: 1.03, transition: { duration: 0.2,  ease: [0,   0, 0.2, 1] as const } },
@@ -109,10 +109,9 @@ function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
 
 // ── Mobile: book-flip card + always-visible side arrows + counter ─────────────
 //
-//  Professional pattern (Variant A — Netflix / Booking):
 //  • Arrows always on image sides, always visible — no opacity-0 at boundaries
-//  • Infinite loop: last → first, first → last (FIFO)
-//  • Counter "2 з 5" below for older users who may not notice dots
+//  • Infinite loop: last → first, first → last
+//  • Counter "2 з 5" below for users who may not notice dots
 //  • Book-flip: rotateY with full perspective — direction determines which side
 //
 // Rotate 65° (not 90°) so the flip reads as page-turn without becoming invisible
