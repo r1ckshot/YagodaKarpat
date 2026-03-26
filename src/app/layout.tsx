@@ -18,6 +18,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ягодакарпат.укр'),
   title: {
     default: 'Ягода Карпат',
     template: '%s | Ягода Карпат',
