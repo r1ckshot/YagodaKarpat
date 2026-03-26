@@ -23,8 +23,7 @@ export const metadata: Metadata = {
     default: 'Ягода Карпат',
     template: '%s | Ягода Карпат',
   },
-  description:
-    'Лохинове господарство в серці Прикарпаття. Три сорти — Дюк, Чандлер, Еліот. Липень, серпень, вересень.',
+  description: 'Лохинове господарство в серці Прикарпаття.',
   keywords: [
     'лохина',
     'ягода карпат',
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'uk_UA',
     alternateLocale: 'en_US',
-    title: 'Ягода Карпат',
+    title: 'Файна Лохина з Прикарпаття',
     description: 'Лохина з Прикарпаття — три сорти, три місяці сезону',
     siteName: 'Ягода Карпат',
     images: [
