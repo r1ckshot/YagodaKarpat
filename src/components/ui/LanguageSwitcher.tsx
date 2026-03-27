@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocale } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { coverScreen } from '@/lib/transitionBus';
 
@@ -83,18 +83,18 @@ export default function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitc
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-body text-cream/70 hover:text-cream border border-cream/20 hover:border-cream/40 transition-colors duration-200"
       >
         {LOCALES.find(l => l.code === locale)?.label}
-        <motion.span
+        <m.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
           className="flex"
         >
           <ChevronDown size={13} />
-        </motion.span>
+        </m.span>
       </button>
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 4, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.97 }}
@@ -114,7 +114,7 @@ export default function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitc
                 {label}
               </button>
             ))}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

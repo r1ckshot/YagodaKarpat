@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { m, useInView, AnimatePresence } from 'framer-motion';
 import { PiFarmFill } from 'react-icons/pi';
 import { X } from 'lucide-react';
 import Image from 'next/image';
@@ -156,7 +156,7 @@ export default function AboutSection() {
       {/* ── Lightbox ── */}
       <AnimatePresence>
         {lightboxOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -172,7 +172,7 @@ export default function AboutSection() {
               <X size={32} />
             </button>
 
-            <motion.div
+            <m.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -192,8 +192,8 @@ export default function AboutSection() {
               <p className="mt-3 text-center font-body text-base text-cream/60 italic">
                 {t('about.photoCaption')}
               </p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

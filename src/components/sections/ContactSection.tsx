@@ -7,7 +7,7 @@ import { Phone, MapPin, X } from 'lucide-react';
 import { PiHandshakeFill } from 'react-icons/pi';
 import { FaInstagram } from 'react-icons/fa';
 import { SiTiktok } from 'react-icons/si';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { m, AnimatePresence, useInView } from 'framer-motion';
 
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
@@ -299,7 +299,7 @@ export default function ContactSection() {
       {/* ── Lightbox ── */}
       <AnimatePresence>
         {lightboxOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center p-4 cursor-zoom-out"
@@ -311,7 +311,7 @@ export default function ContactSection() {
             >
               <X size={32} />
             </button>
-            <motion.div
+            <m.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -326,8 +326,8 @@ export default function ContactSection() {
                 className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
                 sizes="92vw"
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

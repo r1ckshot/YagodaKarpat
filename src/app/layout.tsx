@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Nunito } from 'next/font/google';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import './globals.css';
 import PageTransition from '@/components/ui/PageTransition';
 import IntroSplash from '@/components/sections/IntroSplash';
@@ -80,11 +81,13 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/hero-poster-landscape.jpg" media="(orientation: landscape)" />
       </head>
       <body>
-        {/* Both live in root layout — never remount on locale change */}
-        <IntroSplash />
-        <PageTransition />
-        <ScrollToTop />
-        {children}
+        <LazyMotion features={domAnimation}>
+          {/* Both live in root layout — never remount on locale change */}
+          <IntroSplash />
+          <PageTransition />
+          <ScrollToTop />
+          {children}
+        </LazyMotion>
       </body>
     </html>
   );

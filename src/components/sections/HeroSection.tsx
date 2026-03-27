@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { isSeasonOpen } from '@/config/season';
 import { EASING } from '@/lib/animations';
@@ -95,19 +95,19 @@ export default function HeroSection() {
         {/* Logo — fluid width capped by both vw and dvh so it never overflows short viewports */}
         <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] max-w-[min(85vw,50dvh)] [@media_(min-height:680px)]:max-w-[85vw] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
           <div className="flex flex-col items-center w-full">
-            <motion.img
+            <m.img
               src="/images/logo/mountains.png"
               alt="" aria-hidden="true"
               className="w-[90%] h-auto"
               {...logoReveal()}
             />
-            <motion.img
+            <m.img
               src="/images/logo/blueberry.png"
               alt="Ягода Карпат"
               className="w-[35%] h-auto -mt-[7%]"
               {...logoReveal()}
             />
-            <motion.img
+            <m.img
               src="/images/logo/title.png"
               alt="" aria-hidden="true"
               className="w-full h-auto mt-[1%]"
@@ -115,7 +115,7 @@ export default function HeroSection() {
             />
           </div>
 
-          <motion.img
+          <m.img
             src="/images/logo/bottom-wave.png"
             alt="" aria-hidden="true"
             className="w-full h-auto"
@@ -124,17 +124,17 @@ export default function HeroSection() {
 
           {/* "Blueberry" text + glow */}
           <div className="relative -mt-[7%] w-full flex justify-center">
-            <motion.div
+            <m.div
               className="absolute inset-x-[34%] inset-y-1 bg-cream/80 rounded-full"
               style={{ filter: 'blur(clamp(0.6rem, 1.2vw, 0.9rem))' }}
               {...logoReveal(0.3, 0.5)}
             />
-            <motion.div
+            <m.div
               className="absolute inset-x-[9%] inset-y-3 bg-cream/30 rounded-full"
               style={{ filter: 'blur(clamp(1.2rem, 2.2vw, 1.7rem))' }}
               {...logoReveal(0.3, 0.6)}
             />
-            <motion.img
+            <m.img
               src="/images/logo/bottom-title.png"
               alt="" aria-hidden="true"
               className="relative w-[35%] h-auto"
@@ -144,7 +144,7 @@ export default function HeroSection() {
         </div>
 
         {/* Tagline */}
-        <motion.h1
+        <m.h1
           variants={titleContainer}
           initial="initial"
           animate="animate"
@@ -153,16 +153,16 @@ export default function HeroSection() {
           {words.map((word, i) => {
             const isAccent = ACCENT_WORDS.has(word.toLowerCase());
             return isAccent ? (
-              <motion.span key={`${i}-${locale}`} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0 relative">
+              <m.span key={`${i}-${locale}`} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0 relative">
                 {word}
-                <motion.svg
+                <m.svg
                   viewBox="0 0 100 18"
                   className="absolute left-0 bottom-[-14px] w-full h-[18px]"
                   preserveAspectRatio="none"
                   aria-hidden="true"
                   overflow="visible"
                 >
-                  <motion.path
+                  <m.path
                     d="M 2,9 C 16,3 32,15 50,9 C 66,3 84,15 94,8 C 96,7 98,5, 99,4"
                     stroke="color-mix(in srgb, var(--color-blueberry) 85%, transparent)"
                     strokeWidth="2.5"
@@ -179,26 +179,26 @@ export default function HeroSection() {
                       opacity:    { delay: 0.4, duration: 0.2 },
                     }}
                   />
-                </motion.svg>
-              </motion.span>
+                </m.svg>
+              </m.span>
             ) : (
-              <motion.span key={i} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0">
+              <m.span key={i} variants={titleWord} className="inline-block mr-[0.3em] last:mr-0">
                 {word}
-              </motion.span>
+              </m.span>
             );
           })}
-        </motion.h1>
+        </m.h1>
 
         {/* Subtitle */}
-        <motion.p
+        <m.p
           {...fadeUp(1.7)}
           className="font-body text-[clamp(1.25rem,1.1rem_+_0.9vw,1.75rem)] text-cream/80 mb-[clamp(0.375rem,1dvh,0.75rem)]"
         >
           {t('subtitle')}
-        </motion.p>
+        </m.p>
 
         {/* Season status */}
-        <motion.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
+        <m.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
           {isSeasonOpen() ? (
             <>
               <span className="relative flex h-3.5 w-3.5">
@@ -220,11 +220,11 @@ export default function HeroSection() {
               </span>
             </>
           )}
-        </motion.div>
+        </m.div>
 
         {/* CTA */}
-        <motion.div {...fadeUp(2.55)} className="relative">
-          <motion.span
+        <m.div {...fadeUp(2.55)} className="relative">
+          <m.span
             className="absolute inset-0 rounded-full bg-forest"
             animate={{ scale: [1, 1, 1.6], opacity: [0, 0.5, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, times: [0, 0.1, 1], ease: 'easeOut' }}
@@ -235,12 +235,12 @@ export default function HeroSection() {
           >
             {t('cta')}
           </a>
-        </motion.div>
+        </m.div>
 
       </div>
 
       {/* Scroll indicator — absolute so it never pushes content up */}
-      <motion.a
+      <m.a
         href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -250,13 +250,13 @@ export default function HeroSection() {
         className="absolute bottom-[clamp(1rem,2dvh,2rem)] left-0 right-0 z-10 flex justify-center [@media_(max-height:650px)]:hidden"
         aria-label="Scroll down"
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         >
           <ChevronDown className="text-cream/40 hover:text-cream/70 transition-colors duration-200" size={28} />
-        </motion.div>
-      </motion.a>
+        </m.div>
+      </m.a>
 
     </section>
   );

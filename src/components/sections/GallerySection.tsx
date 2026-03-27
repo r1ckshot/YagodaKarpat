@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { BsFillCameraFill } from 'react-icons/bs';
 
@@ -70,7 +70,7 @@ function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
         const offsetX = `calc(-50% + ${stepMult * STEP_REM}rem)`;
 
         return (
-          <motion.button
+          <m.button
             key={photoIdx}
             onClick={() => onOpen(photoIdx)}
             onHoverStart={() => setHovered(photoIdx)}
@@ -103,7 +103,7 @@ function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
             {/* subtle dark tint on hover */}
             <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/8
                             transition-colors duration-300 rounded-2xl" />
-          </motion.button>
+          </m.button>
         );
       })}
     </div>
@@ -152,7 +152,7 @@ function MobileGallery({
       <div className="relative w-full" style={{ perspective: 1200 }}>
 
         <AnimatePresence initial={false} custom={direction} mode="wait">
-          <motion.button
+          <m.button
             key={active}
             custom={direction}
             variants={bookVariants}
@@ -167,7 +167,7 @@ function MobileGallery({
           >
             <Image src={PHOTOS[active].src} alt={PHOTOS[active].alt} fill
               placeholder="blur" className="object-cover" sizes="90vw" />
-          </motion.button>
+          </m.button>
         </AnimatePresence>
 
         {/* Side arrows — always visible, always tappable (infinite loop) */}
@@ -229,7 +229,7 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
   idx: number; onClose: () => void; onPrev: () => void; onNext: () => void;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
       className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center
@@ -244,7 +244,7 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
         <X size={32} />
       </button>
 
-      <motion.div
+      <m.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -261,7 +261,7 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
           className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
           sizes="92vw"
         />
-      </motion.div>
+      </m.div>
 
       {idx > 0 && (
         <button onClick={e => { e.stopPropagation(); onPrev(); }}
@@ -281,7 +281,7 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
           aria-label="Наступне фото"
         ><ChevronRight size={22} /></button>
       )}
-    </motion.div>
+    </m.div>
   );
 }
 

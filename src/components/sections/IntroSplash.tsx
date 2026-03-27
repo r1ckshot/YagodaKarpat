@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useLayoutEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { EASING } from '@/lib/animations';
 import { isSplashPending, consumeSplash } from '@/lib/splashState';
 
@@ -28,7 +28,7 @@ export default function IntroSplash() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           className="fixed inset-0 z-[100] bg-cream flex items-center justify-center"
           exit={{ opacity: 0 }}
           transition={{ duration: EXIT_DURATION, ease: EASING.exit }}
@@ -36,7 +36,7 @@ export default function IntroSplash() {
           <div className="flex flex-col items-center w-[clamp(18rem,13rem_+_25vw,27.5rem)]">
 
             {/* 1. Mountains — lens-focus blur reveal */}
-            <motion.img
+            <m.img
               src="/images/logo/mountains.png"
               alt=""
               aria-hidden="true"
@@ -47,7 +47,7 @@ export default function IntroSplash() {
             />
 
             {/* 2. Blueberry — gentle scale pop after mountains focus */}
-            <motion.img
+            <m.img
               src="/images/logo/blueberry.png"
               alt="Ягода Карпат"
               className="w-[35%] h-auto -mt-[7%]"
@@ -60,7 +60,7 @@ export default function IntroSplash() {
             />
 
             {/* 3. Title — blur reveal after berry settles */}
-            <motion.img
+            <m.img
               src="/images/logo/title.png"
               alt=""
               aria-hidden="true"
@@ -71,7 +71,7 @@ export default function IntroSplash() {
             />
 
             {/* 4. Wave — expands from center */}
-            <motion.img
+            <m.img
               src="/images/logo/bottom-wave.png"
               alt=""
               aria-hidden="true"
@@ -84,7 +84,7 @@ export default function IntroSplash() {
 
             {/* 5. "Blueberry" text — rises gently after wave settles */}
             <div className="relative -mt-[7%] w-full flex justify-center">
-              <motion.img
+              <m.img
                 src="/images/logo/bottom-title.png"
                 alt=""
                 aria-hidden="true"
@@ -96,7 +96,7 @@ export default function IntroSplash() {
             </div>
 
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

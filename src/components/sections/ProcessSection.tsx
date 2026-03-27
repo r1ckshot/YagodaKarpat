@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { Shovel, Sprout, Droplets, FlaskConical, Hand } from 'lucide-react';
 import { GiFarmTractor } from 'react-icons/gi';
 
@@ -85,7 +85,7 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
         preserveAspectRatio="none"
       >
         {SVG_SEGMENTS.map((d, i) => (
-          <motion.path
+          <m.path
             key={i}
             d={d}
             fill="none"
@@ -109,7 +109,7 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
             style={!isTop ? { paddingTop: `${BOT_PAD}px` } : undefined}
           >
             {/* Circle */}
-            <motion.div
+            <m.div
               className="w-16 h-16 rounded-full bg-cream border-2 border-forest/45 flex items-center justify-center z-10 flex-none"
               style={{ boxShadow: '0 2px 14px color-mix(in srgb, var(--color-forest) 13%, transparent)' }}
               initial={{ opacity: 0, scale: 0.55 }}
@@ -117,17 +117,17 @@ function DesktopTimeline({ steps }: { steps: StepData[] }) {
               transition={{ duration: CIRCLE_DUR, delay: circleDelay(i), ease: EASING.bounce }}
             >
               <step.Icon size={28} className="text-forest" />
-            </motion.div>
+            </m.div>
 
             {/* Content always below circle */}
-            <motion.div
+            <m.div
               className="mt-4"
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, delay: circleDelay(i) + 0.1, ease: EASING.enter }}
             >
               <StepContent step={step} index={i} />
-            </motion.div>
+            </m.div>
           </div>
         );
       })}
@@ -145,7 +145,7 @@ function MobileStep({ step, index, isLast }: { step: StepData; index: number; is
 
       {/* Left: circle + connector — no mt to avoid white gap at scaleY:0 */}
       <div className="flex flex-col items-center flex-none w-12">
-        <motion.div
+        <m.div
           className="w-12 h-12 rounded-full bg-cream border-2 border-forest/40 flex items-center justify-center flex-none"
           style={{ boxShadow: '0 2px 8px color-mix(in srgb, var(--color-forest) 10%, transparent)' }}
           initial={{ opacity: 0, scale: 0.55 }}
@@ -153,10 +153,10 @@ function MobileStep({ step, index, isLast }: { step: StepData; index: number; is
           transition={{ duration: 0.55, ease: EASING.bounce }}
         >
           <step.Icon size={22} className="text-forest" />
-        </motion.div>
+        </m.div>
 
         {!isLast && (
-          <motion.div
+          <m.div
             className="flex-1 w-px bg-forest/25"
             style={{ minHeight: '2.5rem' }}
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
@@ -167,7 +167,7 @@ function MobileStep({ step, index, isLast }: { step: StepData; index: number; is
       </div>
 
       {/* Right: content */}
-      <motion.div
+      <m.div
         className={['flex-1 pt-1', !isLast ? 'pb-10' : ''].join(' ')}
         initial={{ opacity: 0, x: 14 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -183,7 +183,7 @@ function MobileStep({ step, index, isLast }: { step: StepData; index: number; is
         <p className="font-body text-[clamp(1.125rem,1rem_+_0.75vw,1.375rem)] text-dark/60 leading-relaxed text-pretty">
           {step.description}
         </p>
-      </motion.div>
+      </m.div>
 
     </div>
   );

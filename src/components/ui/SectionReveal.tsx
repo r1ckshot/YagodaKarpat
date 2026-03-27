@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { EASING, THRESHOLD } from '@/lib/animations';
 
 interface SectionRevealProps {
@@ -32,7 +32,7 @@ export default function SectionReveal({
   const show = preVisible || isInView;
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y }}
       animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y }}
@@ -40,6 +40,6 @@ export default function SectionReveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
