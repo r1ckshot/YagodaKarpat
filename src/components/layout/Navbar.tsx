@@ -56,7 +56,13 @@ export default function Navbar() {
             : 'bg-dark/90 backdrop-blur-sm border-cream/10'
         }`}
       >
-        <div className="max-w-6xl mx-auto h-full px-4 lg:px-6 flex items-center justify-between">
+        <div
+          className="max-w-6xl mx-auto h-full flex items-center justify-between"
+          style={{
+            paddingLeft:  'max(1rem, env(safe-area-inset-left, 0px))',
+            paddingRight: 'max(1rem, env(safe-area-inset-right, 0px))',
+          }}
+        >
 
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2 sm:gap-3.5 shrink-0">
@@ -124,6 +130,10 @@ export default function Navbar() {
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
             className="lg:hidden bg-dark/95 backdrop-blur-sm border-b border-cream/10 overflow-y-auto max-h-[calc(100dvh-4rem)]"
+            style={{
+              paddingLeft:  'env(safe-area-inset-left, 0px)',
+              paddingRight: 'env(safe-area-inset-right, 0px)',
+            }}
           >
             {/* Landscape short (≤380px): locale row + 2-column nav grid */}
             <nav className="hidden [@media_(orientation:landscape)_and_(max-height:380px)]:block px-6 py-3">

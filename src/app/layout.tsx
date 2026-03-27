@@ -60,10 +60,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: ['/images/og-image.jpg'],
   },
-  icons: {
-    icon: '/images/logo/blueberry.png',
-    apple: '/images/logo/blueberry.png',
-  },
   robots: {
     index: true,
     follow: true,

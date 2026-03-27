@@ -86,11 +86,17 @@ export default function HeroSection() {
       {/* Extra overlay — mobile portrait only, slightly darker */}
       <div className="absolute inset-0 bg-dark/25 md:hidden" />
 
-      {/* Navbar spacer — only on small phones (<640px) to prevent logo hiding behind fixed navbar */}
-      <div className="flex-none h-16 sm:h-0" aria-hidden="true" />
+      {/* Navbar spacer — small phones portrait (<640px) and all phones in landscape (<1024px) */}
+      <div className="flex-none h-16 sm:h-0 [@media_(orientation:landscape)_and_(max-width:1023px)]:h-16" aria-hidden="true" />
 
       {/* Main content — fills available height, centres children */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 w-full max-w-5xl mx-auto">
+      <div
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center w-full max-w-5xl mx-auto"
+        style={{
+          paddingLeft:  'max(1.5rem, env(safe-area-inset-left, 0px))',
+          paddingRight: 'max(1.5rem, env(safe-area-inset-right, 0px))',
+        }}
+      >
 
         {/* Logo — fluid width capped by both vw and dvh so it never overflows short viewports */}
         <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] max-w-[min(85vw,50dvh)] [@media_(min-height:680px)]:max-w-[85vw] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
@@ -175,8 +181,8 @@ export default function HeroSection() {
                       pathLength: { delay: 1.35 + splashOffset, duration: 1.1, ease: EASING.enter },
                       opacity:    { delay: 1.35 + splashOffset, duration: 0.2 },
                     } : {
-                      pathLength: { delay: 0.4, duration: 1.1, ease: EASING.enter },
-                      opacity:    { delay: 0.4, duration: 0.2 },
+                      pathLength: { delay: 1.0, duration: 1.1, ease: EASING.enter },
+                      opacity:    { delay: 1.0, duration: 0.2 },
                     }}
                   />
                 </m.svg>
