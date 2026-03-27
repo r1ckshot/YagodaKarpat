@@ -47,9 +47,10 @@ const FAN_ITEMS = [
 ] as const;
 
 // Asymmetric timing: fast hover-in (200ms), slower hover-out (350ms)
+// boxShadow lives here (not in animate) so hover doesn't re-evaluate animate for all 5 cards
 const cardHoverVariants = {
-  rest:  { y: 0,   scale: 1,    transition: { duration: 0.35, ease: [0.4, 0, 1,   1] as const } },
-  hover: { y: -14, scale: 1.03, transition: { duration: 0.2,  ease: [0,   0, 0.2, 1] as const } },
+  rest:  { y: 0,   scale: 1,    boxShadow: '0  8px 40px 2px rgba(248,245,240,0.18)', transition: { duration: 0.35, ease: [0.4, 0, 1,   1] as const } },
+  hover: { y: -14, scale: 1.03, boxShadow: '0 20px 64px 6px rgba(248,245,240,0.40)', transition: { duration: 0.2,  ease: [0,   0, 0.2, 1] as const } },
 };
 
 function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
@@ -76,15 +77,9 @@ function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
               top:    0,
               zIndex: isHov ? HOVER_Z : baseZ,
             }}
-            // x + rotate stay from animate; y + scale come from variant (asymmetric timing)
+            // x + rotate set once on mount; y + scale + boxShadow handled by variant
             initial={false}
-            animate={{
-              x:         offsetX,
-              rotate:    rotateDeg,
-              boxShadow: isHov
-                ? '0 20px 64px 6px rgba(248,245,240,0.40)'
-                : '0  8px 40px 2px rgba(248,245,240,0.18)',
-            }}
+            animate={{ x: offsetX, rotate: rotateDeg }}
             variants={cardHoverVariants}
             whileHover="hover"
             aria-label={PHOTOS[photoIdx].alt}
@@ -125,13 +120,13 @@ const bookVariants = {
     rotateY: 0,
     opacity: 1,
     scale:   1,
-    transition: { duration: 0.48, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] },
+    transition: { duration: 0.32, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] },
   },
   exit: (dir: number) => ({
     rotateY: dir > 0 ? -65 : 65,
     opacity: 0,
     scale:   0.92,
-    transition: { duration: 0.35, ease: [0.4, 0, 1, 1] as [number,number,number,number] },
+    transition: { duration: 0.2, ease: [0.4, 0, 1, 1] as [number,number,number,number] },
   }),
 };
 
