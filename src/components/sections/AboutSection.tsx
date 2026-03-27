@@ -132,6 +132,7 @@ export default function AboutSection() {
                   alt={t('about.photoCaption')}
                   width={480}
                   height={640}
+                  priority
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 72vw, (max-width: 1280px) 320px, 380px"
                 />
