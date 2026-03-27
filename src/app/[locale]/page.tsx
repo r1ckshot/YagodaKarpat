@@ -1,7 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 
-import IntroSplash from '@/components/sections/IntroSplash';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import VarietiesSection from '@/components/sections/VarietiesSection';
@@ -23,7 +22,6 @@ export default async function LocalePage({
 
   return (
     <>
-      <IntroSplash />
       <main>
         <HeroSection />
         <AboutSection />

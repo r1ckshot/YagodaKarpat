@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from '@/i18n/routing';
-import { coverScreen, revealScreen } from '@/lib/transitionBus';
+import { coverScreen } from '@/lib/transitionBus';
 
 const LOCALES = [
   { code: 'uk' as const, label: 'Українська' },
@@ -33,13 +33,21 @@ export default function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitc
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  const otherLocale = LOCALES.find(l => l.code !== locale)?.code as 'uk' | 'en' | undefined;
+
+  // Prefetch the other locale so navigation is instant when user switches.
+  useEffect(() => {
+    if (otherLocale) router.prefetch(pathname, { locale: otherLocale });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, otherLocale]);
+
   const switchLocale = async (newLocale: 'uk' | 'en') => {
     if (newLocale === locale) { setOpen(false); return; }
     setOpen(false);
     const hash = window.location.hash;
-    await coverScreen();                                                      // curtain sweeps in (0.38s)
+    await coverScreen();                                                      // curtain sweeps in (~0.92s)
     router.replace(pathname + hash, { locale: newLocale, scroll: false });   // navigate while covered, preserve hash
-    revealScreen();                                                           // curtain sweeps out after 80ms built-in delay
+    // reveal is triggered by LocaleTransition on the new page after it mounts
   };
 
   // Inline variant — two buttons side by side, no dropdown
