@@ -44,6 +44,7 @@ export default function Navbar() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-200 ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}

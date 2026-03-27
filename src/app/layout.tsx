@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Nunito } from 'next/font/google';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import './globals.css';
@@ -17,6 +17,12 @@ const nunito = Nunito({
   variable: '--font-body',
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ягодакарпат.укр'),
