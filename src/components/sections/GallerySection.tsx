@@ -10,14 +10,21 @@ import { BsFillCameraFill } from 'react-icons/bs';
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
+import { type StaticImageData } from 'next/image';
+
+import blueberryCollageImg  from '../../../public/images/gallery/blueberry-collage.jpg';
+import blueberryBloomingImg from '../../../public/images/gallery/blueberry-blooming.jpg';
+import kidGatheringImg      from '../../../public/images/gallery/kid-gathering.jpg';
+import blueberryAutumnImg   from '../../../public/images/gallery/blueberry-autumn.jpg';
+import beginningCollageImg  from '../../../public/images/gallery/beginning-collage.jpg';
 
 // ── Photos ─────────────────────────────────────────────────────────────────────
-const PHOTOS: { src: string; alt: string }[] = [
-  { src: '/images/gallery/blueberry-collage.jpg',  alt: 'Спіла лохина — колаж'           },
-  { src: '/images/gallery/blueberry-blooming.jpg', alt: 'Цвітіння лохини навесні'        },
-  { src: '/images/gallery/kid-gathering.jpg',      alt: 'Дитина збирає ягоди'            },
-  { src: '/images/gallery/blueberry-autumn.jpg',   alt: 'Поле лохини восени'             },
-  { src: '/images/gallery/beginning-collage.jpg',  alt: 'Початок — висадка перших кущів' },
+const PHOTOS: { src: StaticImageData; alt: string }[] = [
+  { src: blueberryCollageImg,  alt: 'Спіла лохина — колаж'           },
+  { src: blueberryBloomingImg, alt: 'Цвітіння лохини навесні'        },
+  { src: kidGatheringImg,      alt: 'Дитина збирає ягоди'            },
+  { src: blueberryAutumnImg,   alt: 'Поле лохини восени'             },
+  { src: beginningCollageImg,  alt: 'Початок — висадка перших кущів' },
 ];
 
 // ── Desktop: fan / card-pyramid spread ────────────────────────────────────────
@@ -88,6 +95,7 @@ function FanGrid({ onOpen }: { onOpen: (i: number) => void }) {
               src={PHOTOS[photoIdx].src}
               alt={PHOTOS[photoIdx].alt}
               fill
+              placeholder="blur"
               className="object-cover transition-transform duration-700 ease-out
                          group-hover:scale-[1.04]"
               sizes="(min-width: 1024px) 20vw"
@@ -158,7 +166,7 @@ function MobileGallery({
             aria-label={PHOTOS[active].alt}
           >
             <Image src={PHOTOS[active].src} alt={PHOTOS[active].alt} fill
-              className="object-cover" sizes="90vw" />
+              placeholder="blur" className="object-cover" sizes="90vw" />
           </motion.button>
         </AnimatePresence>
 
@@ -249,6 +257,7 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
           alt={PHOTOS[idx].alt}
           width={480}
           height={640}
+          placeholder="blur"
           className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
           sizes="92vw"
         />

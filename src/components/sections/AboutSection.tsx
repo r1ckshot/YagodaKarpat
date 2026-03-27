@@ -7,6 +7,7 @@ import { PiFarmFill } from 'react-icons/pi';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import SectionReveal from '@/components/ui/SectionReveal';
+import beginningImg from '../../../public/images/sections/beginning.jpg';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
@@ -128,11 +129,12 @@ export default function AboutSection() {
                 aria-label={t('about.photoCaption')}
               >
                 <Image
-                  src="/images/sections/beginning.jpg"
+                  src={beginningImg}
                   alt={t('about.photoCaption')}
                   width={480}
                   height={640}
                   priority
+                  placeholder="blur"
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 72vw, (max-width: 1280px) 320px, 380px"
                 />
@@ -179,10 +181,11 @@ export default function AboutSection() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/sections/beginning.jpg"
+                src={beginningImg}
                 alt={t('about.photoCaption')}
                 width={480}
                 height={640}
+                placeholder="blur"
                 className="max-h-[85dvh] w-auto rounded-xl shadow-2xl"
                 sizes="(max-width: 768px) 100vw, 480px"
               />

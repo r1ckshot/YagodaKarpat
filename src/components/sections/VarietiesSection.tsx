@@ -2,24 +2,28 @@
 
 import { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import { GiBerriesBowl } from 'react-icons/gi';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 
+import dukeImg     from '../../../public/images/varieties/duke.jpg';
+import chandlerImg from '../../../public/images/varieties/chandler.jpg';
+import elliottImg  from '../../../public/images/varieties/elliott.jpg';
+
 const VARIETIES = [
-  { key: 'duke',     image: '/images/varieties/duke.jpg'     },
-  { key: 'chandler', image: '/images/varieties/chandler.jpg' },
-  { key: 'elliott',  image: '/images/varieties/elliott.jpg'  },
+  { key: 'duke',     image: dukeImg     },
+  { key: 'chandler', image: chandlerImg },
+  { key: 'elliott',  image: elliottImg  },
 ] as const;
 
 const CARD_DELAYS = [0.3, 0.45, 0.6] as const;
 
 interface CardData {
   key: string;
-  image: string;
+  image: StaticImageData;
   name: string;
   period: string;
   description: string;
@@ -35,6 +39,7 @@ function VarietyCard({ card }: { card: CardData }) {
           src={card.image}
           alt={card.name}
           fill
+          placeholder="blur"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           sizes="(max-width: 768px) 82vw, 33vw"
         />

@@ -12,6 +12,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
+import storksImg from '../../../public/images/sections/contact-storks.jpg';
 
 const PHONES = [
   { display: '098 804 07 63', tel: '+380988040763' },
@@ -78,9 +79,10 @@ function StorkPhoto({ onOpen, sizes }: { onOpen: () => void; sizes: string }) {
         aria-label="Відкрити фото"
       >
         <Image
-          src="/images/sections/contact-storks.jpg"
+          src={storksImg}
           alt="Лелеки над карпатським полем"
           width={640} height={480}
+          placeholder="blur"
           className="w-full h-auto lg:h-[clamp(16rem,36dvh,24rem)] object-cover transition-transform duration-700 ease-out
                      group-hover:scale-[1.04]"
           sizes={sizes}
@@ -317,9 +319,10 @@ export default function ContactSection() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/sections/contact-storks.jpg"
+                src={storksImg}
                 alt="Лелеки над карпатським полем"
                 width={640} height={480}
+                placeholder="blur"
                 className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
                 sizes="92vw"
               />
