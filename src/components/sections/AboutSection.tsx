@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { m, useInView, AnimatePresence } from 'framer-motion';
 import { PiFarmFill } from 'react-icons/pi';
@@ -10,6 +10,31 @@ import SectionReveal from '@/components/ui/SectionReveal';
 import beginningImg from '../../../public/images/sections/beginning.jpg';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
+
+function LightboxPhoto() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setLoaded(false); }, []);
+  return (
+    <div
+      className="rounded-xl overflow-hidden shadow-2xl"
+      style={{
+        backgroundImage:    `url(${beginningImg.blurDataURL})`,
+        backgroundSize:     'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Image
+        src={beginningImg}
+        alt=""
+        width={480}
+        height={640}
+        onLoad={() => setLoaded(true)}
+        className={`max-h-[85dvh] w-auto block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        sizes="(max-width: 768px) 100vw, 480px"
+      />
+    </div>
+  );
+}
 
 export default function AboutSection() {
   const t = useTranslations();
@@ -173,22 +198,13 @@ export default function AboutSection() {
             </button>
 
             <m.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, ease: EASING.enter }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1,    opacity: 1 }}
+              transition={{ duration: 0.2, ease: EASING.enter }}
               className="relative flex flex-col items-center"
               onClick={e => e.stopPropagation()}
             >
-              <Image
-                src={beginningImg}
-                alt={t('about.photoCaption')}
-                width={480}
-                height={640}
-                placeholder="blur"
-                className="max-h-[85dvh] w-auto rounded-xl shadow-2xl"
-                sizes="(max-width: 768px) 100vw, 480px"
-              />
+              <LightboxPhoto />
               <p className="mt-3 text-center font-body text-base text-cream/60 italic">
                 {t('about.photoCaption')}
               </p>

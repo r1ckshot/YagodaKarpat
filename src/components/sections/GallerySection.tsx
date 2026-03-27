@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { m, AnimatePresence } from 'framer-motion';
@@ -225,6 +225,36 @@ function MobileGallery({
 }
 
 // ── Lightbox ───────────────────────────────────────────────────────────────────
+function LightboxImage({ idx }: { idx: number }) {
+  const [loaded, setLoaded] = useState(false);
+  const photo = PHOTOS[idx];
+
+  // Reset on every photo change so blur shows again between navigations
+  useEffect(() => { setLoaded(false); }, [idx]);
+
+  return (
+    // blurDataURL as CSS background — covers progressive JPEG rendering artifact
+    <div
+      className="rounded-xl overflow-hidden shadow-2xl"
+      style={{
+        backgroundImage:    `url(${photo.src.blurDataURL})`,
+        backgroundSize:     'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        width={480}
+        height={640}
+        onLoad={() => setLoaded(true)}
+        className={`max-h-[88dvh] w-auto max-w-[92vw] block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        sizes="92vw"
+      />
+    </div>
+  );
+}
+
 function Lightbox({ idx, onClose, onPrev, onNext }: {
   idx: number; onClose: () => void; onPrev: () => void; onNext: () => void;
 }) {
@@ -244,23 +274,15 @@ function Lightbox({ idx, onClose, onPrev, onNext }: {
         <X size={32} />
       </button>
 
+      {/* key={idx} remounts with fade on every photo change */}
       <m.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3, ease: EASING.enter }}
-        className="flex items-center justify-center"
+        key={idx}
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1,    opacity: 1 }}
+        transition={{ duration: 0.2, ease: EASING.enter }}
         onClick={e => e.stopPropagation()}
       >
-        <Image
-          src={PHOTOS[idx].src}
-          alt={PHOTOS[idx].alt}
-          width={480}
-          height={640}
-          placeholder="blur"
-          className="max-h-[88dvh] w-auto max-w-[92vw] rounded-xl shadow-2xl"
-          sizes="92vw"
-        />
+        <LightboxImage idx={idx} />
       </m.div>
 
       {idx > 0 && (
