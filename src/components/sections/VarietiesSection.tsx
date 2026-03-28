@@ -71,11 +71,11 @@ function VarietyCard({ card }: { card: CardData }) {
       </div>
 
       {/* Mobile + tablet (<1024px): text below image */}
-      <div className="xl:hidden bg-white/[0.04] px-5 py-5 [@media_(orientation:landscape)_and_(max-height:380px)]:px-3 [@media_(orientation:landscape)_and_(max-height:380px)]:py-2">
-        <h3 className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-cream leading-tight mb-3 [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1 [@media_(orientation:landscape)_and_(max-height:380px)]:text-lg">
+      <div className="xl:hidden bg-white/[0.04] px-5 py-5 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:px-3 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:py-2">
+        <h3 className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-cream leading-tight mb-3 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:mb-1 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:text-lg">
           {card.name}
         </h3>
-        <p className="font-body text-[clamp(1.125rem,1rem_+_0.75vw,1.375rem)] text-cream/55 leading-relaxed text-pretty [@media_(orientation:landscape)_and_(max-height:380px)]:text-xs [@media_(orientation:landscape)_and_(max-height:380px)]:leading-snug">
+        <p className="font-body text-[clamp(1.125rem,1rem_+_0.75vw,1.375rem)] text-cream/55 leading-relaxed text-pretty [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:text-xs [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:leading-snug">
           {card.description}
         </p>
       </div>
@@ -112,7 +112,7 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
   };
 
   return (
-    <div className="py-[clamp(4rem,8dvh,7rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:py-3">
+    <div className="py-[clamp(4rem,8dvh,7rem)] [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:py-3">
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-8 px-6">
         <SectionReveal>
@@ -230,12 +230,12 @@ export default function VarietiesSection() {
       className="relative bg-dark min-h-[100dvh]"
     >
       {/* Mobile portrait: centered carousel with arrows + dots */}
-      <div className="md:hidden [@media_(orientation:landscape)_and_(max-height:380px)]:hidden">
+      <div className="md:hidden [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:hidden">
         <MobileCarousel title={t('title')} subtitle={t('subtitle')} cards={cards} />
       </div>
 
       {/* Tablet + desktop + landscape phone: centred header + 3-column grid */}
-      <div className="hidden md:flex [@media_(orientation:landscape)_and_(max-height:380px)]:flex flex-col justify-center min-h-[100dvh] py-[clamp(4rem,8dvh,7rem)]">
+      <div className="hidden md:flex [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:flex flex-col justify-center min-h-[100dvh] py-[clamp(4rem,8dvh,7rem)]">
         <div className="relative max-w-6xl mx-auto px-6 w-full">
 
           {/* Header */}
@@ -264,7 +264,7 @@ export default function VarietiesSection() {
           </div>
 
           {/* Grid */}
-          <div className="grid md:grid-cols-3 [@media_(orientation:landscape)_and_(max-height:380px)]:grid-cols-3 gap-6 lg:gap-8 [@media_(orientation:landscape)_and_(max-height:380px)]:gap-3">
+          <div className="grid md:grid-cols-3 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:grid-cols-3 gap-6 lg:gap-8 [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:gap-3">
             {cards.map((card, i) => (
               <SectionReveal key={card.key} delay={CARD_DELAYS[i]}>
                 <VarietyCard card={card} />
