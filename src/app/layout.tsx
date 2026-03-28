@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Nunito } from 'next/font/google';
 import { LazyMotion, domAnimation } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import PageTransition from '@/components/ui/PageTransition';
 import IntroSplash from '@/components/sections/IntroSplash';
@@ -90,6 +92,8 @@ export default function RootLayout({
           <ScrollToTop />
           {children}
         </LazyMotion>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
