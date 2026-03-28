@@ -33,7 +33,7 @@ export default function IntroSplash() {
           exit={{ opacity: 0 }}
           transition={{ duration: EXIT_DURATION, ease: EASING.exit }}
         >
-          <div className="flex flex-col items-center w-[clamp(18rem,13rem_+_25vw,27.5rem)]">
+          <div className="flex flex-col items-center w-[clamp(18rem,13rem_+_25vw,27.5rem)] max-w-[min(85vw,90dvh)]">
 
             {/* 1. Mountains — lens-focus blur reveal */}
             <m.img
