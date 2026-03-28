@@ -17,10 +17,15 @@ import storksImg from '../../../public/images/sections/contact-storks.jpg';
 function StorkLightboxPhoto() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setLoaded(false); }, []);
+
+  const { width: iw, height: ih } = storksImg;
+
   return (
     <div
-      className="rounded-xl overflow-hidden shadow-2xl"
+      className="relative rounded-xl overflow-hidden shadow-2xl"
       style={{
+        width: `min(96vw, calc(90svh * ${iw / ih}))`,
+        aspectRatio: `${iw} / ${ih}`,
         backgroundImage:    `url(${storksImg.blurDataURL})`,
         backgroundSize:     'cover',
         backgroundPosition: 'center',
@@ -29,10 +34,10 @@ function StorkLightboxPhoto() {
       <Image
         src={storksImg}
         alt="Лелеки над карпатським полем"
-        width={640} height={480}
+        fill
         onLoad={() => setLoaded(true)}
-        className={`max-h-[88dvh] w-auto max-w-[92vw] block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="92vw"
+        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        sizes="96vw"
       />
     </div>
   );

@@ -42,7 +42,10 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-dark border-t border-cream/10">
+    <footer
+      className="bg-dark border-t border-cream/10"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+    >
 
       {/* ── PHONE PORTRAIT (<640px portrait) ── */}
       <div className="[@media_(orientation:landscape)]:hidden sm:hidden h-16 max-w-6xl mx-auto px-6 flex items-center justify-between">

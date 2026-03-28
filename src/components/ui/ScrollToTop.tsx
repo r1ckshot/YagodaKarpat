@@ -27,7 +27,11 @@ export default function ScrollToTop() {
           transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-4 right-4 z-50 w-11 h-11 md:w-12 md:h-12 lg:w-13 lg:h-13 rounded-full bg-forest text-white flex items-center justify-center shadow-lg hover:bg-forest/80 transition-colors duration-200"
+          className="fixed z-50 w-11 h-11 md:w-12 md:h-12 lg:w-13 lg:h-13 rounded-full bg-forest text-white flex items-center justify-center shadow-lg hover:bg-forest/80 transition-colors duration-200"
+          style={{
+            bottom: 'max(1rem, env(safe-area-inset-bottom, 0px))',
+            right:  'max(1rem, env(safe-area-inset-right, 0px))',
+          }}
         >
           <ArrowUp size={20} strokeWidth={2.5} />
         </m.button>

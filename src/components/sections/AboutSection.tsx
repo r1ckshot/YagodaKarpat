@@ -14,10 +14,15 @@ import { EASING } from '@/lib/animations';
 function LightboxPhoto() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setLoaded(false); }, []);
+
+  const { width: iw, height: ih } = beginningImg;
+
   return (
     <div
-      className="rounded-xl overflow-hidden shadow-2xl"
+      className="relative rounded-xl overflow-hidden shadow-2xl"
       style={{
+        width: `min(96vw, calc(90svh * ${iw / ih}))`,
+        aspectRatio: `${iw} / ${ih}`,
         backgroundImage:    `url(${beginningImg.blurDataURL})`,
         backgroundSize:     'cover',
         backgroundPosition: 'center',
@@ -26,11 +31,10 @@ function LightboxPhoto() {
       <Image
         src={beginningImg}
         alt=""
-        width={480}
-        height={640}
+        fill
         onLoad={() => setLoaded(true)}
-        className={`max-h-[85dvh] w-auto block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="(max-width: 768px) 100vw, 480px"
+        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        sizes="96vw"
       />
     </div>
   );
@@ -201,13 +205,9 @@ export default function AboutSection() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1,    opacity: 1 }}
               transition={{ duration: 0.2, ease: EASING.enter }}
-              className="relative flex flex-col items-center"
               onClick={e => e.stopPropagation()}
             >
               <LightboxPhoto />
-              <p className="mt-3 text-center font-body text-base text-cream/60 italic">
-                {t('about.photoCaption')}
-              </p>
             </m.div>
           </m.div>
         )}

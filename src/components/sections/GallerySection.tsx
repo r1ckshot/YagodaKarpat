@@ -229,14 +229,16 @@ function LightboxImage({ idx }: { idx: number }) {
   const [loaded, setLoaded] = useState(false);
   const photo = PHOTOS[idx];
 
-  // Reset on every photo change so blur shows again between navigations
   useEffect(() => { setLoaded(false); }, [idx]);
 
+  const { width: iw, height: ih } = photo.src;
+
   return (
-    // blurDataURL as CSS background — covers progressive JPEG rendering artifact
     <div
-      className="rounded-xl overflow-hidden shadow-2xl"
+      className="relative rounded-xl overflow-hidden shadow-2xl"
       style={{
+        width: `min(96vw, calc(90svh * ${iw / ih}))`,
+        aspectRatio: `${iw} / ${ih}`,
         backgroundImage:    `url(${photo.src.blurDataURL})`,
         backgroundSize:     'cover',
         backgroundPosition: 'center',
@@ -245,11 +247,10 @@ function LightboxImage({ idx }: { idx: number }) {
       <Image
         src={photo.src}
         alt={photo.alt}
-        width={480}
-        height={640}
+        fill
         onLoad={() => setLoaded(true)}
-        className={`max-h-[88dvh] w-auto max-w-[92vw] block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="92vw"
+        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        sizes="96vw"
       />
     </div>
   );

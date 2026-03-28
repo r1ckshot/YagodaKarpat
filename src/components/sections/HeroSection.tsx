@@ -59,7 +59,7 @@ export default function HeroSection() {
   });
 
   return (
-    <section id="hero" className="relative h-[100dvh] flex flex-col overflow-hidden">
+    <section id="hero" className="relative min-h-[100svh] flex flex-col overflow-hidden">
 
       {/* Portrait video — mobile only */}
       <video
