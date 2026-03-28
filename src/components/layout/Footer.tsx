@@ -63,20 +63,29 @@ export default function Footer() {
         <Mountains />
       </div>
 
-      {/* ── LANDSCAPE small (≤420px height): logo · year · mountains ── */}
-      <div className="hidden [@media_(orientation:landscape)_and_(max-height:420px)]:flex
+      {/* ── LANDSCAPE small phone (≤640px wide): logo · year · mountains ── */}
+      <div className="hidden [@media_(orientation:landscape)_and_(max-width:640px)]:flex
                       h-16 max-w-6xl mx-auto px-6 items-center justify-between">
         <Logo />
         <p className="font-body text-base text-cream/50 tracking-widest uppercase">© 2026</p>
         <Mountains />
       </div>
 
-      {/* ── LANDSCAPE regular (>420px height): logo left · text center+translate · mountains right ── */}
-      <div className="hidden [@media_(orientation:landscape)_and_(min-height:421px)]:flex
+      {/* ── LANDSCAPE phone (641px–1023px wide): logo · text+year center · mountains ── */}
+      <div className="hidden [@media_(orientation:landscape)_and_(min-width:641px)_and_(max-width:1023px)]:grid
+                      grid-cols-[auto_1fr_auto] h-16 max-w-6xl mx-auto px-6 items-center gap-4">
+        <Logo />
+        <div className="flex justify-center items-center">
+          <CenterText />
+        </div>
+        <Mountains />
+      </div>
+
+      {/* ── LANDSCAPE tablet/desktop (≥1024px wide): logo left · text center · mountains right ── */}
+      <div className="hidden [@media_(orientation:landscape)_and_(min-width:1024px)]:flex
                       h-16 max-w-6xl mx-auto px-6 relative items-center justify-center">
         <div className="absolute left-6"><Logo /></div>
-        <div className="hidden lg:block"><CenterText translate subtitle /></div>
-        <div className="lg:hidden"><CenterText translate /></div>
+        <CenterText translate subtitle />
         <div className="absolute right-6"><Mountains /></div>
       </div>
 
