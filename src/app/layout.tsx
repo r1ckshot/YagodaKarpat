@@ -75,14 +75,14 @@ export default function RootLayout({
     <html lang="uk" className={`${playfair.variable} ${nunito.variable}`}>
       <head>
         {/* Preload logo layers used in IntroSplash — visible before React hydrates */}
-        <link rel="preload" as="image" href="/images/logo/mountains.png" />
+        <link rel="preload" as="image" href="/images/logo/mountains.png" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/logo/blueberry.png" />
         <link rel="preload" as="image" href="/images/logo/title.png" />
         <link rel="preload" as="image" href="/images/logo/bottom-wave.png" />
         <link rel="preload" as="image" href="/images/logo/bottom-title.png" />
         {/* Preload hero poster matching device orientation */}
-        <link rel="preload" as="image" href="/images/hero-poster-portrait.jpg" media="(orientation: portrait)" />
-        <link rel="preload" as="image" href="/images/hero-poster-landscape.jpg" media="(orientation: landscape)" />
+        <link rel="preload" as="image" href="/images/hero-poster-portrait.jpg" media="(orientation: portrait)" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/hero-poster-landscape.jpg" media="(orientation: landscape)" fetchPriority="high" />
       </head>
       <body>
         <LazyMotion features={domAnimation}>
