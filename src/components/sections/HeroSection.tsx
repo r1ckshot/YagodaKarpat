@@ -230,11 +230,7 @@ export default function HeroSection() {
 
         {/* CTA */}
         <m.div {...fadeUp(2.55)} className="relative">
-          <m.span
-            className="absolute inset-0 rounded-full bg-forest"
-            animate={{ scale: [1, 1, 1.6], opacity: [0, 0.5, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, times: [0, 0.1, 1], ease: 'easeOut' }}
-          />
+          <span className="absolute inset-0 rounded-full bg-forest animate-cta-pulse" />
           <a
             href="#about"
             className="relative inline-flex items-center gap-2 px-8 py-3.5 bg-forest text-cream font-body font-semibold rounded-full hover:bg-forest/80 transition-colors duration-200"
@@ -253,15 +249,12 @@ export default function HeroSection() {
         transition={firstLoad
           ? { duration: 0.5, delay: 3.1 + splashOffset }
           : { duration: 0 }}
-        className="absolute bottom-[clamp(1rem,2dvh,2rem)] left-0 right-0 z-10 flex justify-center [@media_(max-height:650px)]:hidden"
+        className="absolute bottom-[clamp(1rem,2dvh,2rem)] left-0 right-0 z-10 flex justify-center [@media_(max-height:720px)]:hidden"
         aria-label="Scroll down"
       >
-        <m.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        >
+        <div className="animate-bounce">
           <ChevronDown className="text-cream/40 hover:text-cream/70 transition-colors duration-200" size={28} />
-        </m.div>
+        </div>
       </m.a>
 
     </section>
