@@ -74,6 +74,7 @@ export default function RootLayout({
   return (
     <html lang="uk" className={`${playfair.variable} ${nunito.variable}`}>
       <head>
+        <meta name="google-site-verification" content="-ELpqbrTYaAYsKguG-qOGPVaoYj2jE_MO-Qd8Giu7K0" />
         {/* Preload logo layers used in IntroSplash — visible before React hydrates */}
         <link rel="preload" as="image" href="/images/logo/mountains.png" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/logo/blueberry.png" />
