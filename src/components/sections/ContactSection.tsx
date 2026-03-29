@@ -46,6 +46,7 @@ function StorkLightboxPhoto() {
 const PHONES = [
   { display: '098 804 07 63', tel: '+380988040763' },
   { display: '099 200 10 89', tel: '+380992001089' },
+  { display: '067 673 33 00', tel: '+380676733300' },
 ];
 
 // ── Reusable contact item ──────────────────────────────────────────────────────
@@ -240,9 +241,47 @@ export default function ContactSection() {
           </SectionReveal>
         </div>
 
-        {/* ══ TABLET + PHONE LANDSCAPE (sm–lg): 3-col contacts + photo ══ */}
-        <div className="hidden sm:flex sm:flex-col lg:hidden gap-[clamp(1.5rem,3dvh,2.5rem)]">
-          {/* 3 columns: phones | location(centered) | social */}
+        {/* ══ SMALL PHONE LANDSCAPE (sm–md, 640–767px): 2-col phones|social + location below ══ */}
+        <div className="hidden sm:flex md:hidden flex-col gap-[clamp(1.5rem,3dvh,2.5rem)]">
+          {/* 2 columns: phones | social */}
+          <SectionReveal delay={0.3}>
+            <div className="grid grid-cols-[1fr_1px_1fr] gap-x-8 items-start max-w-lg mx-auto w-full">
+              {/* Phones */}
+              <div className="flex flex-col items-start gap-3">
+                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20">{t('phone')}</span>
+                {PHONES.map(({ display, tel }) => (
+                  <ContactItem key={tel} href={`tel:${tel}`} size="md"
+                    icon={<Phone size={15} className="text-forest" />} label={display} />
+                ))}
+              </div>
+              {/* Divider */}
+              <div className="bg-forest/15 self-stretch" />
+              {/* Social */}
+              <div className="flex flex-col items-start gap-3">
+                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20">{t('social')}</span>
+                <ContactItem href="https://www.instagram.com/jagoda_karpat/" external size="md"
+                  icon={<FaInstagram size={16} className="text-forest" />} label="Instagram" />
+                <ContactItem href="https://www.tiktok.com/@agrorik" external size="md"
+                  icon={<SiTiktok size={14} className="text-forest" />} label="TikTok" />
+              </div>
+            </div>
+          </SectionReveal>
+          {/* Location — full width, centered, one line */}
+          <SectionReveal delay={0.35}>
+            <div className="flex flex-col items-center gap-3">
+              <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 text-center w-full max-w-xs">{t('location')}</span>
+              <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="md" oneLine />
+            </div>
+          </SectionReveal>
+          {/* Photo */}
+          <SectionReveal delay={0.4} className="max-w-xl mx-auto">
+            <StorkPhoto onOpen={() => setLightboxOpen(true)} sizes="80vw" />
+          </SectionReveal>
+        </div>
+
+        {/* ══ TABLET + LARGER PHONE LANDSCAPE (md–lg, 768–1023px): 3-col cascade ══ */}
+        <div className="hidden md:flex md:flex-col lg:hidden gap-[clamp(1.5rem,3dvh,2.5rem)]">
+          {/* 3 columns: phones | social | location — descending cascade */}
           <SectionReveal delay={0.3}>
             <div className="grid grid-cols-[1fr_1px_1fr_1px_1fr] gap-x-8 items-start">
               {/* Phones */}
@@ -255,20 +294,6 @@ export default function ContactSection() {
               </div>
               {/* Divider */}
               <div className="bg-forest/15 self-stretch" />
-              {/* Location — centered; one line on tablet landscape, two lines otherwise */}
-              <div className="flex flex-col items-center gap-3">
-                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 text-center">{t('location')}</span>
-                {/* Tablet landscape (tall): one line */}
-                <div className="hidden [@media_(orientation:landscape)_and_(min-height:501px)]:block">
-                  <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="md" oneLine />
-                </div>
-                {/* Portrait + phone landscape (short): two lines */}
-                <div className="[@media_(orientation:landscape)_and_(min-height:501px)]:hidden">
-                  <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="md" />
-                </div>
-              </div>
-              {/* Divider */}
-              <div className="bg-forest/15 self-stretch" />
               {/* Social */}
               <div className="flex flex-col items-start gap-3">
                 <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20">{t('social')}</span>
@@ -276,6 +301,13 @@ export default function ContactSection() {
                   icon={<FaInstagram size={16} className="text-forest" />} label="Instagram" />
                 <ContactItem href="https://www.tiktok.com/@agrorik" external size="md"
                   icon={<SiTiktok size={14} className="text-forest" />} label="TikTok" />
+              </div>
+              {/* Divider */}
+              <div className="bg-forest/15 self-stretch" />
+              {/* Location — centered */}
+              <div className="flex flex-col items-center gap-3">
+                <span className="font-heading text-[clamp(1.625rem,1.25rem_+_1.75vw,2rem)] text-dark leading-tight pb-1.5 border-b border-forest/20 text-center">{t('location')}</span>
+                <LocationItem line1={t('locationLine1')} line2={t('locationLine2')} size="md" />
               </div>
             </div>
           </SectionReveal>

@@ -62,7 +62,7 @@
       },
       "care": {
         "title": "Watering",
-        "description": "Drip irrigation — the berry gets exactly as much moisture as it needs."
+        "description": "Drip-fed from Carpathian mountain springs — pure water, pure berry."
       },
       "feeding": {
         "title": "Feeding",
@@ -88,6 +88,6 @@
     "social": "Social media",
     "location": "Where to find us",
     "locationLine1": "Prykarpattia,",
-    "locationLine2": "Urochyshche"
+    "locationLine2": "Hora tract"
   }
 }
