@@ -83,6 +83,29 @@ export default function RootLayout({
         {/* Preload hero poster matching device orientation */}
         <link rel="preload" as="image" href="/images/hero-poster-portrait.jpg" media="(orientation: portrait)" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/hero-poster-landscape.jpg" media="(orientation: landscape)" fetchPriority="high" />
+        {/* JSON-LD — LocalBusiness structured data for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: 'Ягода Карпат',
+            description: 'Лохинове господарство в серці Прикарпаття. Три сорти лохини — Дюк, Чандлер, Еліот. Сезон: липень–вересень.',
+            url: 'https://ягодакарпат.укр',
+            telephone: '+380676733300',
+            image: 'https://ягодакарпат.укр/images/og-image.jpg',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'урочище Гора',
+              addressRegion: 'Прикарпаття',
+              addressCountry: 'UA',
+            },
+            sameAs: [
+              'https://www.instagram.com/jagoda_karpat/',
+              'https://www.tiktok.com/@agrorik',
+            ],
+          })}}
+        />
       </head>
       <body>
         <LazyMotion features={domAnimation}>
