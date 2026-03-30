@@ -274,7 +274,7 @@ export default function ContactSection() {
             </div>
           </SectionReveal>
           {/* Photo */}
-          <SectionReveal delay={0.4} className="max-w-xl mx-auto">
+          <SectionReveal delay={0.4} className="w-full max-w-xl mx-auto">
             <StorkPhoto onOpen={() => setLightboxOpen(true)} sizes="80vw" />
           </SectionReveal>
         </div>
@@ -312,7 +312,7 @@ export default function ContactSection() {
             </div>
           </SectionReveal>
           {/* Photo centered */}
-          <SectionReveal delay={0.4} className="max-w-xl mx-auto">
+          <SectionReveal delay={0.4} className="w-full max-w-xl mx-auto">
             <StorkPhoto onOpen={() => setLightboxOpen(true)} sizes="(max-width: 1024px) 80vw, 576px" />
           </SectionReveal>
         </div>
