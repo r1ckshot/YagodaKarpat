@@ -33,7 +33,7 @@ function StorkLightboxPhoto() {
     >
       <Image
         src={storksImg}
-        alt="Лелеки над карпатським полем"
+        alt="Запрошуємо — Прикарпаття чекає на вас"
         fill
         onLoad={() => setLoaded(true)}
         className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
@@ -110,7 +110,7 @@ function StorkPhoto({ onOpen, sizes }: { onOpen: () => void; sizes: string }) {
       >
         <Image
           src={storksImg}
-          alt="Лелеки над карпатським полем"
+          alt="Запрошуємо — Прикарпаття чекає на вас"
           width={640} height={480}
           placeholder="blur"
           className="w-full h-auto lg:h-[clamp(16rem,36dvh,24rem)] object-cover transition-transform duration-700 ease-out
