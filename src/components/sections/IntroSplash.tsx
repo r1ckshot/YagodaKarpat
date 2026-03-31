@@ -29,6 +29,7 @@ export default function IntroSplash() {
     <AnimatePresence>
       {visible && (
         <m.div
+          data-splash=""
           className="fixed inset-0 z-[100] bg-cream flex items-center justify-center"
           exit={{ opacity: 0 }}
           transition={{ duration: EXIT_DURATION, ease: EASING.exit }}

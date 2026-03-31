@@ -23,6 +23,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide splash overlay before hydration on non-first visits (anti-flicker) */
+html.splash-done [data-splash] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--color-dark);

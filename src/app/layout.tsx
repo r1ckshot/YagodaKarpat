@@ -72,9 +72,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="uk" className={`${playfair.variable} ${nunito.variable}`}>
+    <html lang="uk" className={`${playfair.variable} ${nunito.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="-ELpqbrTYaAYsKguG-qOGPVaoYj2jE_MO-Qd8Giu7K0" />
+        {/* Anti-flicker: hide splash before hydration if already shown in this tab */}
+        <script dangerouslySetInnerHTML={{ __html: `try{if(sessionStorage.getItem('yk_splash_shown')==='1')document.documentElement.classList.add('splash-done')}catch(e){}` }} />
         {/* Preload logo layers used in IntroSplash — visible before React hydrates */}
         <link rel="preload" as="image" href="/images/logo/mountains.png" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/logo/blueberry.png" />
