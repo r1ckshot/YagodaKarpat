@@ -38,9 +38,10 @@ export default function IntroSplash() {
 
             {/* 1. Mountains — lens-focus blur reveal */}
             <m.img
-              src="/images/logo/mountains.png"
+              src="/images/logo/mountains.webp"
               alt=""
               aria-hidden="true"
+              width={527} height={225}
               className="w-[90%] h-auto"
               initial={{ opacity: 0, filter: 'blur(12px)' }}
               animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -49,8 +50,9 @@ export default function IntroSplash() {
 
             {/* 2. Blueberry — gentle scale pop after mountains focus */}
             <m.img
-              src="/images/logo/blueberry.png"
+              src="/images/logo/blueberry.webp"
               alt="Ягода Карпат"
+              width={256} height={196}
               className="w-[35%] h-auto -mt-[7%]"
               initial={{ opacity: 0, scale: 0.82 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -62,9 +64,10 @@ export default function IntroSplash() {
 
             {/* 3. Title — blur reveal after berry settles */}
             <m.img
-              src="/images/logo/title.png"
+              src="/images/logo/title.webp"
               alt=""
               aria-hidden="true"
+              width={757} height={107}
               className="w-full h-auto mt-[1%]"
               initial={{ opacity: 0, filter: 'blur(10px)' }}
               animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -73,9 +76,10 @@ export default function IntroSplash() {
 
             {/* 4. Wave — expands from center */}
             <m.img
-              src="/images/logo/bottom-wave.png"
+              src="/images/logo/bottom-wave.webp"
               alt=""
               aria-hidden="true"
+              width={681} height={89}
               className="w-full h-auto"
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
@@ -86,9 +90,10 @@ export default function IntroSplash() {
             {/* 5. "Blueberry" text — rises gently after wave settles */}
             <div className="relative -mt-[7%] w-full flex justify-center">
               <m.img
-                src="/images/logo/bottom-title.png"
+                src="/images/logo/bottom-title.webp"
                 alt=""
                 aria-hidden="true"
+                width={937} height={366}
                 className="w-[35%] h-auto"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
