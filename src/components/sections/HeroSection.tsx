@@ -18,6 +18,8 @@ export default function HeroSection() {
   const firstLoad = useRef(
     typeof window !== 'undefined' && isSplashPending()
   ).current;
+  const portraitPosterRef  = useRef<HTMLImageElement>(null);
+  const landscapePosterRef = useRef<HTMLImageElement>(null);
   const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
 
   const titleWord = {
@@ -62,24 +64,30 @@ export default function HeroSection() {
     <section id="hero" className="relative h-[100dvh] flex flex-col overflow-hidden">
 
       {/* Portrait video — mobile only */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover block md:hidden"
-        autoPlay muted loop playsInline
-        poster="/images/hero-poster-portrait.jpg"
-        aria-hidden="true"
-      >
-        <source src="/videos/hero-portrait.mp4" />
-      </video>
+      <div className="absolute inset-0 block md:hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay muted loop playsInline aria-hidden="true"
+          onPlay={() => { if (portraitPosterRef.current) portraitPosterRef.current.style.opacity = '0'; }}
+        >
+          <source src="/videos/hero-portrait.mp4" />
+        </video>
+        <img ref={portraitPosterRef} src="/images/hero-poster-portrait.webp" alt="" aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700" />
+      </div>
 
       {/* Landscape video — tablet and desktop */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover hidden md:block"
-        autoPlay muted loop playsInline
-        poster="/images/hero-poster-landscape.jpg"
-        aria-hidden="true"
-      >
-        <source src="/videos/hero-landscape.mp4" />
-      </video>
+      <div className="absolute inset-0 hidden md:block">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay muted loop playsInline aria-hidden="true"
+          onPlay={() => { if (landscapePosterRef.current) landscapePosterRef.current.style.opacity = '0'; }}
+        >
+          <source src="/videos/hero-landscape.mp4" />
+        </video>
+        <img ref={landscapePosterRef} src="/images/hero-poster-landscape.webp" alt=""
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700" />
+      </div>
 
       {/* Gradient overlay — shared */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/85" />
@@ -102,28 +110,28 @@ export default function HeroSection() {
         <div className="w-[clamp(18rem,13rem_+_25vw,26rem)] max-w-[min(85vw,50dvh)] [@media_(min-height:680px)]:max-w-[85vw] flex flex-col items-center mb-[clamp(0.5rem,1.5dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-width:932px)]:hidden">
           <div className="flex flex-col items-center w-full">
             <m.img
-              src="/images/logo/mountains.png"
-              alt="" aria-hidden="true"
+              src="/images/logo/mountains.webp"
+              alt="" aria-hidden="true" width={527} height={225}
               className="w-[90%] h-auto"
               {...logoReveal()}
             />
             <m.img
-              src="/images/logo/blueberry.png"
-              alt="Ягода Карпат"
+              src="/images/logo/blueberry.webp"
+              alt="Ягода Карпат" width={256} height={196}
               className="w-[35%] h-auto -mt-[7%]"
               {...logoReveal()}
             />
             <m.img
-              src="/images/logo/title.png"
-              alt="" aria-hidden="true"
+              src="/images/logo/title.webp"
+              alt="" aria-hidden="true" width={757} height={107}
               className="w-full h-auto mt-[1%]"
               {...logoReveal()}
             />
           </div>
 
           <m.img
-            src="/images/logo/bottom-wave.png"
-            alt="" aria-hidden="true"
+            src="/images/logo/bottom-wave.webp"
+            alt="" aria-hidden="true" width={681} height={89}
             className="w-full h-auto"
             {...logoReveal()}
           />
@@ -141,8 +149,8 @@ export default function HeroSection() {
               {...logoReveal(0.3, 0.6)}
             />
             <m.img
-              src="/images/logo/bottom-title.png"
-              alt="" aria-hidden="true"
+              src="/images/logo/bottom-title.webp"
+              alt="" aria-hidden="true" width={937} height={366}
               className="relative w-[35%] h-auto"
               {...logoReveal(0.3, 0.5)}
             />
