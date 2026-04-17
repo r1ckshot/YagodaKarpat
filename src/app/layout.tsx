@@ -3,6 +3,7 @@ import { Playfair_Display, Nunito } from 'next/font/google';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { getLocale } from 'next-intl/server';
 import './globals.css';
 import PageTransition from '@/components/ui/PageTransition';
 import IntroSplash from '@/components/sections/IntroSplash';
@@ -72,11 +73,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
   return (
-    <html lang="uk" className={`${playfair.variable} ${nunito.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${playfair.variable} ${nunito.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="-ELpqbrTYaAYsKguG-qOGPVaoYj2jE_MO-Qd8Giu7K0" />
         {/* Anti-flicker: hide splash before hydration if already shown in this tab */}
