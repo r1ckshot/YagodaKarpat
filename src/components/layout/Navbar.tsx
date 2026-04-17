@@ -66,8 +66,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2 sm:gap-3.5 shrink-0">
-            <img src="/images/logo/blueberry.png" alt="" className="h-9 w-auto" />
-            <img src="/images/logo/title.png" alt="Ягода Карпат" className="h-7 w-auto" />
+            <img src="/images/logo/blueberry.webp" alt="" className="h-9 w-auto" />
+            <img src="/images/logo/title.webp" alt="Ягода Карпат" className="h-7 w-auto" />
           </a>
 
           {/* Desktop: nav + language + mountains */}
@@ -86,7 +86,7 @@ export default function Navbar() {
           </div>
 
           <img
-            src="/images/logo/mountains.png"
+            src="/images/logo/mountains.webp"
             alt=""
             className="hidden lg:block h-9 w-auto opacity-75 shrink-0"
           />
@@ -94,7 +94,7 @@ export default function Navbar() {
           {/* Tablet/mobile: mountains + burger */}
           <div className="flex lg:hidden items-center gap-3 shrink-0">
             <img
-              src="/images/logo/mountains.png"
+              src="/images/logo/mountains.webp"
               alt=""
               className="hidden sm:block h-8 w-auto opacity-75"
             />

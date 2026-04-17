@@ -9,9 +9,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 
-import dukeImg     from '../../../public/images/varieties/duke.jpg';
-import chandlerImg from '../../../public/images/varieties/chandler.jpg';
-import elliottImg  from '../../../public/images/varieties/elliott.jpg';
+import dukeImg     from '../../../public/images/varieties/duke.webp';
+import chandlerImg from '../../../public/images/varieties/chandler.webp';
+import elliottImg  from '../../../public/images/varieties/elliott.webp';
 
 const VARIETIES = [
   { key: 'duke',     image: dukeImg     },

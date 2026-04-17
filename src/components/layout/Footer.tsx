@@ -8,16 +8,16 @@ export default function Footer() {
   const Logo = () => (
     <div className="flex items-center gap-3.5 shrink-0">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/logo/blueberry.png" alt="" aria-hidden="true" className="h-9 w-auto [@media_(max-width:400px)_and_(orientation:portrait)]:hidden"
+      <img src="/images/logo/blueberry.webp" alt="" aria-hidden="true" className="h-9 w-auto [@media_(max-width:400px)_and_(orientation:portrait)]:hidden"
         style={{ filter: 'drop-shadow(0 0 14px color-mix(in srgb, var(--color-blueberry) 75%, transparent)) drop-shadow(0 0 5px color-mix(in srgb, var(--color-blueberry) 40%, transparent))' }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/logo/title.png" alt="Ягода Карпат" className="h-7 w-auto opacity-60 [@media_(max-width:400px)_and_(orientation:portrait)]:h-6" />
+      <img src="/images/logo/title.webp" alt="Ягода Карпат" className="h-7 w-auto opacity-60 [@media_(max-width:400px)_and_(orientation:portrait)]:h-6" />
     </div>
   );
 
   const Mountains = () => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/images/logo/mountains.png" alt="" aria-hidden="true"
+    <img src="/images/logo/mountains.webp" alt="" aria-hidden="true"
       className="h-9 w-auto opacity-60 shrink-0" />
   );
 

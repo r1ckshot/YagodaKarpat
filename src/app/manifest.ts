@@ -11,9 +11,9 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#008549',
     icons: [
       {
-        src: '/images/logo/blueberry.png',
+        src: '/images/logo/blueberry.webp',
         sizes: 'any',
-        type: 'image/png',
+        type: 'image/webp',
       },
     ],
   };

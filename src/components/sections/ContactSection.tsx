@@ -12,7 +12,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion';
 import SectionReveal from '@/components/ui/SectionReveal';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
-import storksImg from '../../../public/images/sections/contact-storks.jpg';
+import storksImg from '../../../public/images/sections/contact-storks.webp';
 
 function StorkLightboxPhoto() {
   const [loaded, setLoaded] = useState(false);

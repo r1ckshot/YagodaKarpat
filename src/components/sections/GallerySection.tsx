@@ -12,11 +12,11 @@ import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 import { type StaticImageData } from 'next/image';
 
-import blueberryCollageImg  from '../../../public/images/gallery/blueberry-collage.jpg';
-import blueberryBloomingImg from '../../../public/images/gallery/blueberry-blooming.jpg';
-import kidGatheringImg      from '../../../public/images/gallery/kid-gathering.jpg';
-import blueberryAutumnImg   from '../../../public/images/gallery/blueberry-autumn.jpg';
-import beginningCollageImg  from '../../../public/images/gallery/beginning-collage.jpg';
+import blueberryCollageImg  from '../../../public/images/gallery/blueberry-collage.webp';
+import blueberryBloomingImg from '../../../public/images/gallery/blueberry-blooming.webp';
+import kidGatheringImg      from '../../../public/images/gallery/kid-gathering.webp';
+import blueberryAutumnImg   from '../../../public/images/gallery/blueberry-autumn.webp';
+import beginningCollageImg  from '../../../public/images/gallery/beginning-collage.webp';
 
 // ── Photos ─────────────────────────────────────────────────────────────────────
 const PHOTOS: { src: StaticImageData; alt: string }[] = [

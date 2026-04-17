@@ -7,7 +7,7 @@ import { PiFarmFill } from 'react-icons/pi';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import SectionReveal from '@/components/ui/SectionReveal';
-import beginningImg from '../../../public/images/sections/beginning.jpg';
+import beginningImg from '../../../public/images/sections/beginning.webp';
 import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
 import { EASING } from '@/lib/animations';
 
