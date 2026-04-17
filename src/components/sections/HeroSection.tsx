@@ -73,7 +73,7 @@ export default function HeroSection() {
           <source src="/videos/hero-portrait.mp4" />
         </video>
         <img ref={portraitPosterRef} src="/images/hero-poster-portrait.webp" alt="" aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700" />
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
       </div>
 
       {/* Landscape video — tablet and desktop */}
@@ -86,7 +86,7 @@ export default function HeroSection() {
           <source src="/videos/hero-landscape.mp4" />
         </video>
         <img ref={landscapePosterRef} src="/images/hero-poster-landscape.webp" alt=""
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700" />
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
       </div>
 
       {/* Gradient overlay — shared */}
