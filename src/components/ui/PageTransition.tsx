@@ -10,7 +10,7 @@ const EASE_IN  = 'cubic-bezier(0.65, 0, 0.35, 1)';
 const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 const DUR_IN_MS  = 480;
-const DUR_OUT_MS = 320;
+const DUR_OUT_MS = 240;
 const STAGGER_MS = 110;
 const HOLD_MS    = 200;
 
@@ -36,11 +36,11 @@ export default function PageTransition() {
 
     registerRevealHandler(() => {
       setTimeout(() => {
-        // Stripes exit to left, same top-to-bottom order — fluid wave
-        stripes.forEach((el, i) =>
-          set(el, '-100%', `transform ${DUR_OUT_MS}ms ${EASE_OUT} ${i * STAGGER_MS}ms`)
+        // All stripes exit simultaneously — clean single-plate flip
+        stripes.forEach(el =>
+          set(el, '-100%', `transform ${DUR_OUT_MS}ms ${EASE_OUT}`)
         );
-        const totalOut = DUR_OUT_MS + (stripes.length - 1) * STAGGER_MS;
+        const totalOut = DUR_OUT_MS;
         setTimeout(() => stripes.forEach(el => set(el, '100%')), totalOut);
       }, HOLD_MS);
     });
