@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ягодакарпат.укр'),
   title: {
-    default: 'Ягода Карпат',
+    default: 'Ягода Карпат — Лохина з Прикарпаття',
     template: '%s | Ягода Карпат',
   },
   description: 'Лохинове господарство в серці Прикарпаття.',
@@ -82,14 +82,24 @@ export default function RootLayout({
         {/* Anti-flicker: hide splash before hydration if already shown in this tab */}
         <script dangerouslySetInnerHTML={{ __html: `try{if(sessionStorage.getItem('yk_splash_shown')==='1')document.documentElement.classList.add('splash-done')}catch(e){}` }} />
         {/* Preload logo layers used in IntroSplash — visible before React hydrates */}
-        <link rel="preload" as="image" href="/images/logo/mountains.png" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/logo/blueberry.png" />
-        <link rel="preload" as="image" href="/images/logo/title.png" />
-        <link rel="preload" as="image" href="/images/logo/bottom-wave.png" />
-        <link rel="preload" as="image" href="/images/logo/bottom-title.png" />
+        <link rel="preload" as="image" href="/images/logo/mountains.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/logo/blueberry.webp" />
+        <link rel="preload" as="image" href="/images/logo/title.webp" />
+        <link rel="preload" as="image" href="/images/logo/bottom-wave.webp" />
+        <link rel="preload" as="image" href="/images/logo/bottom-title.webp" />
         {/* Preload hero poster matching device orientation */}
-        <link rel="preload" as="image" href="/images/hero-poster-portrait.jpg" media="(orientation: portrait)" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/hero-poster-landscape.jpg" media="(orientation: landscape)" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/hero-poster-portrait.webp" media="(orientation: portrait)" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/hero-poster-landscape.webp" media="(orientation: landscape)" fetchPriority="high" />
+        {/* JSON-LD — WebSite schema for Google site name in search results */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Ягода Карпат',
+            url: 'https://ягодакарпат.укр',
+          })}}
+        />
         {/* JSON-LD — LocalBusiness structured data for Google */}
         <script
           type="application/ld+json"
