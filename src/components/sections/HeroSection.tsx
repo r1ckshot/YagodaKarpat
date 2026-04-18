@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { m } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
@@ -18,9 +18,17 @@ export default function HeroSection() {
   const firstLoad = useRef(
     typeof window !== 'undefined' && isSplashPending()
   ).current;
+  const portraitVideoRef   = useRef<HTMLVideoElement>(null);
+  const landscapeVideoRef  = useRef<HTMLVideoElement>(null);
   const portraitPosterRef  = useRef<HTMLImageElement>(null);
   const landscapePosterRef = useRef<HTMLImageElement>(null);
   const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
+
+  // Fallback: manually trigger play in case autoPlay was blocked during hydration
+  useEffect(() => {
+    portraitVideoRef.current?.play().catch(() => {});
+    landscapeVideoRef.current?.play().catch(() => {});
+  }, []);
 
   const titleWord = {
     initial: { opacity: 0, filter: 'blur(10px)', y: 10 },
@@ -66,6 +74,7 @@ export default function HeroSection() {
       {/* Portrait video — mobile only */}
       <div className="absolute inset-0 block md:hidden">
         <video
+          ref={portraitVideoRef}
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay muted loop playsInline aria-hidden="true"
           onPlay={() => { if (portraitPosterRef.current) portraitPosterRef.current.style.opacity = '0'; }}
@@ -79,6 +88,7 @@ export default function HeroSection() {
       {/* Landscape video — tablet and desktop */}
       <div className="absolute inset-0 hidden md:block">
         <video
+          ref={landscapeVideoRef}
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay muted loop playsInline aria-hidden="true"
           onPlay={() => { if (landscapePosterRef.current) landscapePosterRef.current.style.opacity = '0'; }}
