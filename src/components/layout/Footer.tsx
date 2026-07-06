@@ -2,10 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 
-export default function Footer() {
-  const t = useTranslations('hero');
-
-  const Logo = () => (
+function Logo() {
+  return (
     <div className="flex items-center gap-3.5 shrink-0">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/logo/blueberry.webp" alt="" aria-hidden="true" className="h-9 w-auto [@media_(max-width:400px)_and_(orientation:portrait)]:hidden"
@@ -14,14 +12,19 @@ export default function Footer() {
       <img src="/images/logo/title.webp" alt="Ягода Карпат" className="h-7 w-auto opacity-60 [@media_(max-width:400px)_and_(orientation:portrait)]:h-6" />
     </div>
   );
+}
 
-  const Mountains = () => (
+function Mountains() {
+  return (
     // eslint-disable-next-line @next/next/no-img-element
     <img src="/images/logo/mountains.webp" alt="" aria-hidden="true"
       className="h-9 w-auto opacity-60 shrink-0" />
   );
+}
 
-  const CenterText = ({ translate, subtitle }: { translate?: boolean; subtitle?: boolean }) => (
+function CenterText({ translate, subtitle }: { translate?: boolean; subtitle?: boolean }) {
+  const t = useTranslations('hero');
+  return (
     <div className={`flex items-center gap-3 ${translate ? 'translate-x-20' : ''}`}>
       <p className="font-body text-base italic text-cream/50 whitespace-nowrap">
         {t('tagline')}
@@ -40,7 +43,9 @@ export default function Footer() {
       )}
     </div>
   );
+}
 
+export default function Footer() {
   return (
     <footer
       className="bg-dark border-t border-cream/10"
