@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor / tooling — local only
+.vscode/
+.claude/
+
+# local reference doc — never committed (see workflow rules)
+CLAUDE.md
+
+# raw pre-processing source assets — not used by the build (see public/ for optimized versions)
+/assets/
