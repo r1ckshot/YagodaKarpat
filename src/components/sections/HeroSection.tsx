@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { m } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
@@ -15,9 +15,7 @@ export default function HeroSection() {
   const locale = useLocale();
   const words = t('tagline').split(' ');
 
-  const firstLoad = useRef(
-    typeof window !== 'undefined' && isSplashPending()
-  ).current;
+  const [firstLoad] = useState(() => typeof window !== 'undefined' && isSplashPending());
   const portraitVideoRef   = useRef<HTMLVideoElement>(null);
   const landscapeVideoRef  = useRef<HTMLVideoElement>(null);
   const portraitPosterRef  = useRef<HTMLImageElement>(null);
