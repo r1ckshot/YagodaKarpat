@@ -25,6 +25,8 @@ export default function SectionReveal({
   useLayoutEffect(() => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
+    // Needs the mounted DOM node's actual position — can't be derived during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (rect.top < window.innerHeight) setPreVisible(true);
   }, []);
 

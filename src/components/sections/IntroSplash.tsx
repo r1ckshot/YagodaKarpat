@@ -16,6 +16,9 @@ export default function IntroSplash() {
 
   useLayoutEffect(() => {
     if (!isSplashPending()) {
+      // Reads sessionStorage — can't be a useState lazy initializer without risking
+      // a server/client hydration mismatch (SSR always renders visible=true).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(false); // locale change: hide synchronously before paint
       return;
     }
