@@ -229,8 +229,6 @@ function LightboxImage({ idx }: { idx: number }) {
   const [loaded, setLoaded] = useState(false);
   const photo = PHOTOS[idx];
 
-  useEffect(() => { setLoaded(false); }, [idx]);
-
   const { width: iw, height: ih } = photo.src;
 
   return (

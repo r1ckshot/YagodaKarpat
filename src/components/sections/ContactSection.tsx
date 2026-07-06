@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Phone, MapPin, X } from 'lucide-react';
@@ -16,7 +16,6 @@ import storksImg from '../../../public/images/sections/contact-storks.webp';
 
 function StorkLightboxPhoto() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(false); }, []);
 
   const { width: iw, height: ih } = storksImg;
 
@@ -173,7 +172,7 @@ export default function ContactSection() {
             <span aria-hidden="true"
               className="font-heading text-[2em] text-blueberry/25 select-none"
               style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>
-              "
+              &quot;
             </span>{' '}
             {t('inviteStart')}{' '}
             <span className="whitespace-nowrap">
@@ -195,7 +194,7 @@ export default function ContactSection() {
             <span aria-hidden="true"
               className="font-heading text-[2em] text-blueberry/25 select-none"
               style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>
-              "
+              &quot;
             </span>
           </p>
         </SectionReveal>

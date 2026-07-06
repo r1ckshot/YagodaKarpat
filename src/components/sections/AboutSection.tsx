@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { m, useInView, AnimatePresence } from 'framer-motion';
 import { PiFarmFill } from 'react-icons/pi';
@@ -13,7 +13,6 @@ import { EASING } from '@/lib/animations';
 
 function LightboxPhoto() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(false); }, []);
 
   const { width: iw, height: ih } = beginningImg;
 
@@ -99,7 +98,7 @@ export default function AboutSection() {
             {/* Paragraph 1 */}
             <SectionReveal delay={0.3} className="mb-[clamp(1rem,2.5dvh,1.75rem)]">
               <p className="font-body text-[clamp(1.1875rem,0.95rem_+_1vw,1.5625rem)] text-dark/70 leading-relaxed text-pretty">
-                <span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>"</span>{' '}
+                <span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>&quot;</span>{' '}
                 {t('about.description1')}
                 <span
                   className="text-dark/90 font-medium"
@@ -135,7 +134,7 @@ export default function AboutSection() {
                 >
                   {t('about.description3Help')}
                 </strong>
-                {' '}<span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>"</span>
+                {' '}<span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>&quot;</span>
               </p>
             </SectionReveal>
 
