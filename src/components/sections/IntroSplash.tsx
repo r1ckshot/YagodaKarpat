@@ -3,11 +3,7 @@
 import { useState, useLayoutEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { EASING } from '@/lib/animations';
-import { isSplashPending, consumeSplash } from '@/lib/splashState';
-
-// "Blueberry" text ends at 3.55 + 0.6 = 4.15s, +0.15s breathing → 4300ms
-const SPLASH_DURATION = 4300;
-const EXIT_DURATION   = 0.5;   // s — opacity fade-out
+import { isSplashPending, consumeSplash, SPLASH_DURATION_MS, SPLASH_EXIT_DURATION } from '@/lib/splashState';
 
 export default function IntroSplash() {
   // Start visible — covers the page from the very first SSR render (no flash of background).
@@ -24,7 +20,7 @@ export default function IntroSplash() {
     }
     consumeSplash();
     window.scrollTo(0, 0);
-    const timer = setTimeout(() => setVisible(false), SPLASH_DURATION);
+    const timer = setTimeout(() => setVisible(false), SPLASH_DURATION_MS);
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,7 +31,7 @@ export default function IntroSplash() {
           data-splash=""
           className="fixed inset-0 z-[100] bg-cream flex items-center justify-center"
           exit={{ opacity: 0 }}
-          transition={{ duration: EXIT_DURATION, ease: EASING.exit }}
+          transition={{ duration: SPLASH_EXIT_DURATION, ease: EASING.exit }}
         >
           <div className="flex flex-col items-center w-[clamp(18rem,13rem_+_25vw,27.5rem)] max-w-[min(85vw,90dvh)]">
 
