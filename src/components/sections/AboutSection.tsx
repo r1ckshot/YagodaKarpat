@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import SectionReveal from '@/components/ui/SectionReveal';
 import beginningImg from '../../../public/images/sections/beginning.webp';
-import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { EASING } from '@/lib/animations';
 
 function LightboxPhoto() {
@@ -68,32 +68,14 @@ export default function AboutSection() {
           {/* ── Text column ── */}
           <div className="flex flex-col items-center text-center max-w-2xl mx-auto lg:mx-0 mb-14 lg:mb-0">
 
-            {/* Eyebrow */}
-            <SectionReveal>
-              <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <EyebrowDivider src="/images/ornaments/about-ornament.svg" />
-                <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
-                  {t('about.title')}
-                </span>
-                <EyebrowDivider src="/images/ornaments/about-ornament.svg" flip />
-              </div>
-            </SectionReveal>
-
-            {/* Title */}
-            <SectionReveal delay={0.1}>
-              <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-dark leading-tight mb-[clamp(1.25rem,3dvh,2rem)]">
-                {t('about.subtitle')}
-              </h2>
-            </SectionReveal>
-
-            {/* Divider */}
-            <SectionReveal delay={0.2}>
-              <div className="flex items-center gap-4 mb-[clamp(1.75rem,4.5dvh,2.75rem)]">
-                <IconRule color="forest" />
-                <PiFarmFill className="text-forest/55" size={24} />
-                <IconRule color="forest" />
-              </div>
-            </SectionReveal>
+            <SectionHeader
+              eyebrow={t('about.title')}
+              title={t('about.subtitle')}
+              icon={<PiFarmFill className="text-forest/55" size={24} />}
+              ornamentSrc="/images/ornaments/about-ornament.svg"
+              accentColor="forest"
+              iconRowClassName="mb-[clamp(1.75rem,4.5dvh,2.75rem)]"
+            />
 
             {/* Paragraph 1 */}
             <SectionReveal delay={0.3} className="mb-[clamp(1rem,2.5dvh,1.75rem)]">

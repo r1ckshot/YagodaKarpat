@@ -10,7 +10,7 @@ import { SiTiktok } from 'react-icons/si';
 import { m, AnimatePresence, useInView } from 'framer-motion';
 
 import SectionReveal from '@/components/ui/SectionReveal';
-import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { EASING } from '@/lib/animations';
 import storksImg from '../../../public/images/sections/contact-storks.webp';
 
@@ -141,28 +141,13 @@ export default function ContactSection() {
 
         {/* ── Centered header ── */}
         <div className="flex flex-col items-center text-center mb-[clamp(1.25rem,2.5dvh,2rem)]">
-          <SectionReveal>
-            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-              <EyebrowDivider src="/images/ornaments/contact-ornament.svg" />
-              <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-forest font-semibold">
-                {t('title')}
-              </span>
-              <EyebrowDivider src="/images/ornaments/contact-ornament.svg" flip />
-            </div>
-          </SectionReveal>
-          <SectionReveal delay={0.1}>
-            <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-dark
-                           leading-tight mb-[clamp(1.25rem,3dvh,2rem)]">
-              {t('subtitle')}
-            </h2>
-          </SectionReveal>
-          <SectionReveal delay={0.2}>
-            <div className="flex items-center gap-4">
-              <IconRule color="forest" />
-              <PiHandshakeFill className="text-forest/55" size={24} />
-              <IconRule color="forest" />
-            </div>
-          </SectionReveal>
+          <SectionHeader
+            eyebrow={t('title')}
+            title={t('subtitle')}
+            icon={<PiHandshakeFill className="text-forest/55" size={24} />}
+            ornamentSrc="/images/ornaments/contact-ornament.svg"
+            accentColor="forest"
+          />
         </div>
 
         {/* ── Invite text — centered, About-style with щиро highlight ── */}

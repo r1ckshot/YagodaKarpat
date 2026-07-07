@@ -7,7 +7,7 @@ import { GiBerriesBowl } from 'react-icons/gi';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionReveal from '@/components/ui/SectionReveal';
-import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 import dukeImg     from '../../../public/images/varieties/duke.webp';
 import chandlerImg from '../../../public/images/varieties/chandler.webp';
@@ -115,27 +115,15 @@ function MobileCarousel({ title, subtitle, cards }: { title: string; subtitle: s
     <div className="py-[clamp(4rem,8dvh,7rem)] [@media_(orientation:landscape)_and_(max-height:380px)_and_(max-width:640px)]:py-3">
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-8 px-6">
-        <SectionReveal>
-          <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-            <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" />
-            <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
-              {title}
-            </span>
-            <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" flip />
-          </div>
-        </SectionReveal>
-        <SectionReveal delay={0.1}>
-          <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-cream leading-tight mb-[clamp(1rem,2.5dvh,1.5rem)]">
-            {subtitle}
-          </h2>
-        </SectionReveal>
-        <SectionReveal delay={0.2}>
-          <div className="flex items-center gap-4">
-            <IconRule color="berry" />
-            <GiBerriesBowl className="text-berry/65" size={24} />
-            <IconRule color="berry" />
-          </div>
-        </SectionReveal>
+        <SectionHeader
+          eyebrow={title}
+          title={subtitle}
+          icon={<GiBerriesBowl className="text-berry/65" size={24} />}
+          ornamentSrc="/images/ornaments/varieties-ornament.svg"
+          accentColor="berry"
+          titleColor="cream"
+          titleMarginClassName="mb-[clamp(1rem,2.5dvh,1.5rem)]"
+        />
       </div>
 
       {/* Carousel */}
@@ -240,27 +228,14 @@ export default function VarietiesSection() {
 
           {/* Header */}
           <div className="flex flex-col items-center text-center mb-[clamp(2.5rem,6dvh,4rem)]">
-            <SectionReveal>
-              <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)]">
-                <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" />
-                <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
-                  {t('title')}
-                </span>
-                <EyebrowDivider src="/images/ornaments/varieties-ornament.svg" flip />
-              </div>
-            </SectionReveal>
-            <SectionReveal delay={0.1}>
-              <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-cream leading-tight mb-[clamp(1.25rem,3dvh,2rem)]">
-                {t('subtitle')}
-              </h2>
-            </SectionReveal>
-            <SectionReveal delay={0.2}>
-              <div className="flex items-center gap-4">
-                <IconRule color="berry" />
-                <GiBerriesBowl className="text-berry/65" size={24} />
-                <IconRule color="berry" />
-              </div>
-            </SectionReveal>
+            <SectionHeader
+              eyebrow={t('title')}
+              title={t('subtitle')}
+              icon={<GiBerriesBowl className="text-berry/65" size={24} />}
+              ornamentSrc="/images/ornaments/varieties-ornament.svg"
+              accentColor="berry"
+              titleColor="cream"
+            />
           </div>
 
           {/* Grid */}

@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { BsFillCameraFill } from 'react-icons/bs';
 
 import SectionReveal from '@/components/ui/SectionReveal';
-import { EyebrowDivider, IconRule } from '@/components/ui/SectionOrnaments';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { EASING } from '@/lib/animations';
 import { type StaticImageData } from 'next/image';
 
@@ -348,28 +348,17 @@ export default function GallerySection() {
                         [@media_(orientation:landscape)_and_(max-height:500px)]:mb-[clamp(2rem,4dvh,3rem)]
                         [@media_(orientation:landscape)_and_(min-height:501px)_and_(max-width:1023px)]:mb-[clamp(1.5rem,3dvh,2.5rem)]
                         [@media_(orientation:landscape)_and_(max-height:380px)]:mb-2">
-          <SectionReveal>
-            <div className="flex items-center gap-4 mb-[clamp(0.75rem,2dvh,1.25rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1">
-              <EyebrowDivider src="/images/ornaments/gallery-ornament.svg" flip objectPosition="left" />
-              <span className="font-body text-base uppercase tracking-[0.28em] pl-[0.28em] text-berry/80 font-semibold">
-                {t('title')}
-              </span>
-              <EyebrowDivider src="/images/ornaments/gallery-ornament.svg" objectPosition="left" />
-            </div>
-          </SectionReveal>
-          <SectionReveal delay={0.1}>
-            <h2 className="font-heading text-[clamp(2rem,1.4rem_+_2.25vw,3.25rem)] text-cream
-                           leading-tight mb-[clamp(1.25rem,3dvh,2rem)] [@media_(orientation:landscape)_and_(max-height:380px)]:mb-1">
-              {t('subtitle')}
-            </h2>
-          </SectionReveal>
-          <SectionReveal delay={0.2}>
-            <div className="flex items-center gap-4">
-              <IconRule color="berry" />
-              <BsFillCameraFill className="text-berry/65" size={24} />
-              <IconRule color="berry" />
-            </div>
-          </SectionReveal>
+          <SectionHeader
+            eyebrow={t('title')}
+            title={t('subtitle')}
+            icon={<BsFillCameraFill className="text-berry/65" size={24} />}
+            ornamentSrc="/images/ornaments/gallery-ornament.svg"
+            accentColor="berry"
+            titleColor="cream"
+            reversedOrnaments
+            eyebrowRowClassName="[@media_(orientation:landscape)_and_(max-height:380px)]:mb-1"
+            titleClassName="[@media_(orientation:landscape)_and_(max-height:380px)]:mb-1"
+          />
         </div>
 
         {/* Fan: desktop lg+ OR phone landscape (<640px)
