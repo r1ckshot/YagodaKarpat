@@ -2,42 +2,14 @@
 
 import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { m, useInView, AnimatePresence } from 'framer-motion';
+import { useInView, AnimatePresence } from 'framer-motion';
 import { PiFarmFill } from 'react-icons/pi';
-import { X } from 'lucide-react';
 import Image from 'next/image';
 import SectionReveal from '@/components/ui/SectionReveal';
 import beginningImg from '../../../public/images/sections/beginning.webp';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { EASING } from '@/lib/animations';
-
-function LightboxPhoto() {
-  const [loaded, setLoaded] = useState(false);
-
-  const { width: iw, height: ih } = beginningImg;
-
-  return (
-    <div
-      className="relative rounded-xl overflow-hidden shadow-2xl"
-      style={{
-        width: `min(96vw, calc(90svh * ${iw / ih}))`,
-        aspectRatio: `${iw} / ${ih}`,
-        backgroundImage:    `url(${beginningImg.blurDataURL})`,
-        backgroundSize:     'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Image
-        src={beginningImg}
-        alt=""
-        fill
-        onLoad={() => setLoaded(true)}
-        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="96vw"
-      />
-    </div>
-  );
-}
+import Lightbox from '@/components/ui/Lightbox';
+import LightboxImage from '@/components/ui/LightboxImage';
 
 export default function AboutSection() {
   const t = useTranslations();
@@ -166,31 +138,9 @@ export default function AboutSection() {
       {/* ── Lightbox ── */}
       <AnimatePresence>
         {lightboxOpen && (
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center p-4 cursor-zoom-out"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <button
-              onClick={() => setLightboxOpen(false)}
-              className="absolute top-4 right-4 text-cream/70 hover:text-cream transition-colors duration-200 z-10"
-              aria-label="Закрити"
-            >
-              <X size={32} />
-            </button>
-
-            <m.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1,    opacity: 1 }}
-              transition={{ duration: 0.2, ease: EASING.enter }}
-              onClick={e => e.stopPropagation()}
-            >
-              <LightboxPhoto />
-            </m.div>
-          </m.div>
+          <Lightbox onClose={() => setLightboxOpen(false)}>
+            <LightboxImage src={beginningImg} alt="" />
+          </Lightbox>
         )}
       </AnimatePresence>
     </section>

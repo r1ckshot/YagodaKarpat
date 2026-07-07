@@ -4,12 +4,13 @@ import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { m, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { BsFillCameraFill } from 'react-icons/bs';
 
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { EASING } from '@/lib/animations';
+import Lightbox from '@/components/ui/Lightbox';
+import LightboxImage from '@/components/ui/LightboxImage';
 import { type StaticImageData } from 'next/image';
 
 import blueberryCollageImg  from '../../../public/images/gallery/blueberry-collage.webp';
@@ -224,87 +225,6 @@ function MobileGallery({
   );
 }
 
-// ── Lightbox ───────────────────────────────────────────────────────────────────
-function LightboxImage({ idx }: { idx: number }) {
-  const [loaded, setLoaded] = useState(false);
-  const photo = PHOTOS[idx];
-
-  const { width: iw, height: ih } = photo.src;
-
-  return (
-    <div
-      className="relative rounded-xl overflow-hidden shadow-2xl"
-      style={{
-        width: `min(96vw, calc(90svh * ${iw / ih}))`,
-        aspectRatio: `${iw} / ${ih}`,
-        backgroundImage:    `url(${photo.src.blurDataURL})`,
-        backgroundSize:     'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Image
-        src={photo.src}
-        alt={photo.alt}
-        fill
-        onLoad={() => setLoaded(true)}
-        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="96vw"
-      />
-    </div>
-  );
-}
-
-function Lightbox({ idx, onClose, onPrev, onNext }: {
-  idx: number; onClose: () => void; onPrev: () => void; onNext: () => void;
-}) {
-  return (
-    <m.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center
-                 p-4 cursor-zoom-out"
-      onClick={onClose}
-    >
-      <button onClick={onClose}
-        className="absolute top-4 right-4 text-cream/70 hover:text-cream
-                   transition-colors duration-200 z-10"
-        aria-label="Закрити"
-      >
-        <X size={32} />
-      </button>
-
-      {/* key={idx} remounts with fade on every photo change */}
-      <m.div
-        key={idx}
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1,    opacity: 1 }}
-        transition={{ duration: 0.2, ease: EASING.enter }}
-        onClick={e => e.stopPropagation()}
-      >
-        <LightboxImage idx={idx} />
-      </m.div>
-
-      {idx > 0 && (
-        <button onClick={e => { e.stopPropagation(); onPrev(); }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full
-                     bg-dark/65 backdrop-blur-sm border border-cream/20
-                     flex items-center justify-center text-cream/75
-                     hover:text-cream hover:bg-dark/85 transition-colors"
-          aria-label="Попереднє фото"
-        ><ChevronLeft size={22} /></button>
-      )}
-      {idx < PHOTOS.length - 1 && (
-        <button onClick={e => { e.stopPropagation(); onNext(); }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full
-                     bg-dark/65 backdrop-blur-sm border border-cream/20
-                     flex items-center justify-center text-cream/75
-                     hover:text-cream hover:bg-dark/85 transition-colors"
-          aria-label="Наступне фото"
-        ><ChevronRight size={22} /></button>
-      )}
-    </m.div>
-  );
-}
 
 // ── Section ───────────────────────────────────────────────────────────────────
 export default function GallerySection() {
@@ -402,10 +322,16 @@ export default function GallerySection() {
 
       <AnimatePresence>
         {lightboxIdx !== null && (
-          <Lightbox idx={lightboxIdx}
+          <Lightbox
             onClose={() => setLightboxIdx(null)}
-            onPrev={lbPrev} onNext={lbNext}
-          />
+            contentKey={lightboxIdx}
+            onPrev={lbPrev}
+            onNext={lbNext}
+            hasPrev={lightboxIdx > 0}
+            hasNext={lightboxIdx < PHOTOS.length - 1}
+          >
+            <LightboxImage src={PHOTOS[lightboxIdx].src} alt={PHOTOS[lightboxIdx].alt} />
+          </Lightbox>
         )}
       </AnimatePresence>
     </section>

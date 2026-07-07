@@ -3,44 +3,17 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Phone, MapPin, X } from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
 import { PiHandshakeFill } from 'react-icons/pi';
 import { FaInstagram } from 'react-icons/fa';
 import { SiTiktok } from 'react-icons/si';
-import { m, AnimatePresence, useInView } from 'framer-motion';
+import { AnimatePresence, useInView } from 'framer-motion';
 
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { EASING } from '@/lib/animations';
+import Lightbox from '@/components/ui/Lightbox';
+import LightboxImage from '@/components/ui/LightboxImage';
 import storksImg from '../../../public/images/sections/contact-storks.webp';
-
-function StorkLightboxPhoto() {
-  const [loaded, setLoaded] = useState(false);
-
-  const { width: iw, height: ih } = storksImg;
-
-  return (
-    <div
-      className="relative rounded-xl overflow-hidden shadow-2xl"
-      style={{
-        width: `min(96vw, calc(90svh * ${iw / ih}))`,
-        aspectRatio: `${iw} / ${ih}`,
-        backgroundImage:    `url(${storksImg.blurDataURL})`,
-        backgroundSize:     'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Image
-        src={storksImg}
-        alt="Запрошуємо — Прикарпаття чекає на вас"
-        fill
-        onLoad={() => setLoaded(true)}
-        className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        sizes="96vw"
-      />
-    </div>
-  );
-}
 
 const PHONES = [
   { display: '098 804 07 63', tel: '+380988040763' },
@@ -344,27 +317,9 @@ export default function ContactSection() {
       {/* ── Lightbox ── */}
       <AnimatePresence>
         {lightboxOpen && (
-          <m.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[200] bg-dark/92 flex items-center justify-center p-4 cursor-zoom-out"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <button onClick={() => setLightboxOpen(false)}
-              className="absolute top-4 right-4 text-cream/70 hover:text-cream transition-colors duration-200 z-10"
-              aria-label="Закрити"
-            >
-              <X size={32} />
-            </button>
-            <m.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1,    opacity: 1 }}
-              transition={{ duration: 0.2, ease: EASING.enter }}
-              onClick={e => e.stopPropagation()}
-            >
-              <StorkLightboxPhoto />
-            </m.div>
-          </m.div>
+          <Lightbox onClose={() => setLightboxOpen(false)}>
+            <LightboxImage src={storksImg} alt="Запрошуємо — Прикарпаття чекає на вас" />
+          </Lightbox>
         )}
       </AnimatePresence>
     </section>
