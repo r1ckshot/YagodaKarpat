@@ -10,6 +10,7 @@ import beginningImg from '../../../public/images/sections/beginning.webp';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Lightbox from '@/components/ui/Lightbox';
 import LightboxImage from '@/components/ui/LightboxImage';
+import Highlight from '@/components/ui/Highlight';
 
 export default function AboutSection() {
   const t = useTranslations();
@@ -54,19 +55,9 @@ export default function AboutSection() {
               <p className="font-body text-[clamp(1.1875rem,0.95rem_+_1vw,1.5625rem)] text-dark/70 leading-relaxed text-pretty">
                 <span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>&quot;</span>{' '}
                 {t('about.description1')}
-                <span
-                  className="text-dark/90 font-medium"
-                  style={{
-                    backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-blueberry) 90%, transparent), color-mix(in srgb, var(--color-blueberry) 75%, transparent))',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: inView ? '100% 2px' : '0% 2px',
-                    backgroundPosition: 'bottom 3px left 0',
-                    paddingBottom: '5px',
-                    transition: inView ? 'background-size 0.8s cubic-bezier(0.42,0,0.58,1) 1.4s' : 'none',
-                  }}
-                >
+                <Highlight inView={inView} className="text-dark/90 font-medium" delay={1.4}>
                   {t('about.descriptionHighlight')}
-                </span>
+                </Highlight>
                 {t('about.description2')}
               </p>
             </SectionReveal>
@@ -75,19 +66,9 @@ export default function AboutSection() {
             <SectionReveal delay={0.4}>
               <p className="font-body text-[clamp(1.1875rem,0.95rem_+_1vw,1.5625rem)] text-dark/70 leading-relaxed text-pretty">
                 {t('about.description3')}
-                <strong
-                  className="font-semibold text-dark/90"
-                  style={{
-                    backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-blueberry) 90%, transparent), color-mix(in srgb, var(--color-blueberry) 75%, transparent))',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: inView ? '100% 2px' : '0% 2px',
-                    backgroundPosition: 'bottom 3px left 0',
-                    paddingBottom: '5px',
-                    transition: inView ? 'background-size 0.8s cubic-bezier(0.42,0,0.58,1) 2.0s' : 'none',
-                  }}
-                >
+                <Highlight inView={inView} as="strong" delay={2.0}>
                   {t('about.description3Help')}
-                </strong>
+                </Highlight>
                 {' '}<span aria-hidden="true" className="font-heading text-[2em] text-blueberry/25 select-none" style={{ lineHeight: 0, display: 'inline-block', verticalAlign: '-0.15em' }}>&quot;</span>
               </p>
             </SectionReveal>

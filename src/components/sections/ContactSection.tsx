@@ -13,6 +13,7 @@ import SectionReveal from '@/components/ui/SectionReveal';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Lightbox from '@/components/ui/Lightbox';
 import LightboxImage from '@/components/ui/LightboxImage';
+import Highlight from '@/components/ui/Highlight';
 import storksImg from '../../../public/images/sections/contact-storks.webp';
 
 const PHONES = [
@@ -134,19 +135,9 @@ export default function ContactSection() {
             </span>{' '}
             {t('inviteStart')}{' '}
             <span className="whitespace-nowrap">
-              <span
-                className="font-semibold text-dark/90"
-                style={{
-                  backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-berry) 90%, transparent), color-mix(in srgb, var(--color-berry) 75%, transparent))',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: inView ? '100% 2px' : '0% 2px',
-                  backgroundPosition: 'bottom 3px left 0',
-                  paddingBottom: '5px',
-                  transition: inView ? 'background-size 0.8s cubic-bezier(0.42,0,0.58,1) 1.4s' : 'none',
-                }}
-              >
+              <Highlight inView={inView} color="berry">
                 {t('invitePhrase')}
-              </span>
+              </Highlight>
               .
             </span>{' '}
             <span aria-hidden="true"
