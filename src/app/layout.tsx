@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Nunito } from 'next/font/google';
-import { LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domAnimation, MotionConfig } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { getLocale } from 'next-intl/server';
@@ -122,11 +122,15 @@ export default async function RootLayout({
       </head>
       <body>
         <LazyMotion features={domAnimation}>
-          {/* Both live in root layout — never remount on locale change */}
-          <IntroSplash />
-          <PageTransition />
-          <ScrollToTop />
-          {children}
+          {/* reducedMotion="user" instantly resolves transform (x/y/scale/rotate) animations
+              to their end state for users with prefers-reduced-motion — opacity fades still play. */}
+          <MotionConfig reducedMotion="user">
+            {/* Both live in root layout — never remount on locale change */}
+            <IntroSplash />
+            <PageTransition />
+            <ScrollToTop />
+            {children}
+          </MotionConfig>
         </LazyMotion>
         <Analytics />
         <SpeedInsights />

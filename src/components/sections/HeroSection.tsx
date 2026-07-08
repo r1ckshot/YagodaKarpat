@@ -15,7 +15,12 @@ export default function HeroSection() {
   const locale = useLocale();
   const words = t('tagline').split(' ');
 
-  const [firstLoad] = useState(() => typeof window !== 'undefined' && isSplashPending());
+  const [firstLoad] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    // Reduced motion: skip the whole entrance choreography, including the splash-offset wait.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    return isSplashPending();
+  });
   const portraitVideoRef   = useRef<HTMLVideoElement>(null);
   const landscapeVideoRef  = useRef<HTMLVideoElement>(null);
   const portraitPosterRef  = useRef<HTMLImageElement>(null);
@@ -224,7 +229,7 @@ export default function HeroSection() {
           {isSeasonOpen() ? (
             <>
               <span className="relative flex h-3.5 w-3.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest opacity-75" />
+                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-forest opacity-75" />
                 <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-forest" />
               </span>
               <span className="font-body text-base sm:text-lg xl:text-xl text-cream/80 tracking-wide">
@@ -234,7 +239,7 @@ export default function HeroSection() {
           ) : (
             <>
               <span className="relative flex h-3.5 w-3.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-berry opacity-75" />
+                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-berry opacity-75" />
                 <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-berry" />
               </span>
               <span className="font-body text-base sm:text-lg xl:text-xl text-cream/80 tracking-wide">
@@ -246,7 +251,7 @@ export default function HeroSection() {
 
         {/* CTA */}
         <m.div {...fadeUp(2.55)} className="relative">
-          <span className="absolute inset-0 rounded-full bg-forest animate-cta-pulse" />
+          <span className="absolute inset-0 rounded-full bg-forest animate-cta-pulse motion-reduce:hidden" />
           <a
             href="#about"
             className="relative inline-flex items-center gap-2 px-8 py-3.5 bg-forest text-cream font-body font-semibold rounded-full hover:bg-forest/80 transition-colors duration-200"
@@ -268,7 +273,7 @@ export default function HeroSection() {
         className="absolute bottom-[clamp(1rem,2dvh,2rem)] left-0 right-0 z-10 flex justify-center [@media_(max-height:720px)]:hidden"
         aria-label="Scroll down"
       >
-        <div className="animate-bounce">
+        <div className="animate-bounce motion-reduce:animate-none">
           <ChevronDown className="text-cream/40 hover:text-cream/70 transition-colors duration-200" size={28} />
         </div>
       </m.a>

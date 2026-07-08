@@ -20,7 +20,9 @@ export default function IntroSplash() {
     }
     consumeSplash();
     window.scrollTo(0, 0);
-    const timer = setTimeout(() => setVisible(false), SPLASH_DURATION_MS);
+    // Reduced motion: skip the multi-second reveal sequence entirely.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timer = setTimeout(() => setVisible(false), prefersReducedMotion ? 0 : SPLASH_DURATION_MS);
     return () => clearTimeout(timer);
   }, []);
 
