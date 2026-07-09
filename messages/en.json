@@ -93,5 +93,15 @@
     "location": "Where to find us",
     "locationLine1": "Prykarpattia,",
     "locationLine2": "Hora tract"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "cta": "Back to home"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "text": "An unexpected error occurred.",
+    "retry": "Try again",
+    "home": "Back to home"
   }
 }
