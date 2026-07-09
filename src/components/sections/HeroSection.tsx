@@ -30,6 +30,15 @@ function useIsLandscapeViewport(): boolean | null {
   );
 }
 
+const emptySubscribe = () => () => {};
+
+// Season status must be computed at view time, not baked into prerendered HTML —
+// a statically generated page would otherwise show a stale badge after a month
+// boundary until the next deploy (and mismatch on hydration). null until mounted.
+function useSeasonOpen(): boolean | null {
+  return useSyncExternalStore(emptySubscribe, () => isSeasonOpen(), () => null);
+}
+
 export default function HeroSection() {
   const t = useTranslations('hero');
   const locale = useLocale();
@@ -47,6 +56,7 @@ export default function HeroSection() {
   const landscapePosterRef = useRef<HTMLImageElement>(null);
   const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
   const isLandscapeViewport = useIsLandscapeViewport();
+  const seasonOpen = useSeasonOpen();
 
   // Runs when the active video (un)mounts — restore posters hidden by a previous
   // onPlay (crossing the md boundary swaps videos), then nudge playback in case
@@ -253,26 +263,16 @@ export default function HeroSection() {
           {t('subtitle')}
         </m.p>
 
-        {/* Season status */}
-        <m.div {...fadeUp(2.15)} className="flex items-center gap-2.5 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
-          {isSeasonOpen() ? (
+        {/* Season status — min-h reserves the row so the badge appearing after mount causes no layout shift */}
+        <m.div {...fadeUp(2.15)} className="flex items-center gap-2.5 min-h-7 mb-[clamp(0.75rem,2.5dvh,1.75rem)]">
+          {seasonOpen !== null && (
             <>
               <span className="relative flex h-3.5 w-3.5">
-                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-forest opacity-75" />
-                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-forest" />
+                <span className={`animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full opacity-75 ${seasonOpen ? 'bg-forest' : 'bg-berry'}`} />
+                <span className={`relative inline-flex rounded-full h-3.5 w-3.5 ${seasonOpen ? 'bg-forest' : 'bg-berry'}`} />
               </span>
               <span className="font-body text-base sm:text-lg xl:text-xl text-cream/80 tracking-wide">
-                {t('seasonOpen')}
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="relative flex h-3.5 w-3.5">
-                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-berry opacity-75" />
-                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-berry" />
-              </span>
-              <span className="font-body text-base sm:text-lg xl:text-xl text-cream/80 tracking-wide">
-                {t('seasonClosed')}
+                {seasonOpen ? t('seasonOpen') : t('seasonClosed')}
               </span>
             </>
           )}
