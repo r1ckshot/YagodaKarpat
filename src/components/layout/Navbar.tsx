@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
@@ -59,8 +60,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2 sm:gap-3.5 shrink-0">
-            <img src="/images/logo/blueberry.webp" alt="" className="h-9 w-auto" />
-            <img src="/images/logo/title.webp" alt="Ягода Карпат" className="h-7 w-auto" />
+            <Image src="/images/logo/blueberry.webp" alt="" width={256} height={196} className="h-9 w-auto" />
+            <Image src="/images/logo/title.webp" alt="Ягода Карпат" width={757} height={107} className="h-7 w-auto" />
           </a>
 
           {/* Desktop: nav + language + mountains */}
@@ -78,17 +79,17 @@ export default function Navbar() {
             <LanguageSwitcher />
           </div>
 
-          <img
+          <Image
             src="/images/logo/mountains.webp"
-            alt=""
+            alt="" width={527} height={225}
             className="hidden lg:block h-9 w-auto opacity-75 shrink-0"
           />
 
           {/* Tablet/mobile: mountains + burger */}
           <div className="flex lg:hidden items-center gap-3 shrink-0">
-            <img
+            <Image
               src="/images/logo/mountains.webp"
-              alt=""
+              alt="" width={527} height={225}
               className="hidden sm:block h-8 w-auto opacity-75"
             />
             <button
