@@ -1,19 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { useScrollPosition } from '@/hooks/useScrollPosition';
 
 const SHOW_AFTER_PX = 400;
 
 export default function ScrollToTop() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > SHOW_AFTER_PX);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const { y } = useScrollPosition();
+  const visible = y > SHOW_AFTER_PX;
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 

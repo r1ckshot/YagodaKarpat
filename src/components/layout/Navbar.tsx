@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
-import { useScrollDirection } from '@/hooks/useScrollDirection';
+import { useScrollPosition } from '@/hooks/useScrollPosition';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
 
 const NAV_LINKS = [
@@ -17,16 +17,9 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const t = useTranslations('nav');
-  const direction = useScrollDirection();
-  const [isAtTop, setIsAtTop] = useState(true);
+  const { y, direction } = useScrollPosition();
+  const isAtTop = y < 50;
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsAtTop(window.scrollY < 50);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Close menu when resizing to desktop
   useEffect(() => {
