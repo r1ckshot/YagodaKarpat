@@ -4,6 +4,7 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import LocaleTransition from '@/components/ui/LocaleTransition';
+import HtmlLang from '@/components/ui/HtmlLang';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
+      <HtmlLang locale={locale} />
       <Navbar />
       <LocaleTransition>
         {children}

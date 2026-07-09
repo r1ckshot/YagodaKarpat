@@ -3,7 +3,7 @@ import { Playfair_Display, Nunito } from 'next/font/google';
 import { LazyMotion, domAnimation, MotionConfig } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { getLocale } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 import './globals.css';
 import PageTransition from '@/components/ui/PageTransition';
 import IntroSplash from '@/components/sections/IntroSplash';
@@ -67,12 +67,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const locale = await getLocale();
+  // No getLocale() here — reading request state would opt every page into dynamic
+  // rendering. This layout sits above [locale] (so splash/curtain survive locale
+  // changes) and can't know the locale statically; HtmlLang in [locale]/layout.tsx
+  // syncs the real value on the client. Default covers the bare `/` redirect too.
   return (
-    <html lang={locale} className={`${playfair.variable} ${nunito.variable}`} suppressHydrationWarning>
+    <html lang={routing.defaultLocale} className={`${playfair.variable} ${nunito.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="-ELpqbrTYaAYsKguG-qOGPVaoYj2jE_MO-Qd8Giu7K0" />
         {/* Anti-flicker: hide splash before hydration if already shown in this tab */}
