@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useSyncExternalStore } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { m } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
@@ -9,6 +9,26 @@ import { EASING } from '@/lib/animations';
 import { isSplashPending, SPLASH_DURATION_OFFSET } from '@/lib/splashState';
 
 const ACCENT_WORDS = new Set(['лохина', 'blueberries']);
+
+// Mount only the video that matches the viewport — a CSS-hidden <video autoplay>
+// still downloads in full, so keeping both in the DOM costs ~15 MB extra.
+// Matches the md: breakpoint that shows/hides the wrapper divs below.
+const LANDSCAPE_QUERY = '(min-width: 768px)';
+
+function subscribeToViewport(callback: () => void) {
+  const mq = window.matchMedia(LANDSCAPE_QUERY);
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+// null on the server and during hydration — no video in SSR HTML, posters cover the gap
+function useIsLandscapeViewport(): boolean | null {
+  return useSyncExternalStore(
+    subscribeToViewport,
+    () => window.matchMedia(LANDSCAPE_QUERY).matches,
+    () => null,
+  );
+}
 
 export default function HeroSection() {
   const t = useTranslations('hero');
@@ -26,12 +46,17 @@ export default function HeroSection() {
   const portraitPosterRef  = useRef<HTMLImageElement>(null);
   const landscapePosterRef = useRef<HTMLImageElement>(null);
   const splashOffset = firstLoad ? SPLASH_DURATION_OFFSET : 0;
+  const isLandscapeViewport = useIsLandscapeViewport();
 
-  // Fallback: manually trigger play in case autoPlay was blocked during hydration
+  // Runs when the active video (un)mounts — restore posters hidden by a previous
+  // onPlay (crossing the md boundary swaps videos), then nudge playback in case
+  // autoPlay was blocked; onPlay hides the poster again once frames are rolling
   useEffect(() => {
+    if (portraitPosterRef.current)  portraitPosterRef.current.style.opacity  = '1';
+    if (landscapePosterRef.current) landscapePosterRef.current.style.opacity = '1';
     portraitVideoRef.current?.play().catch(() => {});
     landscapeVideoRef.current?.play().catch(() => {});
-  }, []);
+  }, [isLandscapeViewport]);
 
   const titleWord = {
     initial: { opacity: 0, filter: 'blur(10px)', y: 10 },
@@ -76,28 +101,32 @@ export default function HeroSection() {
 
       {/* Portrait video — mobile only */}
       <div className="absolute inset-0 block md:hidden">
-        <video
-          ref={portraitVideoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay muted loop playsInline aria-hidden="true"
-          onPlay={() => { if (portraitPosterRef.current) portraitPosterRef.current.style.opacity = '0'; }}
-        >
-          <source src="/videos/hero-portrait.mp4" />
-        </video>
+        {isLandscapeViewport === false && (
+          <video
+            ref={portraitVideoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay muted loop playsInline aria-hidden="true"
+            onPlay={() => { if (portraitPosterRef.current) portraitPosterRef.current.style.opacity = '0'; }}
+          >
+            <source src="/videos/hero-portrait.mp4" />
+          </video>
+        )}
         <img ref={portraitPosterRef} src="/images/hero-poster-portrait.webp" alt="" aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
       </div>
 
       {/* Landscape video — tablet and desktop */}
       <div className="absolute inset-0 hidden md:block">
-        <video
-          ref={landscapeVideoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay muted loop playsInline aria-hidden="true"
-          onPlay={() => { if (landscapePosterRef.current) landscapePosterRef.current.style.opacity = '0'; }}
-        >
-          <source src="/videos/hero-landscape.mp4" />
-        </video>
+        {isLandscapeViewport === true && (
+          <video
+            ref={landscapeVideoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay muted loop playsInline aria-hidden="true"
+            onPlay={() => { if (landscapePosterRef.current) landscapePosterRef.current.style.opacity = '0'; }}
+          >
+            <source src="/videos/hero-landscape.mp4" />
+          </video>
+        )}
         <img ref={landscapePosterRef} src="/images/hero-poster-landscape.webp" alt=""
           className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
       </div>
